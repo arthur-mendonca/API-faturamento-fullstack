@@ -60,6 +60,17 @@ module.exports = {
     }
   },
 
+  getAll: async (req, res) => {
+    try {
+      const evidences = await Evidence.findAll();
+
+      return res.status(200).json(evidences);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+  },
+
   update: async (req, res) => {
     try {
       const { id } = req.params;

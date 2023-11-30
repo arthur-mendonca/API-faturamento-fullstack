@@ -37,9 +37,9 @@ router.get(
   "/occurrences/:id/evidences",
   evidenceController.allEvidencesFromOccurrence
 );
-
 router.get("/evidences/:id", evidenceController.findOne);
 router.put("/evidences/:id", upload.single("file"), evidenceController.update);
 router.delete("/evidences/:id", evidenceController.delete);
+router.get("/evidences", evidenceController.getAll);
 
 module.exports = router;
