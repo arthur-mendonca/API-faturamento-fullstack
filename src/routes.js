@@ -18,9 +18,9 @@ router.delete("/users/:id", userController.delete);
 router.post("/users/login", userController.login);
 
 router.post("/users/occurrences/:id", occurrenceController.store);
-router.get("/occurrences", occurrenceController.index);
-router.get("/occurrences/:id", occurrenceController.findOne);
-router.put("/occurrences/:id", occurrenceController.update);
-router.delete("/occurrences/:id", occurrenceController.delete);
+router.get("/users/occurrences/all", occurrenceController.index);
+router.get("/users/occurrences/:id", occurrenceController.findOne);
+router.put("/users/occurrences/:id", occurrenceController.update);
+router.delete("/users/occurrences/:id", occurrenceController.delete);
 
 module.exports = router;
