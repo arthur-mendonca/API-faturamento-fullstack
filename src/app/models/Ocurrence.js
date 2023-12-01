@@ -32,6 +32,12 @@ class Occurrence extends Model {
       as: "analysis",
     });
   }
+  static associate(models) {
+    this.hasMany(models.CorrectiveAction, {
+      foreignKey: "occurrence_id",
+      as: "corrective_action",
+    });
+  }
 }
 
 module.exports = Occurrence;

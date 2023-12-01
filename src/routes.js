@@ -3,6 +3,7 @@ const userController = require("./app/controllers/ControllerUsers.js");
 const occurrenceController = require("./app/controllers/ControllerOccurrences.js");
 const evidenceController = require("./app/controllers/ControllerEvidences.js");
 const analysisController = require("./app/controllers/ControllerAnalysis");
+const correctiveActionsController = require("./app/controllers/ControllerCorrectiveActions.js");
 const upload = require("./config/multerConfig");
 
 const router = express.Router();
@@ -57,5 +58,37 @@ router.get(
   analysisController.allAnalysisFromOccurrence
 );
 router.delete("/occurrences/analysis/:id", analysisController.delete);
+
+//CORRECTIVE ACTIONS
+
+router.post(
+  "/occurrences/:id/corrective-actions",
+  correctiveActionsController.create
+);
+
+router.get(
+  "/occurrences/corrective-actions",
+  correctiveActionsController.index
+);
+
+router.get(
+  "/occurrences/:id/corrective-actions",
+  correctiveActionsController.getOne
+);
+
+router.put(
+  "/occurrences/:id/corrective-actions",
+  correctiveActionsController.update
+);
+
+router.delete(
+  "/occurrences/:id/corrective-actions",
+  correctiveActionsController.delete
+);
+
+router.get(
+  "/occurrences/corrective-actions/:id",
+  correctiveActionsController.allCorrectiveActionsFromOccurrence
+);
 
 module.exports = router;
