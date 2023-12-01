@@ -4,7 +4,6 @@ const occurrenceController = require("./app/controllers/ControllerOccurrences.js
 const evidenceController = require("./app/controllers/ControllerEvidences.js");
 const analysisController = require("./app/controllers/ControllerAnalysis");
 const upload = require("./config/multerConfig");
-const uploadAnalysis = require("./config/multerConfigAnalysis.js");
 
 const router = express.Router();
 
@@ -47,8 +46,16 @@ router.get("/evidences", evidenceController.getAll);
 // ANALYSIS
 router.post(
   "/occurrences/:id/analysis",
-  uploadAnalysis,
+  upload.single("file"),
   analysisController.store
 );
+router.get("/occurrences/analysis", analysisController.index);
+router.get("/occurrences/analysis/:id", analysisController.getOne);
+router.put("/occurrences/analysis/:id", analysisController.update);
+router.get(
+  "/occurrences/:id/analysis",
+  analysisController.allAnalysisFromOccurrence
+);
+router.delete("/occurrences/analysis/:id", analysisController.delete);
 
 module.exports = router;

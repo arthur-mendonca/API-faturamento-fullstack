@@ -12,6 +12,7 @@ class Occurrence extends Model {
       {
         sequelize,
         modelName: "Occurrence",
+        tableName: "occurrences",
       }
     );
   }
@@ -23,6 +24,12 @@ class Occurrence extends Model {
     this.hasMany(models.Evidence, {
       foreignKey: "occurrence_id",
       as: "evidences",
+    });
+  }
+  static associate(models) {
+    this.hasMany(models.Analysis, {
+      foreignKey: "occurrence_id",
+      as: "analysis",
     });
   }
 }
