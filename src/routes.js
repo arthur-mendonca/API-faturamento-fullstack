@@ -2,7 +2,9 @@ const express = require("express");
 const userController = require("./app/controllers/ControllerUsers.js");
 const occurrenceController = require("./app/controllers/ControllerOccurrences.js");
 const evidenceController = require("./app/controllers/ControllerEvidences.js");
+const analysisController = require("./app/controllers/ControllerAnalysis");
 const upload = require("./config/multerConfig");
+const uploadAnalysis = require("./config/multerConfigAnalysis.js");
 
 const router = express.Router();
 
@@ -41,5 +43,12 @@ router.get("/evidences/:id", evidenceController.findOne);
 router.put("/evidences/:id", upload.single("file"), evidenceController.update);
 router.delete("/evidences/:id", evidenceController.delete);
 router.get("/evidences", evidenceController.getAll);
+
+// ANALYSIS
+router.post(
+  "/occurrences/:id/analysis",
+  uploadAnalysis,
+  analysisController.store
+);
 
 module.exports = router;
