@@ -51,8 +51,14 @@ module.exports = {
   },
 
   async update(req, res) {
+    const userId = res.locals.userId;
     try {
       const { id } = req.params;
+      if (+id !== userId) {
+        return res
+          .status(401)
+          .json({ error: "No permission to update this user" });
+      }
       const { name, email, password } = req.body;
       const user = await User.findByPk(id);
       if (!user) {
@@ -67,8 +73,16 @@ module.exports = {
   },
 
   async delete(req, res) {
+    const userId = res.locals.userId;
     try {
       const { id } = req.params;
+
+      if (+id !== userId) {
+        return res
+          .status(401)
+          .json({ error: "No permission to delete this user" });
+      }
+
       const user = await User.findByPk(id);
       if (!user) {
         return res.status(404).json({ error: "User not found" });

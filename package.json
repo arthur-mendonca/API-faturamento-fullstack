@@ -2,10 +2,10 @@
   "name": "api-faturamento-fullstack",
   "version": "1.0.0",
   "description": "Uma API de faturamento",
-  "main": "src/index.js",
+  "main": "./src/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon src/index.ts"
+    "dev": "nodemon ./src/server.js"
   },
   "repository": {
     "type": "git",
