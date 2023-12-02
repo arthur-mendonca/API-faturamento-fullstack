@@ -1,28 +1,53 @@
-* {
-  background-color: black;
-  color: white;
+/* Arquivo: textStyles.css */
+
+/* Estilo para texto comum */
+.text_common {
+  font-family: "Inter", sans-serif; /* Substitua com a família de fontes desejada */
+  font-size: 13px;
+  color: #000000; /* Preto */
 }
 
-.teste {
-  font-family: "Comfortaa", sans-serif;
-  font-weight: normal;
+/* Estilo para botões de menu */
+.text_menu_button {
+  font-family: "Comfortaa", cursive; /* Substitua com a família de fontes desejada */
+  font-size: 15px;
+  color: #000000; /* Preto */
 }
 
-h2 {
-  font-family: "Poppins", sans-serif;
-  font-weight: lighter;
+/* Estilo para Título 1 */
+.title_1 {
+  font-family: "Poppins", sans-serif; /* Substitua com a família de fontes desejada */
+  font-size: 30px;
+  color: #000000; /* Preto */
 }
 
-h3 {
-  font-family: "Inter", sans-serif;
-  font-weight: normal;
-  font-size: 36px;
+/* Estilo para Título 2 */
+.title_2 {
+  font-family: "Poppins", sans-serif; /* Substitua com a família de fontes desejada */
+  font-size: 24px;
+  color: #000000; /* Preto */
 }
 
-button {
-  border-radius: 60px;
-  border: none;
-  background-color: yellow;
-  color: black;
-  padding: 10px 20px;
+/* Estilo para texto de botão 'Entrar' na página de login */
+.text_login_button {
+  font-family: "Inter", sans-serif; /* Substitua com a família de fontes desejada */
+  font-size: 18px;
+  color: #ffffff; /* Branco, assumindo que o botão tem um fundo escuro */
 }
+
+/* Estilo para texto na página de login */
+.text_login_page {
+  font-family: "Inter", sans-serif; /* Substitua com a família de fontes desejada */
+  font-size: 14px;
+  color: #000000; /* Preto */
+}
+
+/* Estilo para o botão 'Esqueci a senha' na página de login */
+.text_forgot_password {
+  font-family: "Inter", sans-serif; /* Substitua com a família de fontes desejada */
+  font-size: 14px;
+  color: #476ee6; /* Azul, ou outra cor que indique que é clicável */
+  text-decoration: underline; /* Geralmente, texto de 'esqueci a senha' é sublinhado */
+}
+
+/* Lembre-se de substituir as famílias de fontes e cores conforme o necessário para se adequar ao design do seu aplicativo. */
