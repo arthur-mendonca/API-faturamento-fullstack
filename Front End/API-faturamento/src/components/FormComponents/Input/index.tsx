@@ -1,3 +1,4 @@
+import { UseFormRegisterReturn } from "react-hook-form";
 import { StyledInput } from "./style";
 
 interface InputProps {
@@ -9,11 +10,17 @@ interface InputProps {
   borderradius?: string;
   padding?: string;
   children?: React.ReactNode;
+  register?: UseFormRegisterReturn<any>;
 }
 
 export const InputFormComponent: React.FC<InputProps> = ({
   children,
+  register,
   ...props
 }) => {
-  return <StyledInput {...props}>{children}</StyledInput>;
+  return (
+    <StyledInput {...register} {...props}>
+      {children}
+    </StyledInput>
+  );
 };

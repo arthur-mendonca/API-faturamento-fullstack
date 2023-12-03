@@ -10,10 +10,16 @@ import {
 } from "./style";
 import { useTheme } from "styled-components";
 import { AiOutlineEyeInvisible } from "react-icons/ai";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { formSchema } from "../../schema/loginFormSchema";
+import { ILoginUser } from "../../context/userContext/types";
+import { UserContext } from "../../context/userContext";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, SubmitHandler } from "react-hook-form";
 
 export const LoginFormComponent: React.FC = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const { loginUser } = useContext(UserContext);
 
   const togglePasswordVisibility = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
@@ -21,8 +27,21 @@ export const LoginFormComponent: React.FC = () => {
   };
   const theme = useTheme();
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ILoginUser>({
+    resolver: zodResolver(formSchema),
+  });
+
+  const submitLogin: SubmitHandler<ILoginUser> = (data: ILoginUser) => {
+    loginUser(data);
+    console.log("enviado");
+  };
+
   return (
-    <StyledLoginForm>
+    <StyledLoginForm onSubmit={handleSubmit(submitLogin)}>
       <StyledLoginForm.Group controlId="formEmail">
         <LabelFormComponent>
           <FormTextComponent className="text_login_page">
@@ -32,7 +51,9 @@ export const LoginFormComponent: React.FC = () => {
         <InputFormComponent
           className="mb-3"
           placeholder="Insira seu e-mail"
-          type="email"></InputFormComponent>
+          type="email"
+          register={register("email")}
+        />
       </StyledLoginForm.Group>
       <StyledLoginForm.Group controlId="formPassword">
         <LabelFormComponent>
@@ -43,7 +64,9 @@ export const LoginFormComponent: React.FC = () => {
         <StyledInputGroup>
           <InputFormComponent
             placeholder="Insira sua senha"
-            type={passwordVisible ? "text" : "password"}></InputFormComponent>
+            type={passwordVisible ? "text" : "password"}
+            register={register("password")}
+          />
           <PasswordIconToggle
             right="10px;"
             onClick={(event) => {
