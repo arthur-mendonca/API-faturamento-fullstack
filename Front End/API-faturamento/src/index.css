@@ -1,53 +1,43 @@
-/* Arquivo: textStyles.css */
-
-/* Estilo para texto comum */
 .text_common {
-  font-family: "Inter", sans-serif; /* Substitua com a família de fontes desejada */
+  font-family: "Poppins", sans-serif;
   font-size: 13px;
-  color: #000000; /* Preto */
+  color: #000000;
 }
 
-/* Estilo para botões de menu */
 .text_menu_button {
-  font-family: "Comfortaa", cursive; /* Substitua com a família de fontes desejada */
+  font-family: "Poppins", sans-serif;
   font-size: 15px;
-  color: #000000; /* Preto */
+  color: var(--white);
 }
 
-/* Estilo para Título 1 */
 .title_1 {
-  font-family: "Poppins", sans-serif; /* Substitua com a família de fontes desejada */
+  font-family: "Poppins", sans-serif;
   font-size: 30px;
-  color: #000000; /* Preto */
+  color: #000000;
 }
 
-/* Estilo para Título 2 */
 .title_2 {
-  font-family: "Poppins", sans-serif; /* Substitua com a família de fontes desejada */
+  font-family: "Poppins", sans-serif;
   font-size: 24px;
-  color: #000000; /* Preto */
+  color: #000000;
 }
 
-/* Estilo para texto de botão 'Entrar' na página de login */
 .text_login_button {
-  font-family: "Inter", sans-serif; /* Substitua com a família de fontes desejada */
+  font-family: "Poppins", sans-serif;
   font-size: 18px;
-  color: #ffffff; /* Branco, assumindo que o botão tem um fundo escuro */
+  color: #ffffff;
 }
 
-/* Estilo para texto na página de login */
 .text_login_page {
-  font-family: "Inter", sans-serif; /* Substitua com a família de fontes desejada */
+  font-family: "Poppins";
   font-size: 14px;
-  color: #000000; /* Preto */
+  color: #000000;
+  font-weight: 500;
 }
 
-/* Estilo para o botão 'Esqueci a senha' na página de login */
 .text_forgot_password {
-  font-family: "Inter", sans-serif; /* Substitua com a família de fontes desejada */
-  font-size: 14px;
-  color: #476ee6; /* Azul, ou outra cor que indique que é clicável */
-  text-decoration: underline; /* Geralmente, texto de 'esqueci a senha' é sublinhado */
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: #476ee6;
 }
-
-/* Lembre-se de substituir as famílias de fontes e cores conforme o necessário para se adequar ao design do seu aplicativo. */

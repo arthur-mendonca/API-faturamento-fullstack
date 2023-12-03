@@ -20,6 +20,9 @@ const theme = {
       excluirButton: "14px",
       detalhesButton: "10px",
     },
+    padding: {
+      entrarButton: "12px 65px",
+    },
   },
 
   status: {
@@ -60,6 +63,11 @@ const theme = {
     small: "0.8rem",
     normal: "1rem",
     large: "1.2rem",
+    title: "24px",
+    textDefault: "18px",
+    textMid: "15px",
+    textSmall: "14px",
+    textSmaller: "13px",
   },
   modal: {
     ocorrencia: {

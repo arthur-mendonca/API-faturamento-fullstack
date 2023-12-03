@@ -1,16 +1,28 @@
-import Button from "../../components/Buttons";
-import { useTheme } from "styled-components";
+import { FrontPageRightRightColumnContainer } from "../../components/FrontPageRightColumnContainer";
+import { FrontPageImageComponent } from "../../components/frontPageImage";
+import { TwoColumnLayout } from "../../layouts/TwoColumnLayout/TwoColumnLayout";
 
 export const LoginPage: React.FC = () => {
-  const theme = useTheme();
   return (
     <>
-      <h1>Login page</h1>
-      <Button
-        name={"Nome do Botão"}
-        background={theme.colors.blue}
-        color={theme.colors.white}
-        hoverBackground={theme.colors.black}
+      <TwoColumnLayout
+        leftContent={
+          <FrontPageImageComponent
+            height="100vh"
+            width="100%"
+            maxwidth="50vw"
+            marginbottom="-10px"
+            marginleft="-25px"
+          />
+        }
+        rightContent={
+          <FrontPageRightRightColumnContainer
+            display="flex"
+            justifycontent=""
+            height="100%"
+            width="420px"
+          />
+        }
       />
     </>
   );

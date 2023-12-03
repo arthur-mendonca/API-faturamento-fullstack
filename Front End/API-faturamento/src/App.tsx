@@ -1,3 +1,4 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./fonts/Poppins/poppins.css";
 import "./fonts/Inter/Inter.css";
 import "./fonts/Comfortaa/Comfortaa.css";

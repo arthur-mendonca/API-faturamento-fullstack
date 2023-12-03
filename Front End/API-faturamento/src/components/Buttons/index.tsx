@@ -1,4 +1,3 @@
-// src/components/Button/index.tsx
 import React from "react";
 import { StyledButton } from "./style";
 
@@ -10,10 +9,20 @@ interface ButtonProps {
   color?: string;
   hoverBackground?: string;
   padding?: string;
+  height?: string;
+  boxshadow?: string;
+  fontsize?: string;
+  className?: string;
 }
 
-const Button: React.FC<ButtonProps> = ({ name, ...props }) => {
-  return <StyledButton {...props}>{name}</StyledButton>;
+export const ButtonComponent: React.FC<ButtonProps> = ({
+  name,
+  className,
+  ...props
+}) => {
+  return (
+    <StyledButton {...props} className={className}>
+      {name}
+    </StyledButton>
+  );
 };
-
-export default Button;
