@@ -73,6 +73,7 @@ export const LoginFormComponent: React.FC = () => {
             register={register("password")}
           />
           <PasswordIconToggle
+            position="absolute"
             right="10px;"
             onClick={(event) => {
               togglePasswordVisibility(event);

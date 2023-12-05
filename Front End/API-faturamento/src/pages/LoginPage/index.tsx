@@ -11,7 +11,6 @@ export const LoginPage: React.FC = () => {
             height="100vh"
             width="50vw"
             marginbottom="-10px"
-            // marginleft="-25px"
           />
         }
         rightContent={
