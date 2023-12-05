@@ -1,4 +1,4 @@
-import { FrontPageRightRightColumnContainer } from "../../components/FrontPageRightColumnContainer";
+import { LoginPageRightColumnContainer } from "../../components/LoginPageRightColumn";
 import { FrontPageImageComponent } from "../../components/frontPageImage";
 import { TwoColumnLayout } from "../../layouts/TwoColumnLayout/TwoColumnLayout";
 
@@ -9,14 +9,13 @@ export const LoginPage: React.FC = () => {
         leftContent={
           <FrontPageImageComponent
             height="100vh"
-            width="100%"
-            maxwidth="50vw"
+            width="50vw"
             marginbottom="-10px"
-            marginleft="-25px"
+            // marginleft="-25px"
           />
         }
         rightContent={
-          <FrontPageRightRightColumnContainer
+          <LoginPageRightColumnContainer
             display="flex"
             justifycontent=""
             height="100%"

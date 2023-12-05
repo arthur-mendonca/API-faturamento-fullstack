@@ -18,7 +18,8 @@ export const TwoColumnLayout: React.FC<TwoColumnLayoutProps> = ({
         <LeftColumn
           width="100%"
           backgroundcolor="white"
-          className="d-none d-lg-block">
+          className="d-none d-lg-block "
+          padding="0">
           {leftContent}
         </LeftColumn>
         <RightColumn backgroundcolor="white">{rightContent}</RightColumn>

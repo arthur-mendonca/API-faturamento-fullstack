@@ -9,6 +9,9 @@ interface RightColumnProps {
   width?: string;
   height?: string;
   backgroundcolor?: string;
+  padding?: string;
+  paddingright?: string;
+  paddingleft?: string;
 }
 
 interface LeftColumnProps extends RightColumnProps {}
@@ -35,6 +38,9 @@ export const LeftColumn = styled(Col)<LeftColumnProps>`
   flex-direction: ${(props) => props.flexdirection || "column"};
   justify-content: ${(props) => props.justifycontent || "center"};
   align-items: ${(props) => props.alignitems || "center"};
+  padding: ${(props) => props.padding || 0};
+  padding-right: ${(props) => props.paddingright || 0};
+  padding-left: ${(props) => props.paddingleft || 0};
   background-color: ${(props) =>
     props.backgroundcolor || props.theme.colors.white};
 `;

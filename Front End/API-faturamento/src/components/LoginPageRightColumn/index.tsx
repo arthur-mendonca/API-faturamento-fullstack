@@ -13,7 +13,7 @@ interface ContainerProps {
   fontsize?: string;
 }
 
-export const FrontPageRightRightColumnContainer: React.FC<ContainerProps> = ({
+export const LoginPageRightColumnContainer: React.FC<ContainerProps> = ({
   ...props
 }) => {
   const theme = useTheme();
