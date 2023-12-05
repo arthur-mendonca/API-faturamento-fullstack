@@ -16,10 +16,13 @@ import { ILoginUser } from "../../context/userContext/types";
 import { UserContext } from "../../context/userContext";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 export const LoginFormComponent: React.FC = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const { loginUser } = useContext(UserContext);
+
+  const navigate = useNavigate();
 
   const togglePasswordVisibility = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
@@ -35,9 +38,11 @@ export const LoginFormComponent: React.FC = () => {
     resolver: zodResolver(formSchema),
   });
 
-  const submitLogin: SubmitHandler<ILoginUser> = (data: ILoginUser) => {
-    loginUser(data);
-    console.log("enviado");
+  const submitLogin: SubmitHandler<ILoginUser> = async (data: ILoginUser) => {
+    const loginResponse = await loginUser(data);
+    if (loginResponse && loginResponse.token) {
+      navigate("/dashboard");
+    }
   };
 
   return (

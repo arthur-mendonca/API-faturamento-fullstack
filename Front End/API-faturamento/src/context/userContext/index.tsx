@@ -7,14 +7,12 @@ import {
   IUser,
   IUserContext,
 } from "./types";
-import { useNavigate } from "react-router-dom";
 import { api } from "../../service/api";
 
 export const UserContext = createContext({} as IUserContext);
 
 export const UserProvider = ({ children }: IDefaultProviderProps) => {
   const [userData, setUserData] = useState<IUser>({} as IUser);
-  const navigate = useNavigate();
 
   const createUser = async (
     data: IRegisterUser
@@ -23,6 +21,7 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
       const response = await api.post("/users", data);
 
       setUserData(response.data);
+
       return response.data;
     } catch (error) {
       console.log(error);
