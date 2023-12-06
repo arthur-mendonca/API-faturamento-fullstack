@@ -1,6 +1,6 @@
 import { LoginPageRightColumnContainer } from "../../components/LoginPageRightColumn";
 import { FrontPageImageComponent } from "../../components/frontPageImage";
-import { TwoColumnLayout } from "../../layouts/TwoColumnLayout/TwoColumnLayout";
+import { TwoColumnLayout } from "../../layouts/TwoColumnLayout";
 
 export const LoginPage: React.FC = () => {
   return (

@@ -1,6 +1,6 @@
 import { RegisterPageRightColumnContainer } from "../../components/RegisterPageRightColumn";
 import { FrontPageImageComponent } from "../../components/frontPageImage";
-import { TwoColumnLayout } from "../../layouts/TwoColumnLayout/TwoColumnLayout";
+import { TwoColumnLayout } from "../../layouts/TwoColumnLayout";
 
 export const RegisterPage: React.FC = () => {
   return (
