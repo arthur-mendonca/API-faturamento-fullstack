@@ -35,9 +35,24 @@
   font-weight: 500;
 }
 
+.privacy_terms {
+  font-family: "Poppins";
+  font-weight: 600;
+}
+
+.poppins_medium {
+  font-family: "Poppins";
+}
+
 .text_forgot_password {
   font-family: "Poppins", sans-serif;
   font-size: 15px;
   font-weight: 500;
   color: #476ee6;
+}
+
+.checkbox_text {
+  font-size: 13px;
+  font-weight: 500;
+  font-family: "Poppins", sans-serif;
 }

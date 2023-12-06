@@ -74,3 +74,10 @@
   font-weight: 900;
   font-style: italic;
 }
+
+@font-face {
+  font-family: "Poppins";
+  src: url("./font-files//Poppins-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}

@@ -5,6 +5,7 @@ import {
   PasswordIconToggleProps,
   StyledInputGroupProps,
   StyledInputsWrapperProps,
+  StyledCheckBoxInputProps,
 } from "./types";
 
 export const StyledRegisterForm = styled(Form)<FormProps>`
@@ -19,6 +20,8 @@ export const StyledInputsWrapper = styled.div<StyledInputsWrapperProps>`
 
 export const StyledInputGroup = styled(FormGroup)<StyledInputGroupProps>`
   width: ${(props) => props.width};
+  display: ${(props) => props.display};
+  flex-direction: ${(props) => props.flexdirection};
 `;
 
 export const PasswordIconToggle = styled.button<PasswordIconToggleProps>`
@@ -28,4 +31,22 @@ export const PasswordIconToggle = styled.button<PasswordIconToggleProps>`
   background: ${(props) => props.background || "transparent"};
   cursor: ${(props) => props.cursor || "pointer"};
   bottom: ${(props) => props.bottom || "0"};
+`;
+
+export const StyledCheckBoxInput = styled(Form.Check)<StyledCheckBoxInputProps>`
+  font-weight: ${(props) => props.fontweight};
+  position: ${(props) => props.position};
+  left: ${(props) => props.left};
+
+  .form-check-input {
+    font-size: ${(props) => props.inputfontsize};
+    border-width: ${(props) => props.inputborderwidth};
+    border-color: ${(props) => props.inputbordercolor};
+    border-radius: ${(props) => props.inputborderradius};
+    box-shadow: ${(props) => props.inputboxshadow};
+  }
+
+  .form-check-label {
+    font-weight: ${(props) => props.labelfontweight};
+  }
 `;

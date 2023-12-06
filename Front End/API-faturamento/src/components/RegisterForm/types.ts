@@ -4,6 +4,8 @@ export interface FormProps {
 
 export interface StyledInputGroupProps {
   width?: string;
+  display?: string;
+  flexdirection?: string;
 }
 
 export interface StyledInputsWrapperProps {
@@ -19,4 +21,16 @@ export interface PasswordIconToggleProps {
   background?: string;
   cursor?: string;
   bottom?: string;
+}
+
+export interface StyledCheckBoxInputProps {
+  fontweight?: string;
+  inputfontsize?: string;
+  position?: string;
+  left?: string;
+  inputborderwidth?: string;
+  inputbordercolor?: string;
+  inputborderradius?: string;
+  labelfontweight?: string;
+  inputboxshadow?: string;
 }

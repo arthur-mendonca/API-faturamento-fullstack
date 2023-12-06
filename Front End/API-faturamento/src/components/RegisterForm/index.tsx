@@ -4,6 +4,7 @@ import { LabelFormComponent } from "../FormComponents/Label";
 import { FormTextComponent } from "../FormComponents/Text";
 import {
   PasswordIconToggle,
+  StyledCheckBoxInput,
   StyledInputGroup,
   StyledInputsWrapper,
   StyledRegisterForm,
@@ -67,14 +68,13 @@ export const RegisterFormComponent: React.FC = () => {
           <PasswordIconToggle
             position="absolute"
             right="27%;"
-            bottom="33.8%"
+            bottom="40.9%"
             onClick={(event) => {
               togglePasswordVisibility(event);
             }}>
             <AiOutlineEyeInvisible size={20} color={theme.colors.gray} />
           </PasswordIconToggle>
         </StyledInputGroup>
-
         <StyledInputGroup width="47%">
           <LabelFormComponent>
             <FormTextComponent className="text_login_page">
@@ -89,7 +89,7 @@ export const RegisterFormComponent: React.FC = () => {
           <PasswordIconToggle
             position="absolute"
             right="4%;"
-            bottom="33.8%"
+            bottom="40.9%"
             onClick={(event) => {
               togglePasswordVisibility(event);
             }}>
@@ -97,6 +97,33 @@ export const RegisterFormComponent: React.FC = () => {
           </PasswordIconToggle>
         </StyledInputGroup>
       </StyledInputsWrapper>
+      <StyledInputGroup display="flex" flexdirection="column">
+        <FormTextComponent
+          margintop="20px"
+          className="text_login_page privacy_terms"
+          marginbottom="25px">
+          Termos de uso e privacidade
+        </FormTextComponent>
+        <StyledCheckBoxInput
+          inputboxshadow="0 5px 4px rgba(0,0,0,0.2);"
+          labelfontweight="600"
+          inputborderradius="10px"
+          inputbordercolor={theme.colors.blue}
+          inputborderwidth="2px"
+          inputfontsize="24px"
+          className="checkbox_text"
+          position="relative"
+          left="18px"
+          label="Ao clicar neste botão, eu concordo com os  termos de uso e privacidade da nossa empresa."
+        />
+        <FormTextComponent
+          className="text_login_page privacy_terms"
+          marginleft="37px"
+          margintop="10px"
+          color={theme.colors.blue}>
+          <a>Termos de uso e privacidade</a>
+        </FormTextComponent>
+      </StyledInputGroup>
     </StyledRegisterForm>
   );
 };
