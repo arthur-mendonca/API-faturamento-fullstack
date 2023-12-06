@@ -6,6 +6,7 @@ import {
   StyledInputGroupProps,
   StyledInputsWrapperProps,
   StyledCheckBoxInputProps,
+  StyledButtonWrapperProps,
 } from "./types";
 
 export const StyledRegisterForm = styled(Form)<FormProps>`
@@ -53,3 +54,15 @@ export const StyledCheckBoxInput = styled(Form.Check)<StyledCheckBoxInputProps>`
     font-weight: ${(props) => props.labelfontweight};
   }
 `;
+
+export const StyledButtonWrapper = styled.div<StyledButtonWrapperProps>`
+  display: ${(props) => props.display};
+  justify-content: ${(props) => props.justifycontent};
+  position: ${(props) => props.position};
+  top: ${(props) => props.top};
+  flex-direction: ${(props) => props.flexdirection};
+  align-items: ${(props) => props.alignitems};
+  width: ${(props) => props.width};
+`;
+
+export const InsideButtonWrapper = styled(StyledButtonWrapper)``;

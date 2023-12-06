@@ -30,7 +30,7 @@ export const RegisterPageRightColumnContainer: React.FC<ContainerProps> = ({
         gap="35px">
         <LogoComponent width="186px" height="80%" />
         <StyledText color={theme.colors.blue} fontsize={theme.fontSizes.title}>
-          Dados de acesso
+          Cadastro
         </StyledText>
       </StyledGroup>
       <RegisterFormComponent />

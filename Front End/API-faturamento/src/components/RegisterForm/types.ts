@@ -36,3 +36,13 @@ export interface StyledCheckBoxInputProps {
   inputmaxheight?: string;
   textmaxwidth?: string;
 }
+
+export interface StyledButtonWrapperProps {
+  display?: string;
+  justifycontent?: string;
+  position?: string;
+  top?: string;
+  flexdirection?: string;
+  alignitems?: string;
+  width?: string;
+}

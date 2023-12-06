@@ -3,7 +3,9 @@ import { InputFormComponent } from "../FormComponents/Input";
 import { LabelFormComponent } from "../FormComponents/Label";
 import { FormTextComponent } from "../FormComponents/Text";
 import {
+  InsideButtonWrapper,
   PasswordIconToggle,
+  StyledButtonWrapper,
   StyledCheckBoxInput,
   StyledInputGroup,
   StyledInputsWrapper,
@@ -13,14 +15,25 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { AiOutlineEyeInvisible } from "react-icons/ai";
 import { useTheme } from "styled-components";
 import { useState } from "react";
+import { StyledButton } from "../Buttons/style";
+import { useNavigate } from "react-router-dom";
 
 export const RegisterFormComponent: React.FC = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
+
   const togglePasswordVisibility = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
     setPasswordVisible(!passwordVisible);
   };
+
   const theme = useTheme();
+
+  const navigate = useNavigate();
+
+  const navigateLogin = () => {
+    navigate("/login");
+  };
+
   return (
     <StyledRegisterForm>
       <StyledInputsWrapper
@@ -68,7 +81,7 @@ export const RegisterFormComponent: React.FC = () => {
           <PasswordIconToggle
             position="absolute"
             right="27%;"
-            bottom="40.9%"
+            bottom="44.7%"
             onClick={(event) => {
               togglePasswordVisibility(event);
             }}>
@@ -89,7 +102,7 @@ export const RegisterFormComponent: React.FC = () => {
           <PasswordIconToggle
             position="absolute"
             right="4%;"
-            bottom="40.9%"
+            bottom="44.7%"
             onClick={(event) => {
               togglePasswordVisibility(event);
             }}>
@@ -125,6 +138,34 @@ export const RegisterFormComponent: React.FC = () => {
           <a>Termos de uso e privacidade</a>
         </FormTextComponent>
       </StyledInputGroup>
+      <StyledButtonWrapper
+        alignitems="center"
+        flexdirection="column"
+        display="flex"
+        justifycontent="center"
+        position="relative"
+        top="60px">
+        <StyledButton
+          background={theme.colors.blue}
+          className="register_button"
+          padding="10px 102px">
+          Cadastrar
+        </StyledButton>
+        <InsideButtonWrapper
+          position="relative"
+          top="50px"
+          display="flex"
+          flexdirection="row"
+          width="47%"
+          justifycontent="space-around">
+          <p className="already_an_user ">Já tem uma conta?</p>
+          <a
+            className="already_an_user login_link"
+            onClick={() => navigateLogin()}>
+            Login
+          </a>
+        </InsideButtonWrapper>
+      </StyledButtonWrapper>
     </StyledRegisterForm>
   );
 };
