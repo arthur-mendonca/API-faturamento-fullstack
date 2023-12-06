@@ -105,13 +105,14 @@ export const RegisterFormComponent: React.FC = () => {
           Termos de uso e privacidade
         </FormTextComponent>
         <StyledCheckBoxInput
+          className="checkbox_text"
+          textmaxwidth="580px"
           inputboxshadow="0 5px 4px rgba(0,0,0,0.2);"
           labelfontweight="600"
           inputborderradius="10px"
           inputbordercolor={theme.colors.blue}
           inputborderwidth="2px"
           inputfontsize="24px"
-          className="checkbox_text"
           position="relative"
           left="18px"
           label="Ao clicar neste botão, eu concordo com os  termos de uso e privacidade da nossa empresa."

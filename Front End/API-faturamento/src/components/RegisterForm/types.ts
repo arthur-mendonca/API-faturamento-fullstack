@@ -33,4 +33,6 @@ export interface StyledCheckBoxInputProps {
   inputborderradius?: string;
   labelfontweight?: string;
   inputboxshadow?: string;
+  inputmaxheight?: string;
+  textmaxwidth?: string;
 }

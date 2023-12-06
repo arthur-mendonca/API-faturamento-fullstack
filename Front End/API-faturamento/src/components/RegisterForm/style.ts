@@ -38,12 +38,15 @@ export const StyledCheckBoxInput = styled(Form.Check)<StyledCheckBoxInputProps>`
   position: ${(props) => props.position};
   left: ${(props) => props.left};
 
+  max-width: ${(props) => props.textmaxwidth};
+
   .form-check-input {
     font-size: ${(props) => props.inputfontsize};
     border-width: ${(props) => props.inputborderwidth};
     border-color: ${(props) => props.inputbordercolor};
     border-radius: ${(props) => props.inputborderradius};
     box-shadow: ${(props) => props.inputboxshadow};
+    max-width: ${(props) => props.inputmaxwidth};
   }
 
   .form-check-label {
