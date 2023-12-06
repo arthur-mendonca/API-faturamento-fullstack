@@ -7,6 +7,6 @@ export const formSchema = z.object({
     .min(1, { message: "Campo obrigatório" }),
   password: z
     .string()
-    .min(4, { message: "Mínimo 4 caracteres" })
+    .min(1, { message: "Mínimo 1 caracter" })
     .min(1, { message: "Campo obrigatório" }),
 });

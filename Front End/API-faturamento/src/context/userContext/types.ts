@@ -22,6 +22,7 @@ export interface IRegisterUser {
   email: string;
   password: string;
   name: string;
+  passwordConfirmation: string;
 }
 
 export interface ILoginUser {

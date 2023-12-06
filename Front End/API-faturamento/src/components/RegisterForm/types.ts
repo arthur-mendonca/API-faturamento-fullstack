@@ -21,6 +21,7 @@ export interface PasswordIconToggleProps {
   background?: string;
   cursor?: string;
   bottom?: string;
+  iconId?: string;
 }
 
 export interface StyledCheckBoxInputProps {
@@ -35,6 +36,7 @@ export interface StyledCheckBoxInputProps {
   inputboxshadow?: string;
   inputmaxheight?: string;
   textmaxwidth?: string;
+  required?: string;
 }
 
 export interface StyledButtonWrapperProps {

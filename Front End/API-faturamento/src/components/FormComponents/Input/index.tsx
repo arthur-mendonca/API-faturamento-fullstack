@@ -11,6 +11,7 @@ interface InputProps {
   padding?: string;
   children?: React.ReactNode;
   register?: UseFormRegisterReturn<any>;
+  width?: string;
 }
 
 export const InputFormComponent: React.FC<InputProps> = ({

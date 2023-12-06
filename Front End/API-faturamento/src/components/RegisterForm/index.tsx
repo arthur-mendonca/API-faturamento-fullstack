@@ -14,12 +14,18 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AiOutlineEyeInvisible } from "react-icons/ai";
 import { useTheme } from "styled-components";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { StyledButton } from "../Buttons/style";
 import { useNavigate } from "react-router-dom";
+import { IRegisterUser } from "../../context/userContext/types";
+import { signUpSchema } from "../../schema/registerSchema";
+import { UserContext } from "../../context/userContext";
+import { ErrorTextComponent } from "../FormComponents/errorText";
 
 export const RegisterFormComponent: React.FC = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
+
+  const { createUser } = useContext(UserContext);
 
   const togglePasswordVisibility = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
@@ -34,8 +40,23 @@ export const RegisterFormComponent: React.FC = () => {
     navigate("/login");
   };
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IRegisterUser>({
+    resolver: zodResolver(signUpSchema),
+  });
+
+  const onSubmit = async (registerData: IRegisterUser) => {
+    const response = await createUser(registerData);
+    if (response) {
+      navigate("/login");
+    }
+  };
+
   return (
-    <StyledRegisterForm>
+    <StyledRegisterForm onSubmit={handleSubmit(onSubmit)}>
       <StyledInputsWrapper
         display="flex"
         justifycontent="space-between"
@@ -51,7 +72,11 @@ export const RegisterFormComponent: React.FC = () => {
             placeholder="Insira seu nome"
             type="text"
             borderradius="10px"
+            register={register("name")}
           />
+          <ErrorTextComponent margintop="-14px" marginbottom="-9px">
+            {errors.name?.message}
+          </ErrorTextComponent>
         </StyledInputGroup>
         <StyledInputGroup width="47%">
           <LabelFormComponent>
@@ -62,8 +87,12 @@ export const RegisterFormComponent: React.FC = () => {
           <InputFormComponent
             className="mb-3"
             placeholder="Insira seu e-mail"
-            type="text"
+            type="email"
+            register={register("email")}
           />
+          <ErrorTextComponent margintop="-14px" marginbottom="-9px">
+            {errors.email?.message}
+          </ErrorTextComponent>
         </StyledInputGroup>
       </StyledInputsWrapper>
       <StyledInputsWrapper display="flex" justifycontent="space-between">
@@ -73,20 +102,27 @@ export const RegisterFormComponent: React.FC = () => {
               Senha
             </FormTextComponent>
           </LabelFormComponent>
+
           <InputFormComponent
             className="mb-3"
             placeholder="Insira uma senha"
             type={passwordVisible ? "text" : "password"}
+            register={register("password")}
           />
+
           <PasswordIconToggle
+            iconId="passwordIcon"
             position="absolute"
             right="27%;"
-            bottom="44.7%"
+            bottom="44.2%"
             onClick={(event) => {
               togglePasswordVisibility(event);
             }}>
             <AiOutlineEyeInvisible size={20} color={theme.colors.gray} />
           </PasswordIconToggle>
+          <ErrorTextComponent margintop="-14px" marginbottom="-9px">
+            {errors.password?.message}
+          </ErrorTextComponent>
         </StyledInputGroup>
         <StyledInputGroup width="47%">
           <LabelFormComponent>
@@ -94,20 +130,27 @@ export const RegisterFormComponent: React.FC = () => {
               Confirme sua senha
             </FormTextComponent>
           </LabelFormComponent>
+
           <InputFormComponent
             className="mb-3"
             placeholder="Confirma senha"
             type={passwordVisible ? "text" : "password"}
+            register={register("passwordConfirmation")}
           />
+
           <PasswordIconToggle
+            iconId="confirmPasswordIcon"
             position="absolute"
             right="4%;"
-            bottom="44.7%"
+            bottom="44.2%"
             onClick={(event) => {
               togglePasswordVisibility(event);
             }}>
             <AiOutlineEyeInvisible size={20} color={theme.colors.gray} />
           </PasswordIconToggle>
+          <ErrorTextComponent margintop="-14px" marginbottom="-9px">
+            {errors.passwordConfirmation?.message}
+          </ErrorTextComponent>
         </StyledInputGroup>
       </StyledInputsWrapper>
       <StyledInputGroup display="flex" flexdirection="column">
@@ -118,6 +161,7 @@ export const RegisterFormComponent: React.FC = () => {
           Termos de uso e privacidade
         </FormTextComponent>
         <StyledCheckBoxInput
+          required="true"
           className="checkbox_text"
           textmaxwidth="580px"
           inputboxshadow="0 5px 4px rgba(0,0,0,0.2);"

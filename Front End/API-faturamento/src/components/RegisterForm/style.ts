@@ -11,18 +11,33 @@ import {
 
 export const StyledRegisterForm = styled(Form)<FormProps>`
   width: ${(props) => (props.width ? props.width : "100%")};
+
+  @media (max-width: 992px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 export const StyledInputsWrapper = styled.div<StyledInputsWrapperProps>`
   display: ${(props) => props.display};
   justify-content: ${(props) => props.justifycontent};
   margin-bottom: ${(props) => props.marginbottom};
+
+  @media (max-width: 992px) {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
 `;
 
 export const StyledInputGroup = styled(FormGroup)<StyledInputGroupProps>`
   width: ${(props) => props.width};
   display: ${(props) => props.display};
   flex-direction: ${(props) => props.flexdirection};
+
+  @media (max-width: 992px) {
+    width: 100%;
+  }
 `;
 
 export const PasswordIconToggle = styled.button<PasswordIconToggleProps>`
@@ -32,13 +47,22 @@ export const PasswordIconToggle = styled.button<PasswordIconToggleProps>`
   background: ${(props) => props.background || "transparent"};
   cursor: ${(props) => props.cursor || "pointer"};
   bottom: ${(props) => props.bottom || "0"};
+
+  @media (max-width: 992px) {
+    ${(props) => {
+      if (props.iconId === "passwordIcon") {
+        return "right: 10%; bottom: 43.8%";
+      } else if (props.iconId === "confirmPasswordIcon") {
+        return "right: 10%; bottom: 31.8%";
+      }
+    }}
+  }
 `;
 
 export const StyledCheckBoxInput = styled(Form.Check)<StyledCheckBoxInputProps>`
   font-weight: ${(props) => props.fontweight};
   position: ${(props) => props.position};
   left: ${(props) => props.left};
-
   max-width: ${(props) => props.textmaxwidth};
 
   .form-check-input {
@@ -53,6 +77,10 @@ export const StyledCheckBoxInput = styled(Form.Check)<StyledCheckBoxInputProps>`
   .form-check-label {
     font-weight: ${(props) => props.labelfontweight};
   }
+
+  @media (max-width: 992px) {
+    height: 53px;
+  }
 `;
 
 export const StyledButtonWrapper = styled.div<StyledButtonWrapperProps>`
@@ -63,6 +91,14 @@ export const StyledButtonWrapper = styled.div<StyledButtonWrapperProps>`
   flex-direction: ${(props) => props.flexdirection};
   align-items: ${(props) => props.alignitems};
   width: ${(props) => props.width};
+
+  @media (max-width: 992px) {
+    top: 21px;
+  }
 `;
 
-export const InsideButtonWrapper = styled(StyledButtonWrapper)``;
+export const InsideButtonWrapper = styled(StyledButtonWrapper)`
+  @media (max-width: 992px) {
+    display: none;
+  }
+`;
