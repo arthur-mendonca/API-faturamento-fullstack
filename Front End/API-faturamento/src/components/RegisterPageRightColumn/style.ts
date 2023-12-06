@@ -22,6 +22,7 @@ interface StyledGroupProps {
   alignitems?: string;
   marginbottom?: string;
   gap?: string;
+  marginbottom_mobile?: string;
 }
 
 export const StyledRegisterRightColumnContainer = styled.div<ContainerProps>`
@@ -46,4 +47,8 @@ export const StyledGroup = styled.div<StyledGroupProps>`
   align-items: ${(props) => props.alignitems || "center"};
   margin-bottom: ${(props) => props.marginbottom || "0"};
   gap: ${(props) => props.gap || "0"};
+
+  @media (max-width: 992px) {
+    margin-bottom: ${(props) => props.marginbottom_mobile};
+  }
 `;

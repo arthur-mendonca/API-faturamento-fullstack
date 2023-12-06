@@ -31,6 +31,9 @@ export const StyledRightColumnContainer = styled.div<ContainerProps>`
   flex-direction: ${(props) => props.flexdirection || "column"};
   justify-content: ${(props) => props.justifycontent || "center"};
   align-items: ${(props) => props.alignitems || "center"};
+
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+  }
 `;
 
 export const StyledText = styled.p<StyledTextProps>`
@@ -46,4 +49,9 @@ export const StyledGroup = styled.div<StyledGroupProps>`
   align-items: ${(props) => props.alignitems || "center"};
   margin-bottom: ${(props) => props.marginbottom || "0"};
   gap: ${(props) => props.gap || "0"};
+
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+    align-items: center;
+    gap: 60px;
+  }
 `;

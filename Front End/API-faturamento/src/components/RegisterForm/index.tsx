@@ -175,6 +175,7 @@ export const RegisterFormComponent: React.FC = () => {
           label="Ao clicar neste botão, eu concordo com os  termos de uso e privacidade da nossa empresa."
         />
         <FormTextComponent
+          margin_bottom_mobile="1px"
           className="text_login_page privacy_terms"
           marginleft="37px"
           margintop="10px"

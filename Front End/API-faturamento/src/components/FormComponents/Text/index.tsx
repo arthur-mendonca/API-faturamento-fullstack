@@ -7,6 +7,7 @@ interface FormTextProps {
   marginbottom?: string;
   margintop?: string;
   color?: string;
+  margin_bottom_mobile?: string;
 }
 
 export const FormTextComponent: React.FC<FormTextProps> = ({

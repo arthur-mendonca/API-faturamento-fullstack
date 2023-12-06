@@ -24,6 +24,7 @@ export const RegisterPageRightColumnContainer: React.FC<ContainerProps> = ({
   return (
     <StyledRegisterRightColumnContainer {...props}>
       <StyledGroup
+        marginbottom_mobile="26px"
         width="100%"
         alignitems="flex-start"
         marginbottom="40px"

@@ -26,7 +26,7 @@ export const RightColumn = styled(Col)<RightColumnProps>`
   background-color: ${(props) =>
     props.backgroundcolor || props.theme.colors.white};
 
-  @media (max-width: 992px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
     height: 100vh;
   }
 `;

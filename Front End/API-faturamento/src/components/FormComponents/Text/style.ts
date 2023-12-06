@@ -8,6 +8,7 @@ interface StyledFormTextProps {
   marginbottom?: string;
   margintop?: string;
   color?: string;
+  margin_bottom_mobile?: string;
 }
 
 export const StyledFormText = styled(Form.Text)<StyledFormTextProps>`
@@ -17,4 +18,8 @@ export const StyledFormText = styled(Form.Text)<StyledFormTextProps>`
   margin-bottom: ${(props) => props.marginbottom};
   margin-top: ${(props) => props.margintop};
   color: ${(props) => props.color};
+
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+    margin-bottom: ${(props) => props.margin_bottom_mobile};
+  }
 `;

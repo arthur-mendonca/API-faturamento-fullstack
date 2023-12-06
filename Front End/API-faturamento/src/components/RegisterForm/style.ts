@@ -12,7 +12,7 @@ import {
 export const StyledRegisterForm = styled(Form)<FormProps>`
   width: ${(props) => (props.width ? props.width : "100%")};
 
-  @media (max-width: 992px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
     display: flex;
     flex-direction: column;
   }
@@ -23,7 +23,7 @@ export const StyledInputsWrapper = styled.div<StyledInputsWrapperProps>`
   justify-content: ${(props) => props.justifycontent};
   margin-bottom: ${(props) => props.marginbottom};
 
-  @media (max-width: 992px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -35,7 +35,7 @@ export const StyledInputGroup = styled(FormGroup)<StyledInputGroupProps>`
   display: ${(props) => props.display};
   flex-direction: ${(props) => props.flexdirection};
 
-  @media (max-width: 992px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
     width: 100%;
   }
 `;
@@ -48,12 +48,12 @@ export const PasswordIconToggle = styled.button<PasswordIconToggleProps>`
   cursor: ${(props) => props.cursor || "pointer"};
   bottom: ${(props) => props.bottom || "0"};
 
-  @media (max-width: 992px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
     ${(props) => {
       if (props.iconId === "passwordIcon") {
-        return "right: 10%; bottom: 43.8%";
+        return "right: 10%; bottom: 44.5%";
       } else if (props.iconId === "confirmPasswordIcon") {
-        return "right: 10%; bottom: 31.8%";
+        return "right: 10%; bottom: 33.8%";
       }
     }}
   }
@@ -78,7 +78,7 @@ export const StyledCheckBoxInput = styled(Form.Check)<StyledCheckBoxInputProps>`
     font-weight: ${(props) => props.labelfontweight};
   }
 
-  @media (max-width: 992px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
     height: 53px;
   }
 `;
@@ -92,13 +92,13 @@ export const StyledButtonWrapper = styled.div<StyledButtonWrapperProps>`
   align-items: ${(props) => props.alignitems};
   width: ${(props) => props.width};
 
-  @media (max-width: 992px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
     top: 21px;
   }
 `;
 
 export const InsideButtonWrapper = styled(StyledButtonWrapper)`
-  @media (max-width: 992px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
     display: none;
   }
 `;

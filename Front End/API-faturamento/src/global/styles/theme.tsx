@@ -82,6 +82,9 @@ const theme = {
       borderRadius: "20px",
     },
   },
+  breakpoints: {
+    mobile: "992px",
+  },
 };
 
 export default theme;
