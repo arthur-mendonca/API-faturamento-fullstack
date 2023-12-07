@@ -39,6 +39,7 @@ export const StyledMenuContainer = styled(Col)<MenuProps>`
   flex-direction: ${(props) => props.flex_direction};
   align-items: ${(props) => props.align_items};
   justify-content: ${(props) => props.justify_content};
+  position: ${(props) => props.position};
 `;
 
 export const StyledIconsWrapper = styled.div<MenuProps>`

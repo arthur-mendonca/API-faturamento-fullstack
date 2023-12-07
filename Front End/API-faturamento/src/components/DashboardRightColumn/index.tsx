@@ -1,5 +1,18 @@
 import { useTheme } from "styled-components";
-import { InnerDataWrapper, StyledDashboardRightColumn } from "./style";
+import {
+  InnerDataWrapper,
+  InnerSearchbarWrapper,
+  SearchBarWrapper,
+  StyledDashboardRightColumn,
+  StyledImage,
+  TitleWrapper,
+} from "./style";
+import { ButtonComponent } from "../Buttons";
+import arrowDown from "../../images/svg/arrow down (Stroke).svg";
+import profilePicture from "../../images/svg/profilePicture.svg";
+import { InputFormComponent } from "../FormComponents/Input";
+import { IoSearch } from "react-icons/io5";
+import { DashboardCardComponents } from "../DashboardCards";
 
 interface ColumnProps {
   background_color?: string;
@@ -11,18 +24,66 @@ export const DashboardRightColumn: React.FC<ColumnProps> = ({ ...props }) => {
   return (
     <StyledDashboardRightColumn
       {...props}
-      // padding_left="20px"
       margin_left="-20px"
       height="100vh"
-      background_color={theme.colors.grayMedium}
+      background_color={theme.colors.background}
       z_index="0"
       position="relative"
       display="flex"
       justify_content="center">
       <InnerDataWrapper
-        width="420px"
-        background_color="aqua"
-        height="420px"></InnerDataWrapper>
+        margin_right="-20px"
+        width="90%"
+        height="100vh"
+        display="flex"
+        flex_direction="column"
+        gap="60px">
+        <TitleWrapper
+          display="flex"
+          flex_direction="row"
+          justify_content="space-between"
+          margin_top="3%"
+          align_items="center">
+          <h1 className="dashboard_title" color={theme.colors.blue}>
+            Não conformidades
+          </h1>
+          <ButtonComponent
+            className="profile_button_text"
+            padding="24px 10px"
+            display="flex"
+            flex_direction="row"
+            align_items="center"
+            gap="10px"
+            background={theme.colors.background}
+            border="solid 1px var(--gray-light)">
+            <StyledImage src={profilePicture} />
+            <p>Mateus Barbosa</p>
+            <StyledImage src={arrowDown} />
+          </ButtonComponent>
+        </TitleWrapper>
+        <SearchBarWrapper display="flex" justify_content="space-between">
+          <InnerSearchbarWrapper
+            display="flex"
+            flex_direction="row"
+            align_items="center">
+            <IoSearch
+              style={{ position: "fixed", left: "25%", cursor: "pointer" }}
+              size={20}
+              color={theme.colors.blue}
+            />
+            <InputFormComponent
+              width="100%"
+              borderradius="60px"
+              placeholder="Pesquisar"
+              padding="25px 48px "
+            />
+          </InnerSearchbarWrapper>
+          <ButtonComponent background={theme.colors.blue} width="180px">
+            <p className="text_menu_button">Nova ocorrência</p>
+          </ButtonComponent>
+        </SearchBarWrapper>
+        <DashboardCardComponents />
+      </InnerDataWrapper>
     </StyledDashboardRightColumn>
   );
 };

@@ -1,20 +1,7 @@
 import styled from "styled-components";
 import Col from "react-bootstrap/Col";
-
-interface ColumnProps {
-  background_color?: string;
-  height?: string;
-  z_index?: string;
-  position?: string;
-  margin_left?: string;
-  padding_left?: string;
-  width?: string;
-  max_width?: string;
-  display?: string;
-  flex_direction?: string;
-  justify_content?: string;
-  align_items?: string;
-}
+import Image from "react-bootstrap/Image";
+import { ColumnProps } from "./types";
 
 export const StyledDashboardRightColumn = styled(Col)<ColumnProps>`
   height: ${(props) => props.height};
@@ -27,6 +14,8 @@ export const StyledDashboardRightColumn = styled(Col)<ColumnProps>`
   flex-direction: ${(props) => props.flex_direction};
   align-items: ${(props) => props.align_items};
   justify-content: ${(props) => props.justify_content};
+  max-height: ${(props) => props.max_height};
+  margin-top: ${(props) => props.margin_top};
 `;
 
 export const InnerDataWrapper = styled.div<ColumnProps>`
@@ -34,4 +23,34 @@ export const InnerDataWrapper = styled.div<ColumnProps>`
   max-width: ${(props) => props.max_width};
   background-color: ${(props) => props.background_color};
   height: ${(props) => props.height};
+  margin-right: ${(props) => props.margin_right};
+  display: ${(props) => props.display};
+  flex-direction: ${(props) => props.flex_direction};
+  align-items: ${(props) => props.align_items};
+  gap: ${(props) => props.gap};
 `;
+
+export const TitleWrapper = styled.div<ColumnProps>`
+  display: ${(props) => props.display};
+  flex-direction: ${(props) => props.flex_direction};
+  justify-content: ${(props) => props.justify_content};
+  margin-top: ${(props) => props.margin_top};
+  align-items: ${(props) => props.align_items};
+`;
+
+export const SearchBarWrapper = styled.div<ColumnProps>`
+  display: ${(props) => props.display};
+  flex-direction: ${(props) => props.flex_direction};
+  justify-content: ${(props) => props.justify_content};
+  align-items: ${(props) => props.align_items};
+`;
+
+export const InnerSearchbarWrapper = styled.span<ColumnProps>`
+  display: ${(props) => props.display};
+  flex-direction: ${(props) => props.flex_direction};
+  justify-content: ${(props) => props.justify_content};
+  align-items: ${(props) => props.align_items};
+  width: ${(props) => props.width};
+`;
+
+export const StyledImage = styled(Image)<ColumnProps>``;

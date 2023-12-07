@@ -31,6 +31,7 @@ export const DashboardMenuComponent: React.FC<MenuProps> = ({ ...props }) => {
   return (
     <StyledMenuContainer
       {...props}
+      position="fixed"
       justify_content="flex-start"
       height="100vh"
       padding="0 10px"
@@ -40,7 +41,6 @@ export const DashboardMenuComponent: React.FC<MenuProps> = ({ ...props }) => {
       background_color={theme.colors.white}
       border_radius="0 17px 17px 0"
       z_index="100"
-      position="relative"
       border_color={theme.colors.grayLighter}
       border="solid 2px">
       <StyledIconsWrapper display="flex" flex_direction="column" gap="20px">
