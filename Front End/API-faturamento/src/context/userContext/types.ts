@@ -8,6 +8,8 @@ export interface IUserContext {
   createUser: (data: IRegisterUser) => Promise<IUser | undefined>;
 
   loginUser: (data: ILoginUser) => Promise<ILoginResponse | undefined>;
+
+  logout: () => void;
 }
 
 export interface IUser {

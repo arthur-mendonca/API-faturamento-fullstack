@@ -53,6 +53,7 @@ const theme = {
     red: "#EA0000",
     redLight: "#FFE1E1",
     grayMedium: "#808080",
+    grayLighter: "#D7D7D7",
   },
   fonts: {
     inter: "Inter, sans-serif",

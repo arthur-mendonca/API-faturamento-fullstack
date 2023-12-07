@@ -1,5 +1,5 @@
 import { useTheme } from "styled-components";
-import { StyledDashboardRightColumn } from "./style";
+import { InnerDataWrapper, StyledDashboardRightColumn } from "./style";
 
 interface ColumnProps {
   background_color?: string;
@@ -11,7 +11,18 @@ export const DashboardRightColumn: React.FC<ColumnProps> = ({ ...props }) => {
   return (
     <StyledDashboardRightColumn
       {...props}
+      // padding_left="20px"
+      margin_left="-20px"
       height="100vh"
-      background_color={theme.colors.grayMedium}></StyledDashboardRightColumn>
+      background_color={theme.colors.grayMedium}
+      z_index="0"
+      position="relative"
+      display="flex"
+      justify_content="center">
+      <InnerDataWrapper
+        width="420px"
+        background_color="aqua"
+        height="420px"></InnerDataWrapper>
+    </StyledDashboardRightColumn>
   );
 };

@@ -5,4 +5,5 @@ export interface DashboardLayoutProps {
   padding_right?: string;
   margin_left?: string;
   margin_right?: string;
+  width?: string;
 }

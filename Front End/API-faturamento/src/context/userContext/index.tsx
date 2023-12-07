@@ -8,11 +8,14 @@ import {
   IUserContext,
 } from "./types";
 import { api } from "../../service/api";
+import { useNavigate } from "react-router-dom";
 
 export const UserContext = createContext({} as IUserContext);
 
 export const UserProvider = ({ children }: IDefaultProviderProps) => {
   const [userData, setUserData] = useState<IUser>({} as IUser);
+
+  const navigate = useNavigate();
 
   const createUser = async (
     data: IRegisterUser
@@ -42,8 +45,13 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
       console.log(error);
     }
   };
+
+  const logout = () => {
+    localStorage.clear();
+    navigate("/login");
+  };
   return (
-    <UserContext.Provider value={{ createUser, userData, loginUser }}>
+    <UserContext.Provider value={{ createUser, userData, loginUser, logout }}>
       {children}
     </UserContext.Provider>
   );

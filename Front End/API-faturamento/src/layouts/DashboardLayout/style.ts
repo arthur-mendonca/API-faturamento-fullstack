@@ -18,6 +18,8 @@ export const StyledColLeft = styled(Col)<DashboardLayoutProps>`
 
   background-color: ${(props) => props.backgroundColor};
   height: ${(props) => props.height};
+  width: ${(props) => props.width};
+  flex: none;
 `;
 
 export const StyledColRight = styled(Col)<DashboardLayoutProps>`
@@ -26,4 +28,6 @@ export const StyledColRight = styled(Col)<DashboardLayoutProps>`
 
   background-color: ${(props) => props.backgroundColor};
   height: ${(props) => props.height};
+  width: ${(props) => props.width};
+  flex: none;
 `;
