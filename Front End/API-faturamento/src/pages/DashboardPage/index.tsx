@@ -4,8 +4,10 @@ import { TwoColumnDashboardLayout } from "../../layouts/DashboardLayout";
 
 export const DashboardPage: React.FC = () => {
   return (
-    <TwoColumnDashboardLayout
-      leftContent={<DashboardMenuComponent />}
-      rightContent={<DashboardRightColumn />}></TwoColumnDashboardLayout>
+    <>
+      <TwoColumnDashboardLayout
+        leftContent={<DashboardMenuComponent />}
+        rightContent={<DashboardRightColumn />}></TwoColumnDashboardLayout>
+    </>
   );
 };

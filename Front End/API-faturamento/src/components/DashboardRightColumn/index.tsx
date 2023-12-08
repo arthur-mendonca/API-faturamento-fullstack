@@ -22,8 +22,12 @@ interface ColumnProps {
 }
 
 export const DashboardRightColumn: React.FC<ColumnProps> = ({ ...props }) => {
-  const { openModal, closeModal } = useContext(ModalContext);
+  const { openModal } = useContext(ModalContext);
 
+  const handleShowModal = () => {
+    console.log("open modal");
+    openModal("createOccurrence");
+  };
   const theme = useTheme();
   return (
     <StyledDashboardRightColumn
@@ -87,7 +91,10 @@ export const DashboardRightColumn: React.FC<ColumnProps> = ({ ...props }) => {
               padding="25px 48px "
             />
           </InnerSearchbarWrapper>
-          <ButtonComponent background={theme.colors.blue} width="180px">
+          <ButtonComponent
+            background={theme.colors.blue}
+            width="180px"
+            onClick={() => handleShowModal()}>
             <p className="text_menu_button">Nova ocorrência</p>
           </ButtonComponent>
         </SearchBarWrapper>

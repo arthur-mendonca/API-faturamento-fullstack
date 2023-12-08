@@ -5,18 +5,14 @@ import {
   StyledRow,
 } from "./style";
 import upDownArrows from "../../images/svg/arrows_up_down.svg";
-import { useTheme } from "styled-components";
 import { useContext, useEffect } from "react";
 import { OccurrenceContext } from "../../context/occurrencesContext";
 import { Container } from "react-bootstrap";
 import { UserContext } from "../../context/userContext";
 import dots from "../../images/svg/tres_pontos.svg";
-import { IOccurrence } from "../../context/occurrencesContext/types";
 import { CardsProps } from "./types";
 
 export const DashboardCardComponents: React.FC<CardsProps> = ({ ...props }) => {
-  const theme = useTheme();
-
   const { getAllOccurrences, occurrences } = useContext(OccurrenceContext);
   const { userData } = useContext(UserContext);
   const userId = localStorage.getItem("@USERID");

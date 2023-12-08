@@ -1,9 +1,9 @@
 export interface IModalContext {
-  openModal: (modalName: any) => void;
+  openModal: (modalName: string) => void;
 
   closeModal: () => void;
 
   isModalOpen: boolean;
 
-  activeModal: null;
+  activeModal: string | null;
 }
