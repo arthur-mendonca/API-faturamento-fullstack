@@ -1,28 +1,15 @@
 import React from "react";
-import { StyledButton } from "./style";
+import { ButtonProps, StyledButton } from "./style";
 
-interface ButtonProps {
+interface ButtonPropsComponent extends ButtonProps {
   name?: string;
   onClick?: () => void;
   style?: React.CSSProperties;
-  background?: string;
-  color?: string;
-  hoverBackground?: string;
-  padding?: string;
-  height?: string;
-  boxshadow?: string;
-  fontsize?: string;
   className?: string;
   children?: React.ReactNode;
-  display?: string;
-  flex_direction?: string;
-  align_items?: string;
-  border?: string;
-  gap?: string;
-  width?: string;
 }
 
-export const ButtonComponent: React.FC<ButtonProps> = ({
+export const ButtonComponent: React.FC<ButtonPropsComponent> = ({
   name,
   className,
   children,

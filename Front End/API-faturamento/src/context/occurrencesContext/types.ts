@@ -30,11 +30,15 @@ export interface IOccurrenceContext {
   occurrences: IOccurrence[];
 
   setOccurrences: React.Dispatch<React.SetStateAction<IOccurrence[]>>;
+
+  occurrence: IOccurrence | null;
+
+  setOccurrence: React.Dispatch<React.SetStateAction<IOccurrence | null>>;
 }
 
 export interface IOccurrence extends IOccurrenceCreate {
   id?: number;
   user_id?: number;
-  createdAt?: string;
-  updatedAt?: string;
+  createdAt?: string | Date;
+  updatedAt?: string | Date;
 }

@@ -8,14 +8,19 @@ import upDownArrows from "../../images/svg/arrows_up_down.svg";
 import { useContext, useEffect } from "react";
 import { OccurrenceContext } from "../../context/occurrencesContext";
 import { Container } from "react-bootstrap";
-import { UserContext } from "../../context/userContext";
 import dots from "../../images/svg/tres_pontos.svg";
 import { CardsProps } from "./types";
+import { ModalContext } from "../../context/modalContext";
+import { IOccurrence } from "../../context/occurrencesContext/types";
+import { EditDeleteOccurrenceModal } from "../Modals/EditDeleteOccurrence";
 
 export const DashboardCardComponents: React.FC<CardsProps> = ({ ...props }) => {
-  const { getAllOccurrences, occurrences } = useContext(OccurrenceContext);
-  const { userData } = useContext(UserContext);
+  const { getAllOccurrences, occurrences, setOccurrence } =
+    useContext(OccurrenceContext);
+
   const userId = localStorage.getItem("@USERID");
+
+  const { openModal } = useContext(ModalContext);
 
   useEffect(() => {
     getAllOccurrences();
@@ -27,6 +32,12 @@ export const DashboardCardComponents: React.FC<CardsProps> = ({ ...props }) => {
 
   const capitalizeFirstLetter = (string: string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+
+  const handleShowModal = (occurrence: IOccurrence) => {
+    openModal("modal", <EditDeleteOccurrenceModal />);
+    console.log(occurrence);
+    setOccurrence(occurrence);
   };
 
   return (
@@ -72,7 +83,13 @@ export const DashboardCardComponents: React.FC<CardsProps> = ({ ...props }) => {
                 status={occurrence.status}>
                 {capitalizeFirstLetter(occurrence.status)}
               </StatusWrapper>
-              <img src={dots} height={"auto"} width={"4px"} alt="três pontos" />
+              <img
+                src={dots}
+                height={"auto"}
+                width={"4px"}
+                alt="três pontos"
+                onClick={() => handleShowModal(occurrence!)}
+              />
             </StyledCol>
           </StyledRow>
         ))}

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-interface ButtonProps {
+export interface ButtonProps {
   background?: string;
   color?: string;
   hoverBackground?: string;
@@ -14,11 +14,13 @@ interface ButtonProps {
   border?: string;
   gap?: string;
   width?: string;
+  border_radius?: string;
 }
 
 export const StyledButton = styled.button<ButtonProps>`
   padding: ${(props) => props.padding || "10px 20px"};
-  border-radius: ${(props) => props.theme.buttons.borderRadius.default};
+  border-radius: ${(props) =>
+    props.theme.buttons.borderRadius.default || props.border_radius};
   border: ${(props) => props.border || "none"};
   cursor: pointer;
   background: ${(props) => props.background || "var(--teal)"};

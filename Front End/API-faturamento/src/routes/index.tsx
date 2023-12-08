@@ -5,13 +5,14 @@ import { DashboardPage } from "../pages/DashboardPage";
 import { ProtectedRoute } from "../pages/protectedRoute";
 import { useContext } from "react";
 import { ModalContext } from "../context/modalContext";
-import { CreateOccurrenceModal } from "../components/Modals/CreateOccurrence";
+import { ModalComponent } from "../components/ModalComponent";
 
 export const RoutesMain = () => {
   const { activeModal } = useContext(ModalContext);
   return (
     <>
-      {activeModal === "createOccurrence" && <CreateOccurrenceModal />}
+      {activeModal && <ModalComponent />}
+
       <Routes>
         <Route element={<LoginPage />} path="/login" />
         <Route element={<RegisterPage />} path="/" />

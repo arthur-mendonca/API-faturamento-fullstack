@@ -9,19 +9,21 @@ import {
   StyledSpan,
 } from "./style";
 import { ButtonComponent } from "../../Buttons";
+import "./../../../utils/styles.css";
+import { DeleteModal } from "../deleteOccurrence";
 
-export const CreateOccurrenceModal: React.FC<ModalProps> = ({ ...props }) => {
-  const { closeModal, isModalOpen } = useContext(ModalContext);
+export const EditDeleteOccurrenceModal: React.FC<ModalProps> = ({
+  ...props
+}) => {
+  const { closeModal, isModalOpen, openModal } = useContext(ModalContext);
+
+  const handleOpen = () => {
+    openModal("modal", <DeleteModal />);
+  };
 
   return (
-    <StyledModal
-      {...props}
-      animation={false}
-      show={isModalOpen}
-      onHide={closeModal}
-      border_radius={"20px"}
-      border={"none"}>
-      <StyledModal.Header className="d-flex ">
+    <>
+      <StyledModal.Header className="d-flex" {...props}>
         <p className="modal_text">Ações</p>
         <StyledCloseButton onClick={() => closeModal()} font_size={"1rem"} />
       </StyledModal.Header>
@@ -38,12 +40,13 @@ export const CreateOccurrenceModal: React.FC<ModalProps> = ({ ...props }) => {
         <StyledSpan className="border-bottom d-flex justify-content-center">
           <ButtonComponent
             background="none"
-            className="modal_text modal_text_delete">
+            className="modal_text modal_question_delete"
+            onClick={() => handleOpen()}>
             Excluir ocorrência
           </ButtonComponent>
         </StyledSpan>
         <StyledModalFooter margin_top="30px" border="none"></StyledModalFooter>
       </StyledModalBody>
-    </StyledModal>
+    </>
   );
 };

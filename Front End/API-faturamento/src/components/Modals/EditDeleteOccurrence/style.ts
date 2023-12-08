@@ -19,6 +19,15 @@ export interface ModalProps {
 }
 
 export const StyledModal = styled(Modal)<ModalProps>`
+  .modal-dialog {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: 200px;
+    left: 60px;
+  }
+
   .modal-content {
     border-radius: ${(props) => props.border_radius || "20px"};
     border: ${(props) => props.border};

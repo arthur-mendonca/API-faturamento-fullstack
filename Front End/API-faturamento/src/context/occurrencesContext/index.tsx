@@ -10,6 +10,9 @@ export const OccurrenceContext = createContext({} as IOccurrenceContext);
 
 export const OccurrenceProvider = ({ children }: IDefaultProviderProps) => {
   const [occurrences, setOccurrences] = useState<IOccurrence[]>([]);
+  const [occurrence, setOccurrence] = useState<IOccurrence | null>(null);
+
+  const authToken = localStorage.getItem("@TOKEN");
 
   const createOccurrence = async (
     userId: number,
@@ -48,7 +51,6 @@ export const OccurrenceProvider = ({ children }: IDefaultProviderProps) => {
     occurrenceId: number,
     data: Partial<IOccurrence>
   ): Promise<IOccurrence | undefined> => {
-    const authToken = localStorage.getItem("@TOKEN");
     try {
       const response = await api.put(
         `users/occurrences/${occurrenceId}`,
@@ -67,7 +69,11 @@ export const OccurrenceProvider = ({ children }: IDefaultProviderProps) => {
 
   const deleteOccurrence = async (occurrenceId: number): Promise<void> => {
     try {
-      await api.delete(`users/occurrences/${occurrenceId}`);
+      await api.delete(`users/occurrences/${occurrenceId}`, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
     } catch (error) {
       console.error(error);
     }
@@ -83,6 +89,8 @@ export const OccurrenceProvider = ({ children }: IDefaultProviderProps) => {
         deleteOccurrence,
         occurrences,
         setOccurrences,
+        occurrence,
+        setOccurrence,
       }}>
       {children}
     </OccurrenceContext.Provider>
