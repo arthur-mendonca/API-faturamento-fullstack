@@ -5,13 +5,13 @@ import {
   SearchBarWrapper,
   StyledDashboardRightColumn,
   StyledImage,
+  StyledSearchIcon,
   TitleWrapper,
 } from "./style";
 import { ButtonComponent } from "../Buttons";
 import arrowDown from "../../images/svg/arrow down (Stroke).svg";
 import profilePicture from "../../images/svg/profilePicture.svg";
 import { InputFormComponent } from "../FormComponents/Input";
-import { IoSearch } from "react-icons/io5";
 import { DashboardCardComponents } from "../DashboardCards";
 
 interface ColumnProps {
@@ -24,7 +24,7 @@ export const DashboardRightColumn: React.FC<ColumnProps> = ({ ...props }) => {
   return (
     <StyledDashboardRightColumn
       {...props}
-      margin_left="-20px"
+      margin_left="-10px"
       height="100vh"
       background_color={theme.colors.background}
       z_index="0"
@@ -33,7 +33,7 @@ export const DashboardRightColumn: React.FC<ColumnProps> = ({ ...props }) => {
       justify_content="center">
       <InnerDataWrapper
         margin_right="-20px"
-        width="90%"
+        width="93%"
         height="100vh"
         display="flex"
         flex_direction="column"
@@ -61,13 +61,18 @@ export const DashboardRightColumn: React.FC<ColumnProps> = ({ ...props }) => {
             <StyledImage src={arrowDown} />
           </ButtonComponent>
         </TitleWrapper>
-        <SearchBarWrapper display="flex" justify_content="space-between">
+        <SearchBarWrapper
+          display="flex"
+          justify_content="space-between"
+          margin_left="-17px">
           <InnerSearchbarWrapper
             display="flex"
             flex_direction="row"
             align_items="center">
-            <IoSearch
-              style={{ position: "fixed", left: "25%", cursor: "pointer" }}
+            <StyledSearchIcon
+              left="13%"
+              top="1%"
+              position="relative"
               size={20}
               color={theme.colors.blue}
             />

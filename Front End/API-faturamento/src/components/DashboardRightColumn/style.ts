@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 import { ColumnProps } from "./types";
+import { IoSearch } from "react-icons/io5";
 
 export const StyledDashboardRightColumn = styled(Col)<ColumnProps>`
   height: ${(props) => props.height};
@@ -16,6 +17,10 @@ export const StyledDashboardRightColumn = styled(Col)<ColumnProps>`
   justify-content: ${(props) => props.justify_content};
   max-height: ${(props) => props.max_height};
   margin-top: ${(props) => props.margin_top};
+
+  @media (min-width: 1200px) {
+    justify-content: normal;
+  }
 `;
 
 export const InnerDataWrapper = styled.div<ColumnProps>`
@@ -43,6 +48,7 @@ export const SearchBarWrapper = styled.div<ColumnProps>`
   flex-direction: ${(props) => props.flex_direction};
   justify-content: ${(props) => props.justify_content};
   align-items: ${(props) => props.align_items};
+  margin-left: ${(props) => props.margin_left};
 `;
 
 export const InnerSearchbarWrapper = styled.span<ColumnProps>`
@@ -54,3 +60,15 @@ export const InnerSearchbarWrapper = styled.span<ColumnProps>`
 `;
 
 export const StyledImage = styled(Image)<ColumnProps>``;
+
+export const StyledSearchIcon = styled(IoSearch)<ColumnProps>`
+  position: ${(props) => props.position};
+  left: ${(props) => props.left};
+  transform: ${(props) => props.transform};
+  top: ${(props) => props.top};
+  right: ${(props) => props.right};
+
+  cursor: pointer;
+  @media (min-width: 1200px) {
+  }
+`;

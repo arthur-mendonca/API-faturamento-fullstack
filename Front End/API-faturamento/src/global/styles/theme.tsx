@@ -27,12 +27,12 @@ const theme = {
 
   status: {
     background: {
-      finalizado: "#00B386",
-      investigacao: "#C6B200",
-    },
-    color: {
       finalizado: "#E0FFF0",
       investigacao: "#FFF7AA",
+    },
+    color: {
+      finalizado: "#00B386",
+      investigacao: "#C6B200",
     },
     width: "142px",
     heigth: "32px",

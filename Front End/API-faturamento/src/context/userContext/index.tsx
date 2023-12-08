@@ -39,6 +39,8 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
       console.log(loginData);
       localStorage.setItem("@TOKEN", response.data.token);
       localStorage.setItem("@USERMAIL", response.data.user.email);
+      localStorage.setItem("@USERID", response.data.user.id);
+      setUserData(response.data.user);
       console.log(response.data);
       return response.data;
     } catch (error) {

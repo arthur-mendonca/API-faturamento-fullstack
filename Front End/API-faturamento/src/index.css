@@ -100,3 +100,9 @@
   font-size: 30px;
   color: var(--blue);
 }
+
+.cards_text {
+  font-size: 13px;
+  font-weight: 500;
+  font-family: "Poppins", sans-serif;
+}

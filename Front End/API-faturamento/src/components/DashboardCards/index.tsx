@@ -1,42 +1,84 @@
 import {
   CardsProps,
-  CustomCardBody,
-  CustomCardImg,
-  CustomCardText,
   DashboardCardsContainer,
-  SpanWrapper,
-  StyledCardsHeader,
+  StatusWrapper,
+  StyledCol,
+  StyledRow,
 } from "./style";
-import upDownArros from "../../images/svg/arrows_up_down.svg";
+import upDownArrows from "../../images/svg/arrows_up_down.svg";
 import { useTheme } from "styled-components";
+import { useContext, useEffect } from "react";
+import { OccurrenceContext } from "../../context/occurrencesContext";
+import { Container } from "react-bootstrap";
+import { UserContext } from "../../context/userContext";
+import dots from "../../images/svg/tres_pontos.svg";
 
 export const DashboardCardComponents: React.FC<CardsProps> = ({ ...props }) => {
   const theme = useTheme();
 
+  const { getAllOccurrences, occurrences } = useContext(OccurrenceContext);
+  const { userData } = useContext(UserContext);
+  const userId = localStorage.getItem("@USERID");
+
+  const filteredOccurrences = occurrences.filter(
+    (occurrence) => occurrence.user_id === +userId!
+  );
+  useEffect(() => {
+    getAllOccurrences();
+  }, [getAllOccurrences]);
+
+  const capitalizeFirstLetter = (string: string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+
   return (
     <DashboardCardsContainer {...props} height="100%">
-      <StyledCardsHeader color={theme.colors.gray}>
-        <CustomCardBody display="flex" flex_direction="row">
-          <SpanWrapper margin_right="34%" margin_left="2%">
-            <CustomCardText>Nome</CustomCardText>
-          </SpanWrapper>
-          <SpanWrapper margin_right="20%">
-            <CustomCardText>Origem</CustomCardText>
-          </SpanWrapper>
-          <SpanWrapper
-            margin_right="12%"
-            display="flex"
-            flex_direction="row"
-            gap="5px">
-            <CustomCardText>Data</CustomCardText>
-            <CustomCardImg src={upDownArros} />
-          </SpanWrapper>
-          <SpanWrapper display="flex" flex_direction="row" gap="5px">
-            <CustomCardText>Status</CustomCardText>
-            <CustomCardImg src={upDownArros} />
-          </SpanWrapper>
-        </CustomCardBody>
-      </StyledCardsHeader>
+      <Container fluid>
+        <StyledRow className="font-weight-bold text-muted py-3 bg-white border rounded rounded-3 mb-3 cards_text">
+          <StyledCol padding_left="25px" xs={4}>
+            Nome
+          </StyledCol>
+          <StyledCol xs={3}>Origem</StyledCol>
+
+          <StyledCol xs={3}>
+            Data
+            <img src={upDownArrows} alt="" width={"30px"} height={"12px"} />
+          </StyledCol>
+
+          <StyledCol xs={2}>
+            Status
+            <img src={upDownArrows} alt="" width={"30px"} height={"12px"} />
+          </StyledCol>
+        </StyledRow>
+
+        {filteredOccurrences.map((occurrence) => (
+          <StyledRow
+            key={occurrence.id}
+            id={occurrence.id?.toString()}
+            className="py-3 bg-white border rounded rounded-3 mb-3 cards_text d-flex align-items-center">
+            <StyledCol xs={4} padding_left="25px">
+              {occurrence.name}
+            </StyledCol>
+            <StyledCol xs={3}>{occurrence.origin}</StyledCol>
+            <StyledCol xs={3}>
+              {new Date(occurrence.date).toLocaleDateString()}
+            </StyledCol>
+            <StyledCol xs={2} className="d-flex align-items-center" width="16%">
+              <StatusWrapper
+                display="flex"
+                justify_content="center"
+                align_items="center"
+                min_height="30px"
+                width="100%"
+                border_radius="1rem"
+                status={occurrence.status}>
+                {capitalizeFirstLetter(occurrence.status)}
+              </StatusWrapper>
+              <img src={dots} height={"auto"} width={"4px"} alt="três pontos" />
+            </StyledCol>
+          </StyledRow>
+        ))}
+      </Container>
     </DashboardCardsContainer>
   );
 };

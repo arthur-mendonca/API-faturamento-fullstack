@@ -1,4 +1,4 @@
-export interface ColumnProps {
+export interface CardsProps {
   background_color?: string;
   height?: string;
   z_index?: string;
@@ -15,8 +15,9 @@ export interface ColumnProps {
   margin_top?: string;
   max_height?: string;
   gap?: string;
-  left?: string;
-  transform?: string;
-  top?: string;
-  right?: string;
+  color?: string;
+  padding?: string;
+  status?: string;
+  border_radius?: string;
+  min_height?: string;
 }
