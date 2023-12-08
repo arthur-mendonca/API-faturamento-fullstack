@@ -1,5 +1,4 @@
 import {
-  CardsProps,
   DashboardCardsContainer,
   StatusWrapper,
   StyledCol,
@@ -12,13 +11,35 @@ import { OccurrenceContext } from "../../context/occurrencesContext";
 import { Container } from "react-bootstrap";
 import { UserContext } from "../../context/userContext";
 import dots from "../../images/svg/tres_pontos.svg";
+import { IOccurrence } from "../../context/occurrencesContext/types";
 
 export const DashboardCardComponents: React.FC<CardsProps> = ({ ...props }) => {
   const theme = useTheme();
 
-  const { getAllOccurrences, occurrences } = useContext(OccurrenceContext);
+  const { getAllOccurrences, occurrences, updateOccurrence, setOccurrences } =
+    useContext(OccurrenceContext);
   const { userData } = useContext(UserContext);
   const userId = localStorage.getItem("@USERID");
+
+  const handleStatusClick = async (occurrence: IOccurrence) => {
+    const newStatus =
+      occurrence.status === "em investigação"
+        ? "finalizado"
+        : "em investigação";
+
+    const updated = await updateOccurrence(occurrence.id!, {
+      ...occurrence,
+      status: newStatus,
+    });
+
+    if (updated) {
+      setOccurrences((currentOccurrences) =>
+        currentOccurrences.map((occ) =>
+          occ.id === occurrence.id ? { ...occ, status: newStatus } : occ
+        )
+      );
+    }
+  };
 
   const filteredOccurrences = occurrences.filter(
     (occurrence) => occurrence.user_id === +userId!
@@ -71,7 +92,8 @@ export const DashboardCardComponents: React.FC<CardsProps> = ({ ...props }) => {
                 min_height="30px"
                 width="100%"
                 border_radius="1rem"
-                status={occurrence.status}>
+                status={occurrence.status}
+                onClick={() => handleStatusClick(occurrence)}>
                 {capitalizeFirstLetter(occurrence.status)}
               </StatusWrapper>
               <img src={dots} height={"auto"} width={"4px"} alt="três pontos" />

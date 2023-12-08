@@ -51,6 +51,7 @@ export const StyledCol = styled(Col)<CardsProps>`
 
   img {
     margin-left: 10px;
+    cursor: pointer;
   }
 `;
 
@@ -71,4 +72,6 @@ export const StatusWrapper = styled.span<CardsProps>`
   width: ${(props) => props.width};
   min-height: ${(props) => props.min_height};
   border-radius: ${(props) => props.border_radius};
+
+  cursor: pointer;
 `;

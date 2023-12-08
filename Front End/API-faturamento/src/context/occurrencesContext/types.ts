@@ -28,6 +28,8 @@ export interface IOccurrenceContext {
   deleteOccurrence: (occurrenceId: number) => Promise<void>;
 
   occurrences: IOccurrence[];
+
+  setOccurrences: React.Dispatch<React.SetStateAction<IOccurrence[]>>;
 }
 
 export interface IOccurrence extends IOccurrenceCreate {

@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useCallback, useState } from "react";
 import { api } from "../../service/api";
 import {
   IDefaultProviderProps,
@@ -34,7 +34,7 @@ export const OccurrenceProvider = ({ children }: IDefaultProviderProps) => {
     }
   };
 
-  const getAllOccurrences = async (): Promise<IOccurrence[] | undefined> => {
+  const getAllOccurrences = useCallback(async () => {
     try {
       const response = await api.get("users/occurrences/all");
       setOccurrences(response.data);
@@ -42,14 +42,23 @@ export const OccurrenceProvider = ({ children }: IDefaultProviderProps) => {
     } catch (error) {
       console.error(error);
     }
-  };
+  }, []);
 
   const updateOccurrence = async (
     occurrenceId: number,
-    data: IOccurrence
+    data: Partial<IOccurrence>
   ): Promise<IOccurrence | undefined> => {
+    const authToken = localStorage.getItem("@TOKEN");
     try {
-      const response = await api.put(`users/occurrences/${occurrenceId}`, data);
+      const response = await api.put(
+        `users/occurrences/${occurrenceId}`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
       return response.data;
     } catch (error) {
       console.error(error);
@@ -73,6 +82,7 @@ export const OccurrenceProvider = ({ children }: IDefaultProviderProps) => {
         updateOccurrence,
         deleteOccurrence,
         occurrences,
+        setOccurrences,
       }}>
       {children}
     </OccurrenceContext.Provider>
