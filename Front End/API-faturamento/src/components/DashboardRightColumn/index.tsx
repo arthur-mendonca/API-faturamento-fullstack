@@ -13,6 +13,8 @@ import arrowDown from "../../images/svg/arrow down (Stroke).svg";
 import profilePicture from "../../images/svg/profilePicture.svg";
 import { InputFormComponent } from "../FormComponents/Input";
 import { DashboardCardComponents } from "../DashboardCards";
+import { useContext } from "react";
+import { ModalContext } from "../../context/modalContext";
 
 interface ColumnProps {
   background_color?: string;
@@ -20,6 +22,8 @@ interface ColumnProps {
 }
 
 export const DashboardRightColumn: React.FC<ColumnProps> = ({ ...props }) => {
+  const { openModal, closeModal } = useContext(ModalContext);
+
   const theme = useTheme();
   return (
     <StyledDashboardRightColumn
