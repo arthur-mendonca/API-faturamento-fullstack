@@ -5,7 +5,7 @@ module.exports = {
   async store(req, res) {
     try {
       const { id } = req.params;
-      const { name, origin, date, status } = req.body;
+      const { name, origin, date, status, description } = req.body;
 
       const user = await User.findByPk(id);
 
@@ -18,6 +18,7 @@ module.exports = {
         origin,
         date,
         status,
+        description,
         user_id: id,
       });
       return res.status(201).json({ message: "Ocorrência criada", occurrence });

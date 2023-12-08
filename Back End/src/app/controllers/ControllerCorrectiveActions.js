@@ -3,7 +3,7 @@ const Occurrence = require("../models/Ocurrence");
 
 module.exports = {
   async create(req, res) {
-    const { name } = req.body;
+    const { name, active } = req.body;
     const { id } = req.params;
 
     try {
@@ -15,6 +15,7 @@ module.exports = {
       const correctiveAction = await CorrectiveAction.create({
         occurrence_id: id,
         name,
+        active,
       });
 
       return res.status(201).json(correctiveAction);
@@ -63,7 +64,7 @@ module.exports = {
 
   async update(req, res) {
     const { id } = req.params;
-    const { name } = req.body;
+    const { name, active } = req.body;
 
     try {
       const correctiveAction = await CorrectiveAction.findByPk(id);
@@ -71,8 +72,7 @@ module.exports = {
         return res.status(404).json({ error: "Corrective action not found" });
       }
 
-      correctiveAction.name = name;
-      await correctiveAction.save();
+      await correctiveAction.update({ name, active });
 
       return res.status(200).json(correctiveAction);
     } catch (error) {

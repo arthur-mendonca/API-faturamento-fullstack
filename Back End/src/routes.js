@@ -89,7 +89,6 @@ router.delete(
 );
 
 //CORRECTIVE ACTIONS
-
 router.post(
   "/occurrences/:id/corrective-actions",
   authMiddleware,

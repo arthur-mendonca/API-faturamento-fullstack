@@ -7,7 +7,8 @@ class Occurrence extends Model {
         name: DataTypes.STRING,
         origin: DataTypes.STRING,
         date: DataTypes.DATE,
-        status: DataTypes.ENUM("em investigação", "finalizado"),
+        description: DataTypes.TEXT,
+        status: DataTypes.ENUM("Em investigação", "Finalizado"),
       },
       {
         sequelize,
