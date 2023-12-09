@@ -72,12 +72,14 @@ export const DashboardCardComponents: React.FC<CardsProps> = ({ ...props }) => {
 
         {filteredOccurrences.map((occurrence) => (
           <StyledRow
-            onClick={() => handleShowDetails(occurrence)}
             key={occurrence.id}
             id={occurrence.id?.toString()}
             className="py-3 bg-white border rounded rounded-3 mb-3 cards_text d-flex align-items-center">
-            <StyledCol xs={4} padding_left="25px">
-              {occurrence.name}
+            <StyledCol
+              xs={4}
+              padding_left="25px"
+              onClick={() => handleShowDetails(occurrence)}>
+              <span className="cursor_pointer"> {occurrence.name}</span>
             </StyledCol>
             <StyledCol xs={3}>{occurrence.origin}</StyledCol>
             <StyledCol xs={3}>

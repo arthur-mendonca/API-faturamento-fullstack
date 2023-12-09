@@ -10,6 +10,8 @@ export const StyledImg = styled.img<DetailsProps>`
 
 export const StyledCard = styled(Card)<StyleProps>`
   width: ${(props) => props.width};
+  height: ${(props) => props.height};
+  max-height: ${(props) => props.max_height};
 `;
 
 export const StyledSpan = styled.span<StyleProps>`

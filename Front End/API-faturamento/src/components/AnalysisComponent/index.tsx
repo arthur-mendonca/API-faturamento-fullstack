@@ -14,7 +14,7 @@ export const AnalysisComponent: React.FC = () => {
   }, [getAllAnalysesFromOccurrence, id]);
 
   return (
-    <StyledCard max_height="330px" height="330px">
+    <StyledCard height="330px">
       <StyledCard.Header style={{ backgroundColor: "white" }}>
         <StyledCard.Title className="details_title_h1">
           Análise da causa

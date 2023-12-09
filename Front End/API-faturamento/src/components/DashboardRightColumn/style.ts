@@ -17,6 +17,7 @@ export const StyledDashboardRightColumn = styled(Col)<ColumnProps>`
   justify-content: ${(props) => props.justify_content};
   max-height: ${(props) => props.max_height};
   margin-top: ${(props) => props.margin_top};
+  max-width: ${(props) => props.max_width};
 
   @media (min-width: 1200px) {
     justify-content: normal;

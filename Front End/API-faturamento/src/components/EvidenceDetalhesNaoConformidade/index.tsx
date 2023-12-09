@@ -33,7 +33,7 @@ export const DetalhesNaoConformidadeCard: React.FC<DetalhesProps> = () => {
 
   return (
     <>
-      <StyledCard className="d-flex flex-column">
+      <StyledCard className="d-flex flex-column" height="700px">
         <StyledCard.Header
           style={{ backgroundColor: "white" }}
           className="d-flex flex-row justify-content-between align-items-center">
@@ -117,43 +117,47 @@ export const DetalhesNaoConformidadeCard: React.FC<DetalhesProps> = () => {
               <StyledSpan
                 className="d-flex flex-column  overflow-auto flex-wrap"
                 max_heigth="300px">
-                {evidenceResponse.evidences.map((evidence, index) => (
-                  <StyledCard.Text key={index} id={evidence.id.toString()}>
-                    {evidence.filename.endsWith(".png") && (
-                      <span className="d-flex flex-column p-2 ">
-                        <img
-                          src={evidence.fileUrl}
-                          alt="Evidência"
-                          style={{ maxWidth: "100px", maxHeight: "100px" }}
-                        />
-                        <a
-                          className="view_evidences_file"
-                          href={evidence.fileUrl}
-                          target="_blank"
-                          rel="noopener noreferrer">
-                          Visualizar imagem
-                        </a>
-                      </span>
-                    )}
+                {evidenceResponse.evidences.length === 0 ? (
+                  <p>Nenhuma evidência cadastrada</p>
+                ) : (
+                  evidenceResponse.evidences.map((evidence, index) => (
+                    <StyledCard.Text key={index} id={evidence.id.toString()}>
+                      {evidence.filename.endsWith(".png") && (
+                        <span className="d-flex flex-column p-2 ">
+                          <img
+                            src={evidence.fileUrl}
+                            alt="Evidência"
+                            style={{ maxWidth: "100px", maxHeight: "100px" }}
+                          />
+                          <a
+                            className="view_evidences_file"
+                            href={evidence.fileUrl}
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            Visualizar imagem
+                          </a>
+                        </span>
+                      )}
 
-                    {evidence.filename.endsWith(".pdf") && (
-                      <span className="d-flex flex-column">
-                        <img
-                          src={pdfIcon}
-                          alt="Evidência"
-                          style={{ maxWidth: "100px" }}
-                        />
-                        <a
-                          className="view_evidences_file"
-                          href={evidence.fileUrl}
-                          target="_blank"
-                          rel="noopener noreferrer">
-                          Visualizar PDF
-                        </a>
-                      </span>
-                    )}
-                  </StyledCard.Text>
-                ))}
+                      {evidence.filename.endsWith(".pdf") && (
+                        <span className="d-flex flex-column">
+                          <img
+                            src={pdfIcon}
+                            alt="Evidência"
+                            style={{ maxWidth: "100px" }}
+                          />
+                          <a
+                            className="view_evidences_file"
+                            href={evidence.fileUrl}
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            Visualizar PDF
+                          </a>
+                        </span>
+                      )}
+                    </StyledCard.Text>
+                  ))
+                )}
               </StyledSpan>
             </>
           )}

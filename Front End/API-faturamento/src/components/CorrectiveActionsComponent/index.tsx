@@ -31,7 +31,7 @@ export const CorrectiveActionsComponent: React.FC = () => {
   };
 
   return (
-    <StyledCard max_heigth="390px" height="346px">
+    <StyledCard height="346px">
       <StyledCard.Header style={{ backgroundColor: "white" }}>
         <StyledCard.Title className="details_title_h1">
           Ações corretivas

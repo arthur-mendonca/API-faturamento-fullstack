@@ -25,10 +25,11 @@ export const DetailsPageLayout: React.FC = () => {
   return (
     <StyledContainer
       fluid
-      className="px-4"
+      className="px-4 d-flex flex-column justify-center"
       margin_left="-20px"
       // background_color="aquamarine"
-    >
+      height="100%"
+      max_width="80rem">
       <TitleWrapper
         display="flex"
         flex_direction="row"

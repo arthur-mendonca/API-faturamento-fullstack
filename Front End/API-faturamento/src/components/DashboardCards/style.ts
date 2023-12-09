@@ -31,8 +31,6 @@ export const StyledRow = styled(Row)<CardsProps>`
   margin-top: ${(props) => props.margin_top};
   color: ${(props) => props.color};
   padding: ${(props) => props.padding};
-
-  cursor: pointer;
 `;
 
 export const StyledCol = styled(Col)<CardsProps>`
@@ -53,6 +51,10 @@ export const StyledCol = styled(Col)<CardsProps>`
 
   img {
     margin-left: 10px;
+    cursor: pointer;
+  }
+
+  .cursor_pointer {
     cursor: pointer;
   }
 `;

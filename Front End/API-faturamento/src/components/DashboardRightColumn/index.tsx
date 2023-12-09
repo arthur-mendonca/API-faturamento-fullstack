@@ -38,7 +38,8 @@ export const DashboardRightColumn: React.FC<ColumnProps> = ({ ...props }) => {
       z_index="0"
       position="relative"
       display="flex"
-      justify_content="center">
+      justify_content="center"
+      max_width="80rem">
       <InnerDataWrapper
         margin_right="-20px"
         width="93%"
