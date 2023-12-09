@@ -14,44 +14,48 @@ export const AnalysisComponent: React.FC = () => {
   }, [getAllAnalysesFromOccurrence, id]);
 
   return (
-    <StyledCard max_height="340px">
+    <StyledCard max_height="330px" height="330px">
       <StyledCard.Header style={{ backgroundColor: "white" }}>
         <StyledCard.Title className="details_title_h1">
           Análise da causa
         </StyledCard.Title>
       </StyledCard.Header>
       <StyledCardBody overflowY="auto">
-        {analysesResponse?.analysis.map((analysis) => (
-          <>
-            <StyledCard.Title className="details_title">
-              Descrição da análise
-            </StyledCard.Title>
-            <StyledCard.Text className="details_card">
-              {analysis.description}
-            </StyledCard.Text>
-            <span>
-              <StyledCard.Title className="details_title_h1">
-                Anexos
+        {analysesResponse?.analysis.length === 0 ? (
+          <StyledCard.Text>Nenhuma análise cadsatrada</StyledCard.Text>
+        ) : (
+          analysesResponse?.analysis.map((analysis) => (
+            <>
+              <StyledCard.Title className="details_title">
+                Descrição da análise
               </StyledCard.Title>
-              {analysis.fileUrl && (
-                <span className="d-flex flex-column">
-                  <img
-                    src={analysis.fileUrl}
-                    alt="Análise"
-                    style={{ maxWidth: "100px", maxHeight: "100px" }}
-                  />
-                  <a
-                    className="view_evidences_file"
-                    href={analysis.fileUrl}
-                    target="_blank"
-                    rel="noopener noreferrer">
-                    Ver arquivo
-                  </a>
-                </span>
-              )}
-            </span>
-          </>
-        ))}
+              <StyledCard.Text className="details_card">
+                {analysis.description}
+              </StyledCard.Text>
+              <span>
+                <StyledCard.Title className="details_title_h1">
+                  Anexos
+                </StyledCard.Title>
+                {analysis.fileUrl && (
+                  <span className="d-flex flex-column">
+                    <img
+                      src={analysis.fileUrl}
+                      alt="Análise"
+                      style={{ maxWidth: "100px", maxHeight: "100px" }}
+                    />
+                    <a
+                      className="view_evidences_file"
+                      href={analysis.fileUrl}
+                      target="_blank"
+                      rel="noopener noreferrer">
+                      Ver arquivo
+                    </a>
+                  </span>
+                )}
+              </span>
+            </>
+          ))
+        )}
       </StyledCardBody>
     </StyledCard>
   );

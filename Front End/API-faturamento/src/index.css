@@ -149,3 +149,10 @@
 .view_evidences_file {
   font-size: 12px;
 }
+
+.corrective_actions_text {
+  font-family: "Poppins";
+  font-size: 14px;
+  color: var(--black);
+  font-weight: 700;
+}

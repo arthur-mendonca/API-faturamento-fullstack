@@ -13,6 +13,7 @@ import { DetalhesNaoConformidadeCard } from "../../components/EvidenceDetalhesNa
 import { useContext } from "react";
 import { OccurrenceContext } from "../../context/occurrencesContext";
 import { AnalysisComponent } from "../../components/AnalysisComponent";
+import { CorrectiveActionsComponent } from "../../components/CorrectiveActionsComponent";
 
 export const DetailsPageLayout: React.FC = () => {
   const { occurrence } = useContext(OccurrenceContext);
@@ -79,8 +80,11 @@ export const DetailsPageLayout: React.FC = () => {
           </StyledRow>
 
           {/* Linha Inferior */}
-          <StyledRow height="50%" background_color="aqua">
-            <StyledCol md={12}> </StyledCol>
+          <StyledRow height="50%">
+            <StyledCol md={12}>
+              {" "}
+              <CorrectiveActionsComponent />
+            </StyledCol>
           </StyledRow>
         </StyledCol>
       </StyledRow>
