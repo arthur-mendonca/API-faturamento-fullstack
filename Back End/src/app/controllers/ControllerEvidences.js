@@ -20,6 +20,9 @@ module.exports = {
       const evidence = await Evidence.create({
         filename: file.filename,
         occurrence_id: id,
+        fileUrl: `${req.protocol}://${req.get("host")}/uploads/${
+          file.filename
+        }`,
       });
 
       return res.status(201).json(evidence);
