@@ -22,6 +22,9 @@ module.exports = {
         filename: file.filename,
         occurrence_id: id,
         description: description,
+        fileUrl: `${req.protocol}://${req.get("host")}/uploads/${
+          file.filename
+        }`,
       });
 
       await analysis.save();
@@ -46,13 +49,20 @@ module.exports = {
   allAnalysisFromOccurrence: async (req, res) => {
     try {
       const { id } = req.params;
-      const occurrence = await Occurrence.findByPk(id, {
-        include: { association: "analysis" },
-      });
+      const occurrence = await Occurrence.findByPk(id);
       if (!occurrence) {
         return res.status(404).json({ error: "Occurrence not found" });
       }
-      return res.status(200).json(occurrence);
+      const analysis = await Analysis.findAll({
+        where: { occurrence_id: id },
+      });
+
+      const response = {
+        occurrence: occurrence,
+        analysis: analysis,
+      };
+
+      return res.status(200).json(response);
     } catch (error) {
       console.log(error);
       return res.status(500).json({ error: "Internal server error" });

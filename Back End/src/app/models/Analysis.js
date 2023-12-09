@@ -6,6 +6,7 @@ class Analysis extends Model {
       {
         filename: DataTypes.STRING,
         description: DataTypes.STRING,
+        fileUrl: DataTypes.STRING,
       },
       {
         sequelize,

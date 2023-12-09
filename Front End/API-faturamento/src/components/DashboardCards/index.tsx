@@ -13,12 +13,16 @@ import { CardsProps } from "./types";
 import { ModalContext } from "../../context/modalContext";
 import { IOccurrence } from "../../context/occurrencesContext/types";
 import { EditDeleteOccurrenceModal } from "../Modals/EditDeleteOccurrence";
+import { useNavigate } from "react-router-dom";
+import { EvidenceContext } from "../../context/evidencesContext";
 
 export const DashboardCardComponents: React.FC<CardsProps> = ({ ...props }) => {
   const { getAllOccurrences, occurrences, setOccurrence } =
     useContext(OccurrenceContext);
+  const { getAllEvidencesFromOccurrence } = useContext(EvidenceContext);
 
   const userId = localStorage.getItem("@USERID");
+  const navigate = useNavigate();
 
   const { openModal } = useContext(ModalContext);
 
@@ -38,6 +42,12 @@ export const DashboardCardComponents: React.FC<CardsProps> = ({ ...props }) => {
     openModal("modal", <EditDeleteOccurrenceModal />);
     console.log(occurrence);
     setOccurrence(occurrence);
+  };
+
+  const handleShowDetails = async (occurrence: IOccurrence) => {
+    console.log(occurrence);
+    await getAllEvidencesFromOccurrence(occurrence.id!);
+    navigate(`/details/${occurrence.id}`);
   };
 
   return (
@@ -62,6 +72,7 @@ export const DashboardCardComponents: React.FC<CardsProps> = ({ ...props }) => {
 
         {filteredOccurrences.map((occurrence) => (
           <StyledRow
+            onClick={() => handleShowDetails(occurrence)}
             key={occurrence.id}
             id={occurrence.id?.toString()}
             className="py-3 bg-white border rounded rounded-3 mb-3 cards_text d-flex align-items-center">

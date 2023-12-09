@@ -31,6 +31,8 @@ export const StyledRow = styled(Row)<CardsProps>`
   margin-top: ${(props) => props.margin_top};
   color: ${(props) => props.color};
   padding: ${(props) => props.padding};
+
+  cursor: pointer;
 `;
 
 export const StyledCol = styled(Col)<CardsProps>`
@@ -72,4 +74,5 @@ export const StatusWrapper = styled.span<CardsProps>`
   width: ${(props) => props.width};
   min-height: ${(props) => props.min_height};
   border-radius: ${(props) => props.border_radius};
+  padding: ${(props) => props.padding};
 `;

@@ -19,7 +19,7 @@ export const RoutesMain = () => {
         <Route element={<RegisterPage />} path="/" />
         <Route element={<ProtectedRoute />}>
           <Route element={<DashboardPage />} path="dashboard" />
-          <Route element={<DetailsPage />} path="details" />
+          <Route element={<DetailsPage />} path="details/:id" />
         </Route>
       </Routes>
     </>

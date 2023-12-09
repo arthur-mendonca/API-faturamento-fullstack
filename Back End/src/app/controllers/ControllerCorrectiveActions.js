@@ -15,7 +15,7 @@ module.exports = {
       const correctiveAction = await CorrectiveAction.create({
         occurrence_id: id,
         name,
-        active,
+        active: false,
       });
 
       return res.status(201).json(correctiveAction);
