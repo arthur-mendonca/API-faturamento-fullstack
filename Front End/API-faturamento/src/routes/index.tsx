@@ -6,6 +6,7 @@ import { ProtectedRoute } from "../pages/protectedRoute";
 import { useContext } from "react";
 import { ModalContext } from "../context/modalContext";
 import { ModalComponent } from "../components/ModalComponent";
+import { DetailsPage } from "../pages/DetailsPage";
 
 export const RoutesMain = () => {
   const { activeModal } = useContext(ModalContext);
@@ -18,6 +19,7 @@ export const RoutesMain = () => {
         <Route element={<RegisterPage />} path="/" />
         <Route element={<ProtectedRoute />}>
           <Route element={<DashboardPage />} path="dashboard" />
+          <Route element={<DetailsPage />} path="details" />
         </Route>
       </Routes>
     </>

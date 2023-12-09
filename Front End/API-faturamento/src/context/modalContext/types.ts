@@ -1,5 +1,9 @@
 export interface IModalContext {
-  openModal: (modalName: string, content: React.ReactNode) => void;
+  openModal: (
+    modalName: string,
+    content: React.ReactNode,
+    size?: "sm" | "lg" | "xl"
+  ) => void;
 
   closeModal: () => void;
 
@@ -10,4 +14,6 @@ export interface IModalContext {
   modalContent: React.ReactNode;
 
   setModalContent: React.Dispatch<React.SetStateAction<React.ReactNode>>;
+
+  modalSize: "sm" | "lg" | "xl";
 }

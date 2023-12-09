@@ -14,6 +14,7 @@ export interface ModalProps {
   padding?: string;
   margin_bottom?: string;
   margin_top?: string;
+  children?: React.ReactNode;
 }
 
 export const StyledModal = styled(Modal)<ModalProps>`

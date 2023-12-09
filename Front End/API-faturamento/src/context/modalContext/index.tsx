@@ -10,12 +10,17 @@ export const ModalProvider = ({ children }: IDefaultProviderProps) => {
   const [modalContent, setModalContent] = useState<React.ReactNode | null>(
     null
   );
+  const [modalSize, setModalSize] = useState<"sm" | "lg" | "xl">("sm");
 
-  const openModal = (modalName: string, content: React.ReactNode) => {
-    console.log(`Abrindo modal ${modalName}`);
+  const openModal = (
+    modalName: string,
+    content: React.ReactNode,
+    size: "sm" | "lg" | "xl" = "sm"
+  ) => {
     setIsModalOpen(true);
     setActiveModal(modalName);
     setModalContent(content);
+    setModalSize(size);
   };
 
   const closeModal = () => {
@@ -33,6 +38,7 @@ export const ModalProvider = ({ children }: IDefaultProviderProps) => {
         closeModal,
         modalContent,
         setModalContent,
+        modalSize,
       }}>
       {children}
     </ModalContext.Provider>

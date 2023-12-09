@@ -12,7 +12,7 @@ import {
 } from "./style";
 
 export const DeleteModal: React.FC<ModalProps> = ({ ...props }) => {
-  const { closeModal, isModalOpen } = useContext(ModalContext);
+  const { closeModal } = useContext(ModalContext);
   const { occurrence, getAllOccurrences, deleteOccurrence } =
     useContext(OccurrenceContext);
 

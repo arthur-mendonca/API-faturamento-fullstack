@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Image from "react-bootstrap/Image";
 import Col from "react-bootstrap/Col";
 
-interface MenuProps {
+export interface MenuProps {
   background_color?: string;
   height?: string;
   border_radius?: string;

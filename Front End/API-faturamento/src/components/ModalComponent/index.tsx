@@ -4,7 +4,8 @@ import { ModalContext } from "../../context/modalContext";
 import { ModalProps, StyledModal } from "./style";
 
 export const ModalComponent: React.FC<ModalProps> = ({ ...props }) => {
-  const { closeModal, isModalOpen, modalContent } = useContext(ModalContext);
+  const { closeModal, isModalOpen, modalContent, modalSize } =
+    useContext(ModalContext);
 
   return (
     <StyledModal
@@ -14,7 +15,7 @@ export const ModalComponent: React.FC<ModalProps> = ({ ...props }) => {
       onHide={closeModal}
       border_radius={"20px"}
       border={"none"}
-      size="sm">
+      size={modalSize}>
       {modalContent}
     </StyledModal>
   );
