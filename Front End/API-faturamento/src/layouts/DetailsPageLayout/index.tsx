@@ -9,9 +9,13 @@ import arrowDown from "../../images/svg/arrow down (Stroke).svg";
 import { useTheme } from "styled-components";
 import backButton from "../../images/svg/back.svg";
 import { useNavigate } from "react-router-dom";
-import { DetalhesNaoConformidadeCard } from "../../components/DetalhesNaoConformidade";
+import { DetalhesNaoConformidadeCard } from "../../components/EvidenceDetalhesNaoConformidade";
+import { useContext } from "react";
+import { OccurrenceContext } from "../../context/occurrencesContext";
+import { AnalysisComponent } from "../../components/AnalysisComponent";
 
 export const DetailsPageLayout: React.FC = () => {
+  const { occurrence } = useContext(OccurrenceContext);
   const navigate = useNavigate();
   const goBack = () => {
     navigate(-1);
@@ -22,13 +26,15 @@ export const DetailsPageLayout: React.FC = () => {
       fluid
       className="px-4"
       margin_left="-20px"
-      background_color="aquamarine">
+      // background_color="aquamarine"
+    >
       <TitleWrapper
         display="flex"
         flex_direction="row"
         justify_content="space-between"
         margin_top="3%"
-        align_items="center">
+        align_items="center"
+        margin_bottom="3rem">
         <StyledSpan className="d-flex" gap="20px">
           <img
             src={backButton}
@@ -56,26 +62,25 @@ export const DetailsPageLayout: React.FC = () => {
 
       <StyledRow>
         {/* Primeira Coluna */}
-        <StyledCol lg={3} xl={2} className="min-vh-100">
-          <h1>Primeira Coluna</h1>
-          <DetalhesNaoConformidadeCard />
+        <StyledCol lg={6} xl={6}>
+          {/* <h1>Primeira Coluna</h1> */}
+          <DetalhesNaoConformidadeCard occurrence={occurrence!} />
         </StyledCol>
 
         {/* Segunda Coluna */}
-        <StyledCol lg={9} xl={10}>
-          <StyledRow>
+        <StyledCol lg={6} xl={6}>
+          <StyledRow
+            height="50%"
+            // background_color="bisque
+          >
             <StyledCol md={12}>
-              {" "}
-              <h1>Linha de cima</h1>
+              <AnalysisComponent />
             </StyledCol>
           </StyledRow>
 
           {/* Linha Inferior */}
-          <StyledRow>
-            <StyledCol md={12}>
-              {" "}
-              <h1>Linha debaixo</h1>
-            </StyledCol>
+          <StyledRow height="50%" background_color="aqua">
+            <StyledCol md={12}> </StyledCol>
           </StyledRow>
         </StyledCol>
       </StyledRow>

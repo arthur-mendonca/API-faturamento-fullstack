@@ -1,3 +1,4 @@
+import { AnalysisProvider } from "./analysisContext";
 import { EvidenceProvider } from "./evidencesContext";
 import { ModalProvider } from "./modalContext";
 import { OccurrenceProvider } from "./occurrencesContext";
@@ -10,7 +11,9 @@ export const ProvidersComponent: React.FC<{
     <OccurrenceProvider>
       <UserProvider>
         <ModalProvider>
-          <EvidenceProvider>{children}</EvidenceProvider>
+          <EvidenceProvider>
+            <AnalysisProvider>{children}</AnalysisProvider>
+          </EvidenceProvider>
         </ModalProvider>
       </UserProvider>
     </OccurrenceProvider>

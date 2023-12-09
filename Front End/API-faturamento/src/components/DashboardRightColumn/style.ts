@@ -41,6 +41,7 @@ export const TitleWrapper = styled.div<ColumnProps>`
   justify-content: ${(props) => props.justify_content};
   margin-top: ${(props) => props.margin_top};
   align-items: ${(props) => props.align_items};
+  margin-bottom: ${(props) => props.margin_bottom};
 `;
 
 export const SearchBarWrapper = styled.div<ColumnProps>`

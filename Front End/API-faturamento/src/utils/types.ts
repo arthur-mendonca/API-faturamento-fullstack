@@ -1,4 +1,4 @@
-export interface AmalgamatedStyleProps {
+export interface StyleProps {
   // Propriedades de Posicionamento
   position?: string;
   top?: string;
@@ -16,6 +16,9 @@ export interface AmalgamatedStyleProps {
   // Propriedades de Tamanho
   width?: string;
   height?: string;
+  max_heigth?: string;
+  overflowY?: string;
+  overflowX?: string;
 
   // Propriedades de Margem
   margintop?: string;
@@ -45,4 +48,8 @@ export interface AmalgamatedStyleProps {
   textmaxwidth?: string;
   required?: string;
   labelfontweight?: string;
+
+  //outros tipos
+
+  status?: string;
 }

@@ -128,3 +128,24 @@
 .modal_occurrence_name {
   font-weight: 700;
 }
+
+.details_card {
+  font-family: "Poppins";
+  font-size: 14px;
+  color: #000000;
+  font-weight: 500;
+}
+
+.details_title {
+  color: var(--gray);
+}
+
+.details_title_h1 {
+  font-family: "Poppins";
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.view_evidences_file {
+  font-size: 12px;
+}

@@ -16,6 +16,7 @@ nav, section{
     text-decoration: none;
     box-sizing: border-box;
     font-family: ${(props) => props.theme.fonts.poppins};
+   
     
 }
 
@@ -54,6 +55,8 @@ html {
     background-color: var(--background);
     color: var(--black);
     font-size: ${(props) => props.theme.fontSizes.normal};
+  
+
   }
   
   button {
@@ -61,6 +64,7 @@ html {
     border-radius: ${(props) => props.theme.buttonBorderRadius};
   }
   
+
 
 `;
 

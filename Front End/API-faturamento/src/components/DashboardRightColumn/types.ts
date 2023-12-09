@@ -13,6 +13,7 @@ export interface ColumnProps {
   align_items?: string;
   margin_right?: string;
   margin_top?: string;
+  margin_bottom?: string;
   max_height?: string;
   gap?: string;
   left?: string;
