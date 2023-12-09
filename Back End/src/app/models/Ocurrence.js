@@ -1,7 +1,7 @@
 const { Model, DataTypes } = require("sequelize");
 
 class Occurrence extends Model {
-  static init(sequelize) {
+  static async init(sequelize) {
     super.init(
       {
         name: DataTypes.STRING,
@@ -21,12 +21,14 @@ class Occurrence extends Model {
   static associate(models) {
     this.belongsTo(models.User, { foreignKey: "user_id", as: "user" });
   }
+
   static associate(models) {
     this.hasMany(models.Evidence, {
       foreignKey: "occurrence_id",
       as: "evidences",
     });
   }
+
   static associate(models) {
     this.hasMany(models.Analysis, {
       foreignKey: "occurrence_id",
