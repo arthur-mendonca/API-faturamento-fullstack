@@ -16,8 +16,6 @@ module.exports = {
       const occurrence = await Occurrence.create({
         name,
         origin,
-        date,
-        status,
         description,
         user_id: id,
       });
