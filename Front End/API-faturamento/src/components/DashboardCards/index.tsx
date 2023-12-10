@@ -40,7 +40,6 @@ export const DashboardCardComponents: React.FC<CardsProps> = ({ ...props }) => {
 
   const handleShowModal = (occurrence: IOccurrence) => {
     openModal("modal", <EditDeleteOccurrenceModal />);
-    console.log(occurrence);
     setOccurrence(occurrence);
   };
 

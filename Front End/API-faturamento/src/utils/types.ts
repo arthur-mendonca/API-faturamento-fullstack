@@ -10,8 +10,11 @@ export interface StyleProps {
   display?: string;
   flexdirection?: string;
   justifycontent?: string;
+  justify_content?: string;
   alignitems?: string;
+  align_items?: string;
   gap?: string;
+  align_self?: string;
 
   // Propriedades de Tamanho
   width?: string;
@@ -24,10 +27,13 @@ export interface StyleProps {
   margintop?: string;
   marginbottom?: string;
   marginbottom_mobile?: string;
+  margin_left?: string;
+  margin_right?: string;
 
   // Propriedades de Estilo de Texto
   color?: string;
   fontsize?: string;
+  font_size?: string;
   fontweight?: string;
 
   // Propriedades de Estilo de Borda e Fundo
@@ -52,4 +58,5 @@ export interface StyleProps {
   //outros tipos
 
   status?: string;
+  fill?: string;
 }

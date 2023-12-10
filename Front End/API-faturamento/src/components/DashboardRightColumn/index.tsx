@@ -15,6 +15,7 @@ import { InputFormComponent } from "../FormComponents/Input";
 import { DashboardCardComponents } from "../DashboardCards";
 import { useContext } from "react";
 import { ModalContext } from "../../context/modalContext";
+import { CreateOccurrenceModal } from "../Modals/createOccurrence";
 
 interface ColumnProps {
   background_color?: string;
@@ -25,8 +26,8 @@ export const DashboardRightColumn: React.FC<ColumnProps> = ({ ...props }) => {
   const { openModal } = useContext(ModalContext);
 
   const handleShowModal = () => {
-    console.log("open modal");
-    openModal("createOccurrence");
+    // console.log("open modal");
+    openModal("modal", <CreateOccurrenceModal />, "lg");
   };
   const theme = useTheme();
   return (

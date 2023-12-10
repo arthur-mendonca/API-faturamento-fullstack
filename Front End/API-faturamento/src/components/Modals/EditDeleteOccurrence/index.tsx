@@ -15,7 +15,7 @@ import { DeleteModal } from "../deleteOccurrence";
 export const EditDeleteOccurrenceModal: React.FC<ModalProps> = ({
   ...props
 }) => {
-  const { closeModal, isModalOpen, openModal } = useContext(ModalContext);
+  const { closeModal, openModal } = useContext(ModalContext);
 
   const handleOpen = () => {
     openModal("modal", <DeleteModal />);

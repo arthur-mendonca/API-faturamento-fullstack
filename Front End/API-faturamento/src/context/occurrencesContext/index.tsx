@@ -19,7 +19,11 @@ export const OccurrenceProvider = ({ children }: IDefaultProviderProps) => {
     data: IOccurrence
   ): Promise<IOccurrence | undefined> => {
     try {
-      const response = await api.post(`users/occurrences/${userId}`, data);
+      const response = await api.post(`users/occurrences/${userId}`, data, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
       return response.data.occurrence;
     } catch (error) {
       console.error(error);

@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import { StyleProps } from "../../utils/types";
 
-export interface ButtonProps {
+export interface ButtonProps extends StyleProps {
   background?: string;
   color?: string;
   hoverBackground?: string;
@@ -31,6 +32,8 @@ export const StyledButton = styled.button<ButtonProps>`
   align-items: ${(props) => props.align_items};
   gap: ${(props) => props.gap};
   width: ${(props) => props.width};
+  align-self: ${(props) => props.align_self};
+  margin-left: ${(props) => props.margin_left};
 
   &:hover {
     background: ${(props) => props.hoverBackground};
