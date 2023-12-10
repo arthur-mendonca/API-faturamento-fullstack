@@ -5,8 +5,6 @@ export interface IDefaultProviderProps {
 export interface IOccurrenceCreate {
   name: string;
   origin: string;
-  date: string;
-  status: string;
   description?: string;
 }
 
@@ -41,4 +39,6 @@ export interface IOccurrence extends IOccurrenceCreate {
   user_id?: number;
   createdAt?: string | Date;
   updatedAt?: string | Date;
+  status?: "Em investigação" | "Finalizado";
+  date?: string | Date;
 }

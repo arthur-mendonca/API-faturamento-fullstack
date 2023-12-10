@@ -20,10 +20,12 @@ export interface ButtonProps extends StyleProps {
 
 export const StyledButton = styled.button<ButtonProps>`
   padding: ${(props) => props.padding || "10px 20px"};
+
   border-radius: ${(props) =>
     props.theme.buttons.borderRadius.default || props.border_radius};
+
   border: ${(props) => props.border || "none"};
-  cursor: pointer;
+
   background: ${(props) => props.background || "var(--teal)"};
   height: ${(props) => props.height || "48px"};
   box-shadow: ${(props) => props.boxshadow || "none"};
@@ -34,6 +36,8 @@ export const StyledButton = styled.button<ButtonProps>`
   width: ${(props) => props.width};
   align-self: ${(props) => props.align_self};
   margin-left: ${(props) => props.margin_left};
+
+  cursor: ${(props) => props.cursor || "pointer"};
 
   &:hover {
     background: ${(props) => props.hoverBackground};

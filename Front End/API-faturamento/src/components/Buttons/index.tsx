@@ -7,6 +7,8 @@ interface ButtonPropsComponent extends ButtonProps {
   style?: React.CSSProperties;
   className?: string;
   children?: React.ReactNode;
+  disabled?: boolean;
+  type?: "button" | "submit" | "reset";
 }
 
 export const ButtonComponent: React.FC<ButtonPropsComponent> = ({

@@ -9,6 +9,7 @@ export interface StyleProps {
   // Propriedades de Exibição e Flexbox
   display?: string;
   flexdirection?: string;
+  flex_direction?: string;
   justifycontent?: string;
   justify_content?: string;
   alignitems?: string;
@@ -30,6 +31,13 @@ export interface StyleProps {
   margin_left?: string;
   margin_right?: string;
 
+  //Propriedades de padding
+  padding?: string;
+  padding_top?: string;
+  padding_bottom?: string;
+  padding_left?: string;
+  padding_right?: string;
+
   // Propriedades de Estilo de Texto
   color?: string;
   fontsize?: string;
@@ -39,9 +47,11 @@ export interface StyleProps {
   // Propriedades de Estilo de Borda e Fundo
   border?: string;
   background?: string;
+  background_color?: string;
   inputborderwidth?: string;
   inputbordercolor?: string;
   inputborderradius?: string;
+  border_radius?: string;
 
   // Propriedades de Cursor e Ícone
   cursor?: string;

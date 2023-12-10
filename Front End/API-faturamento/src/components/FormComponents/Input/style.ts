@@ -15,4 +15,5 @@ export const StyledInput = styled(Form.Control)<InputProps>`
   border-radius: ${(props) => props.borderradius || "10px"};
   padding: ${(props) => props.padding || "25px 15px"};
   width: ${(props) => props.width};
+  height: ${(props) => props.height};
 `;

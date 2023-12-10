@@ -1,6 +1,6 @@
 import { UseFormRegisterReturn } from "react-hook-form";
 import { StyledInput } from "./style";
-import { ElementType } from "react";
+import { ElementType, forwardRef } from "react";
 
 interface InputProps {
   placeholder?: string;
@@ -21,9 +21,9 @@ interface InputProps {
   style?: React.CSSProperties;
 }
 
-export const InputFormComponent: React.FC<InputProps> = ({
-  register,
-  ...props
-}) => {
-  return <StyledInput {...register} {...props} />;
-};
+export const InputUploadFormComponent = forwardRef<
+  HTMLInputElement,
+  InputProps
+>(({ register, ...props }, ref) => {
+  return <StyledInput ref={ref} {...props} {...register} />;
+});

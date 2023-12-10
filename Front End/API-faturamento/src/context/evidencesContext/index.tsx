@@ -19,7 +19,7 @@ export const EvidenceProvider = ({ children }: IDefaultProviderProps) => {
 
   const createEvidence = async (
     occurrenceId: number,
-    data: IEvidence
+    data: string | File
   ): Promise<IEvidence | undefined> => {
     try {
       const response = await api.post(

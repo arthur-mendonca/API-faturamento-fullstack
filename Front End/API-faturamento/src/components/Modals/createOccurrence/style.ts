@@ -2,22 +2,11 @@ import Modal from "react-bootstrap/Modal";
 import styled from "styled-components";
 import CloseButton from "react-bootstrap/CloseButton";
 import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 import { StyleProps } from "../../../utils/types";
+import Card from "react-bootstrap/Card";
 
 export const StyledModal = styled(Modal)<StyleProps>``;
-
-export const StyledModalHeader = styled(Modal.Header)<StyleProps>`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-export const CustomHeader = styled.header<StyleProps>`
-  justify-content: space-between;
-  padding: 0 1rem;
-  border-bottom: solid 1px rgba(0, 0, 0, 0.175);
-  padding-bottom: 1rem;
-`;
 
 export const StyledModalBody = styled(Modal.Body)<StyleProps>``;
 
@@ -28,6 +17,13 @@ export const StyledSpan = styled.span<StyleProps>`
   gap: ${(props) => props.gap};
   position: ${(props) => props.position};
   right: ${(props) => props.right};
+  width: ${(props) => props.width};
+  background-color: ${(props) => props.background_color};
+  border-radius: ${(props) => props.border_radius};
+  padding: ${(props) => props.padding};
+  flex-direction: ${(props) => props.flex_direction};
+  gap: ${(props) => props.gap};
+  border: ${(props) => props.border};
 `;
 
 export const StyledCloseButton = styled(CloseButton)<StyleProps>`
@@ -37,3 +33,8 @@ export const StyledCloseButton = styled(CloseButton)<StyleProps>`
 export const StyledButton = styled(Button)<StyleProps>``;
 
 export const StyledModalFooter = styled(Modal.Footer)<StyleProps>``;
+
+export const StyledForm = styled(Form)<StyleProps>``;
+export const StyledFormGroup = styled(Form.Group)<StyleProps>``;
+
+export const StyledCard = styled(Card)<StyleProps>``;
