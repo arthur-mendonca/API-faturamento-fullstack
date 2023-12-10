@@ -3,7 +3,7 @@ const Occurrence = require("../models/Ocurrence");
 
 module.exports = {
   async create(req, res) {
-    const { name, active } = req.body;
+    const correctiveActionsData = req.body;
     const { id } = req.params;
 
     try {
@@ -12,13 +12,15 @@ module.exports = {
         return res.status(404).json({ error: "Occurrence not found" });
       }
 
-      const correctiveAction = await CorrectiveAction.create({
+      const enrichedData = correctiveActionsData.map((action) => ({
+        ...action,
         occurrence_id: id,
-        name,
         active: false,
-      });
+      }));
 
-      return res.status(201).json(correctiveAction);
+      const correctiveActions = await CorrectiveAction.bulkCreate(enrichedData);
+
+      return res.status(201).json(correctiveActions);
     } catch (error) {
       console.log(error);
       return res.status(500).json({ error: "Internal server error" });
