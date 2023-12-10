@@ -1,7 +1,7 @@
 import React from "react";
 import { ButtonProps, StyledButton } from "./style";
 
-interface ButtonPropsComponent extends ButtonProps {
+export interface ButtonPropsComponent extends ButtonProps {
   name?: string;
   onClick?: () => void;
   style?: React.CSSProperties;
@@ -9,6 +9,7 @@ interface ButtonPropsComponent extends ButtonProps {
   children?: React.ReactNode;
   disabled?: boolean;
   type?: "button" | "submit" | "reset";
+  statusActive?: boolean;
 }
 
 export const ButtonComponent: React.FC<ButtonPropsComponent> = ({

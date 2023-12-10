@@ -23,7 +23,7 @@ export const StyledModal = styled(Modal)<ModalProps>`
     align-items: center;
     justify-content: center;
     position: relative;
-    top: 200px;
+    top: 50px;
     left: 60px;
   }
 

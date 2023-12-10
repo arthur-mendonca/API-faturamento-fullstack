@@ -60,6 +60,7 @@ export interface StyleProps {
   // Propriedades de Estilo de Caixa de Entrada (Input)
   inputfontsize?: string;
   inputboxshadow?: string;
+  boxshadow?: string;
   inputmaxheight?: string;
   textmaxwidth?: string;
   required?: string;
@@ -69,4 +70,6 @@ export interface StyleProps {
 
   status?: string;
   fill?: string;
+  hoverBackground?: string;
+  statusActive?: boolean;
 }

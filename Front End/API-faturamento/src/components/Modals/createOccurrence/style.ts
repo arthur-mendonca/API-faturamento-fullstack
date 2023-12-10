@@ -24,17 +24,24 @@ export const StyledSpan = styled.span<StyleProps>`
   flex-direction: ${(props) => props.flex_direction};
   gap: ${(props) => props.gap};
   border: ${(props) => props.border};
+  margin-top: ${(props) => props.margintop};
 `;
 
 export const StyledCloseButton = styled(CloseButton)<StyleProps>`
   font-size: ${(props) => props.font_size};
+  position: ${(props) => props.position};
+  top: ${(props) => props.top};
+  left: ${(props) => props.left};
+  right: ${(props) => props.right};
 `;
 
-export const StyledButton = styled(Button)<StyleProps>``;
+export const StyledButton = styled.button<StyleProps>``;
 
 export const StyledModalFooter = styled(Modal.Footer)<StyleProps>``;
 
 export const StyledForm = styled(Form)<StyleProps>``;
 export const StyledFormGroup = styled(Form.Group)<StyleProps>``;
 
-export const StyledCard = styled(Card)<StyleProps>``;
+export const StyledCard = styled(Card)<StyleProps>`
+  height: ${(props) => props.height};
+`;

@@ -1,25 +1,7 @@
 import styled from "styled-components";
-import { StyleProps } from "../../utils/types";
+import { StyleProps } from "../../../utils/types";
 
-export interface ButtonProps extends StyleProps {
-  background?: string;
-  color?: string;
-  hoverBackground?: string;
-  padding?: string;
-  height?: string;
-  boxshadow?: string;
-  fontsize?: string;
-  display?: string;
-  flex_direction?: string;
-  align_items?: string;
-  border?: string;
-  gap?: string;
-  width?: string;
-  border_radius?: string;
-  statusActive?: boolean;
-}
-
-export const StyledButton = styled.button<ButtonProps>`
+export const StyledModalButton = styled.button<StyleProps>`
   padding: ${(props) => props.padding || "10px 20px"};
 
   border-radius: ${(props) =>
@@ -28,8 +10,17 @@ export const StyledButton = styled.button<ButtonProps>`
   border: ${(props) => props.border || "none"};
 
   background: ${(props) => {
-    return props.background || "none";
+    if (props.statusActive) {
+      return props.theme.colors.blue;
+    } else if (props.statusActive === false) {
+      return props.theme.colors.white;
+    } else {
+      return props.background || "none";
+    }
   }};
+
+  color: ${(props) =>
+    props.statusActive ? props.theme.colors.white : props.theme.colors.blue};
 
   height: ${(props) => props.height || "48px"};
   box-shadow: ${(props) => props.boxshadow || "none"};
