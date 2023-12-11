@@ -1,7 +1,6 @@
 import Modal from "react-bootstrap/Modal";
 import styled from "styled-components";
 import CloseButton from "react-bootstrap/CloseButton";
-import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { StyleProps } from "../../../utils/types";
 import Card from "react-bootstrap/Card";
@@ -25,6 +24,7 @@ export const StyledSpan = styled.span<StyleProps>`
   gap: ${(props) => props.gap};
   border: ${(props) => props.border};
   margin-top: ${(props) => props.margintop};
+  top: ${(props) => props.top};
 `;
 
 export const StyledCloseButton = styled(CloseButton)<StyleProps>`
@@ -35,7 +35,10 @@ export const StyledCloseButton = styled(CloseButton)<StyleProps>`
   right: ${(props) => props.right};
 `;
 
-export const StyledButton = styled.button<StyleProps>``;
+export const StyledButton = styled.button<StyleProps>`
+  border: ${(props) => props.border};
+  background-color: ${(props) => props.background_color};
+`;
 
 export const StyledModalFooter = styled(Modal.Footer)<StyleProps>``;
 
@@ -44,4 +47,5 @@ export const StyledFormGroup = styled(Form.Group)<StyleProps>``;
 
 export const StyledCard = styled(Card)<StyleProps>`
   height: ${(props) => props.height};
+  border: ${(props) => props.border};
 `;

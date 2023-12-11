@@ -19,6 +19,8 @@ interface InputProps {
   accept?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   style?: React.CSSProperties;
+  value?: string;
+  margin_left?: string;
 }
 
 export const InputFormComponent: React.FC<InputProps> = ({

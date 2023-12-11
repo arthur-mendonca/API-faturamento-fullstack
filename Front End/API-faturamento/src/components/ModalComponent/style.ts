@@ -15,15 +15,25 @@ export interface ModalProps {
   margin_bottom?: string;
   margin_top?: string;
   children?: React.ReactNode;
+  height?: string;
+  max_height?: string;
 }
 
 export const StyledModal = styled(Modal)<ModalProps>`
+  height: ${(props) => props.height};
+  max-height: ${(props) => props.max_height};
+
+  .modal-body {
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+
   .modal-dialog {
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    top: 50px;
+    top: 40px;
     left: 60px;
   }
 

@@ -61,12 +61,12 @@ export const StyledCol = styled(Col)<CardsProps>`
 
 export const StatusWrapper = styled.span<CardsProps>`
   color: ${(props) =>
-    props.status === "finalizado"
+    props.status === "Finalizado"
       ? props.theme.status.color.finalizado
       : props.theme.status.color.investigacao};
 
   background-color: ${(props) =>
-    props.status === "finalizado"
+    props.status === "Finalizado"
       ? props.theme.status.background.finalizado
       : props.theme.status.background.investigacao};
 

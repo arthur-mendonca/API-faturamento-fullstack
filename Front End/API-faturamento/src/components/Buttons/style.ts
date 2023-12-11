@@ -31,6 +31,8 @@ export const StyledButton = styled.button<ButtonProps>`
     return props.background || "none";
   }};
 
+  color: ${(props) => props.color};
+
   height: ${(props) => props.height || "48px"};
   box-shadow: ${(props) => props.boxshadow || "none"};
   display: ${(props) => props.display};

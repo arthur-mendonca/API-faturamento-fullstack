@@ -23,7 +23,7 @@ export const StyledSpan = styled.span<StyleProps>`
 
 export const StyledStatusWrapper = styled(StatusWrapper)<StyleProps>`
   font-size: ${(props) =>
-    props.status === "em investigação" ? "12px" : props.fontsize};
+    props.status === "Em investigação" ? "12px" : props.fontsize};
 
   @media (max-width: 1180px) {
     width: 40%;

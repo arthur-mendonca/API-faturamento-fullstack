@@ -100,7 +100,7 @@ export const DetalhesNaoConformidadeCard: React.FC<DetalhesProps> = () => {
                     <StyledImg
                       margin_left="10px"
                       src={
-                        evidenceResponse.occurrence.status === "finalizado"
+                        evidenceResponse.occurrence.status === "Finalizado"
                           ? greenArrow
                           : yelowArrow
                       }

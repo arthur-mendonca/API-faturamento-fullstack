@@ -82,7 +82,7 @@ export const DashboardCardComponents: React.FC<CardsProps> = ({ ...props }) => {
             </StyledCol>
             <StyledCol xs={3}>{occurrence.origin}</StyledCol>
             <StyledCol xs={3}>
-              {new Date(occurrence.date).toLocaleDateString()}
+              {new Date(occurrence.date!).toLocaleDateString()}
             </StyledCol>
             <StyledCol xs={2} className="d-flex align-items-center" width="16%">
               <StatusWrapper
@@ -93,7 +93,7 @@ export const DashboardCardComponents: React.FC<CardsProps> = ({ ...props }) => {
                 width="100%"
                 border_radius="1rem"
                 status={occurrence.status}>
-                {capitalizeFirstLetter(occurrence.status)}
+                {capitalizeFirstLetter(occurrence.status!)}
               </StatusWrapper>
               <img
                 src={dots}

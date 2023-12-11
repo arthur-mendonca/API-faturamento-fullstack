@@ -1,12 +1,7 @@
 import { useContext, useState } from "react";
 import theme from "../../../global/styles/theme";
 import { ButtonComponent } from "../../Buttons";
-import {
-  StyledButton,
-  StyledCloseButton,
-  StyledModalBody,
-  StyledSpan,
-} from "./style";
+import { StyledCloseButton, StyledModalBody, StyledSpan } from "./style";
 import { ModalContext } from "../../../context/modalContext";
 import { DetalhesPartComponent } from "./detalhesIndex";
 import { AcoesPartComponent } from "./acoesIndex";
@@ -16,6 +11,8 @@ export const CreateOccurrenceModal: React.FC = () => {
   const { closeModal } = useContext(ModalContext);
   const [showDetail, setShowDetail] = useState(true);
   const [showActions, setShowActions] = useState(false);
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState("");
 
   const showDetalhes = () => {
     setShowDetail(true);
@@ -25,6 +22,10 @@ export const CreateOccurrenceModal: React.FC = () => {
   const showAnalisesEAcoes = () => {
     setShowDetail(false);
     setShowActions(true);
+  };
+
+  const handleCreate = () => {
+    console.log("criar");
   };
 
   return (
@@ -75,8 +76,22 @@ export const CreateOccurrenceModal: React.FC = () => {
         </StyledSpan>
       </StyledModalBody>
       <StyledModalBody>
-        {showDetail && <DetalhesPartComponent />}
-        {showActions && <AcoesPartComponent />}
+        {showDetail && (
+          <DetalhesPartComponent
+            uploadedFile={uploadedFile}
+            setUploadedFile={setUploadedFile}
+            previewUrl={previewUrl}
+            setPreviewUrl={setPreviewUrl}
+          />
+        )}
+        {showActions && (
+          <AcoesPartComponent
+            uploadedFile={uploadedFile}
+            setUploadedFile={setUploadedFile}
+            previewUrl={previewUrl}
+            setPreviewUrl={setPreviewUrl}
+          />
+        )}
       </StyledModalBody>
     </>
   );

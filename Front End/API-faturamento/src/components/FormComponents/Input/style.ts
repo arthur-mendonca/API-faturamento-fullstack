@@ -7,6 +7,7 @@ interface InputProps {
   borderradius?: string;
   padding?: string;
   width?: string;
+  margin_left?: string;
 }
 
 export const StyledInput = styled(Form.Control)<InputProps>`
@@ -16,4 +17,5 @@ export const StyledInput = styled(Form.Control)<InputProps>`
   padding: ${(props) => props.padding || "25px 15px"};
   width: ${(props) => props.width};
   height: ${(props) => props.height};
+  margin-left: ${(props) => props.margin_left};
 `;

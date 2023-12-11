@@ -17,16 +17,15 @@ import { createEvidenceSchema } from "../../../schema/createEvidenceSchema";
 import uploadIcon from "../../../images/png/upload-na-nuvem 1.png";
 import { InputUploadFormComponent } from "../../FormComponents/Input/inputUpload";
 import pdfIcon from "../../../images/svg/pdf icon.svg";
+import { ModalProps } from "./acoesIndex";
 
-export const DetalhesPartComponent: React.FC = ({ ...props }) => {
+export const DetalhesPartComponent: React.FC<ModalProps> = ({
+  previewUrl,
+  setPreviewUrl,
+  setUploadedFile,
+  uploadedFile,
+}) => {
   const theme = useTheme();
-
-  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
-  const [previewUrl, setPreviewUrl] = useState("");
-
-  const handleCreate = () => {
-    console.log("criar");
-  };
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -64,9 +63,9 @@ export const DetalhesPartComponent: React.FC = ({ ...props }) => {
   } = useForm({
     resolver: zodResolver(createEvidenceSchema),
   });
+
   return (
     <>
-      {/* <StyledModalBody className="d-flex border" {...props}> */}
       <StyledForm>
         <StyledFormGroup controlId="occurrenceName">
           <LabelFormComponent>
@@ -111,44 +110,50 @@ export const DetalhesPartComponent: React.FC = ({ ...props }) => {
             // register={register("email")}
           />
         </StyledFormGroup>
+        <StyledFormGroup controlId="evidenceUpload">
+          <StyledCard className="border p-4" height="230px">
+            <ButtonComponent
+              type="button"
+              onClick={handleFileButtonClick}
+              background="none"
+              border="dashed 2px gray"
+              gap="1rem"
+              className="d-flex flex-row justify-content-center">
+              <img src={uploadIcon} alt="" />
+              Upload de evidências
+            </ButtonComponent>
+            <InputUploadFormComponent
+              ref={fileInputRef}
+              id="fileInput"
+              type="file"
+              accept=".png,.pdf"
+              onChange={handleFileChange}
+              style={{ display: "none" }}
+            />
+            {previewUrl && (
+              <StyledSpan
+                display="flex"
+                flex_direction="column"
+                margintop="10px">
+                <StyledSpan display="flex" flex_direction="row">
+                  <img
+                    src={previewUrl}
+                    alt="Preview"
+                    style={{ maxHeight: "100px", maxWidth: "100px" }}
+                  />
+                  <StyledCloseButton
+                    font_size={".7rem"}
+                    onClick={() => handleDeleteImage()}
+                  />
+                </StyledSpan>
+                <small style={{ marginLeft: "15px" }}>
+                  {uploadedFile?.name}
+                </small>
+              </StyledSpan>
+            )}
+          </StyledCard>
+        </StyledFormGroup>
       </StyledForm>
-      <StyledCard className="border p-4" height="230px">
-        <ButtonComponent
-          type="button"
-          onClick={handleFileButtonClick}
-          background="none"
-          border="dashed 2px gray"
-          gap="1rem"
-          className="d-flex flex-row justify-content-center">
-          <img src={uploadIcon} alt="" />
-          Upload de evidências
-        </ButtonComponent>
-        <InputUploadFormComponent
-          ref={fileInputRef}
-          id="fileInput"
-          type="file"
-          accept=".png,.pdf"
-          onChange={handleFileChange}
-          style={{ display: "none" }}
-        />
-        {previewUrl && (
-          <StyledSpan display="flex" flex_direction="column" margintop="10px">
-            <StyledSpan display="flex" flex_direction="row">
-              <img
-                src={previewUrl}
-                alt="Preview"
-                style={{ maxHeight: "100px", maxWidth: "100px" }}
-              />
-              <StyledCloseButton
-                font_size={".7rem"}
-                onClick={() => handleDeleteImage()}
-              />
-            </StyledSpan>
-            <small style={{ marginLeft: "15px" }}>{uploadedFile?.name}</small>
-          </StyledSpan>
-        )}
-      </StyledCard>
-      {/* </StyledModalBody> */}
     </>
   );
 };
