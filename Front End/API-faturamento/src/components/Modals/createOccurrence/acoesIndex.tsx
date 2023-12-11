@@ -15,28 +15,18 @@ import pdfIcon from "../../../images/svg/pdf icon.svg";
 import { LabelFormComponent } from "../../FormComponents/Label";
 import { FormTextComponent } from "../../FormComponents/Text";
 import { useTheme } from "styled-components";
-import {
-  FieldValues,
-  UseFormHandleSubmit,
-  UseFormRegisterReturn,
-} from "react-hook-form";
+import { CreateOccurrenceProps } from "./types";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { acoesPartSchema } from "../../../schema/createOccurrenceSchema";
 
-export interface ModalProps {
-  uploadedFile: File | null;
-  setUploadedFile: React.Dispatch<React.SetStateAction<File | null>>;
-  previewUrl: string;
-  setPreviewUrl: React.Dispatch<React.SetStateAction<string>>;
-  register: UseFormRegisterReturn<any>;
-  handleSubmit: UseFormHandleSubmit<FieldValues, undefined>;
-}
-
-export const AcoesPartComponent: React.FC<ModalProps> = ({
+export const AcoesPartComponent: React.FC<CreateOccurrenceProps> = ({
   previewUrl,
   setPreviewUrl,
   setUploadedFile,
   uploadedFile,
-  register,
-  handleSubmit,
+  handleAnalysisData,
+  handleCorrectiveActionsData,
 }) => {
   const theme = useTheme();
   const [acoesCorretivas, setAcoesCorretivas] = useState([{ name: "" }]);
@@ -115,9 +105,32 @@ export const AcoesPartComponent: React.FC<ModalProps> = ({
     }
   };
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(acoesPartSchema),
+  });
+
+  const submitForm = (data) => {
+    if (handleAnalysisData) {
+      handleAnalysisData({
+        description: data.description,
+        file: uploadedFile!,
+      });
+    }
+    const acoesData = acoesCorretivas.map((action) => ({
+      name: action.name,
+    }));
+    if (handleCorrectiveActionsData) {
+      handleCorrectiveActionsData(acoesData);
+    }
+  };
+
   return (
-    <StyledForm onSubmit={handleSubmit()}>
-      <StyledFormGroup controlId="analysis">
+    <StyledForm onSubmit={handleSubmit(submitForm)}>
+      <StyledFormGroup>
         <StyledCard.Title className="modal_text">
           Análise da causa
         </StyledCard.Title>
@@ -171,7 +184,7 @@ export const AcoesPartComponent: React.FC<ModalProps> = ({
           )}
         </StyledCard>
       </StyledFormGroup>
-      <StyledFormGroup controlId="correctiveActions">
+      <StyledFormGroup>
         <StyledCard border="none">
           <StyledCard.Title className="modal_text mt-4">
             Ações corretivas

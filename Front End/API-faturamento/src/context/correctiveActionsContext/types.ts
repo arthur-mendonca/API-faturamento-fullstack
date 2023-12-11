@@ -54,5 +54,9 @@ export interface ICorrectiveActionContext {
   createCorrectiveAction: (
     occurrenceId: number,
     name: string
-  ) => Promise<ICorrectiveAction | undefined>;
+  ) => Promise<ICorrectiveAction[] | undefined>;
+}
+
+export interface ICreateCorrectiveAction {
+  name: string;
 }

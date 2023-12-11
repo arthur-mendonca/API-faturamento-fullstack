@@ -13,7 +13,7 @@ export interface IEvidenceContext {
 
   createEvidence: (
     occurrenceId: number,
-    data: string | File
+    file: File
   ) => Promise<IEvidence | undefined>;
 
   getEvidence: (evidenceId: number) => Promise<IEvidence | undefined>;
@@ -65,3 +65,5 @@ export interface IEvidenceResponse {
   occurrence: IOccurrence;
   evidences: IEvidence[];
 }
+
+export type EvidenceType = File;

@@ -3,6 +3,7 @@ import {
   ICorrectiveAction,
   ICorrectiveActionContext,
   ICorrectiveActionResponse,
+  ICreateCorrectiveAction,
 } from "./types";
 import { IDefaultProviderProps } from "../userContext/types";
 import { api } from "../../service/api";
@@ -29,7 +30,7 @@ export const CorrectiveActionProvider: React.FC<IDefaultProviderProps> = ({
   const createCorrectiveAction = async (
     occurrenceId: number,
     name: string
-  ): Promise<ICorrectiveAction | undefined> => {
+  ): Promise<ICorrectiveAction[] | undefined> => {
     try {
       const response = await api.post(
         `/occurrences/${occurrenceId}/corrective-actions`,

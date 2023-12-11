@@ -47,3 +47,8 @@ export interface IAnalysisContext {
 
   deleteAnalysis: (analysisId: number) => Promise<void>;
 }
+
+export interface ICreteAnalysis {
+  file: File;
+  description: string;
+}

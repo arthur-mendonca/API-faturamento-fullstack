@@ -26,7 +26,7 @@ export const AnalysisComponent: React.FC = () => {
         ) : (
           analysesResponse?.analysis.map((analysis) => (
             <>
-              <StyledCard.Title className="details_title">
+              <StyledCard.Title className="details_title" key={analysis.id}>
                 Descrição da análise
               </StyledCard.Title>
               <StyledCard.Text className="details_card">

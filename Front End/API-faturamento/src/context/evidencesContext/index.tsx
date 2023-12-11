@@ -19,12 +19,15 @@ export const EvidenceProvider = ({ children }: IDefaultProviderProps) => {
 
   const createEvidence = async (
     occurrenceId: number,
-    data: string | File
+    file: File
   ): Promise<IEvidence | undefined> => {
     try {
+      const formData = new FormData();
+      formData.append("file", file);
+
       const response = await api.post(
         `occurrences/${occurrenceId}/evidences`,
-        data
+        formData
       );
       return response.data.evidence;
     } catch (error) {

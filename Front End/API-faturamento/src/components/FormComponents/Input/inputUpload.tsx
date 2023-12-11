@@ -24,6 +24,6 @@ interface InputProps {
 export const InputUploadFormComponent = forwardRef<
   HTMLInputElement,
   InputProps
->(({ register, ...props }, ref) => {
-  return <StyledInput ref={ref} {...props} {...register} />;
+>(({ id, ...props }, ref) => {
+  return <StyledInput ref={ref} id={id} {...props} />;
 });

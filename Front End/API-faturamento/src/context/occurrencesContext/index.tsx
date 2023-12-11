@@ -4,6 +4,8 @@ import {
   IDefaultProviderProps,
   IOccurrence,
   IOccurrenceContext,
+  IOccurrenceCreate,
+  IOccurrenceResponse,
 } from "./types";
 
 export const OccurrenceContext = createContext({} as IOccurrenceContext);
@@ -16,15 +18,20 @@ export const OccurrenceProvider = ({ children }: IDefaultProviderProps) => {
 
   const createOccurrence = async (
     userId: number,
-    data: IOccurrence
-  ): Promise<IOccurrence | undefined> => {
+    data: IOccurrenceCreate
+  ): Promise<IOccurrenceResponse | undefined> => {
     try {
       const response = await api.post(`users/occurrences/${userId}`, data, {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },
       });
-      return response.data.occurrence;
+      if (response && response.data && response.data.occurrence) {
+        return response.data.occurrence;
+      } else {
+        console.error("Resposta inesperada do servidor:", response);
+        return undefined;
+      }
     } catch (error) {
       console.error(error);
     }

@@ -12,7 +12,7 @@ export interface IOccurrenceContext {
   createOccurrence: (
     userId: number,
     data: IOccurrenceCreate
-  ) => Promise<IOccurrence | undefined>;
+  ) => Promise<IOccurrenceResponse | undefined>;
 
   getOccurrence: (occurrenceId: number) => Promise<IOccurrence | undefined>;
 
@@ -41,4 +41,9 @@ export interface IOccurrence extends IOccurrenceCreate {
   updatedAt?: string | Date;
   status?: "Em investigação" | "Finalizado";
   date?: string | Date;
+}
+
+export interface IOccurrenceResponse {
+  message: string;
+  occurrence: IOccurrence;
 }
