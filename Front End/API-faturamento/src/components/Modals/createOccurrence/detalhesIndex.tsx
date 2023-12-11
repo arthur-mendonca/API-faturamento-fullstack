@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import {
   StyledCloseButton,
   StyledSpan,
@@ -7,13 +7,9 @@ import {
   StyledCard,
 } from "./style";
 import { ButtonComponent } from "../../Buttons";
-import { useTheme } from "styled-components";
 import { LabelFormComponent } from "../../FormComponents/Label";
 import { FormTextComponent } from "../../FormComponents/Text";
 import { InputFormComponent } from "../../FormComponents/Input";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { createEvidenceSchema } from "../../../schema/createEvidenceSchema";
 import uploadIcon from "../../../images/png/upload-na-nuvem 1.png";
 import { InputUploadFormComponent } from "../../FormComponents/Input/inputUpload";
 import pdfIcon from "../../../images/svg/pdf icon.svg";
@@ -24,9 +20,9 @@ export const DetalhesPartComponent: React.FC<ModalProps> = ({
   setPreviewUrl,
   setUploadedFile,
   uploadedFile,
+  register,
+  handleSubmit,
 }) => {
-  const theme = useTheme();
-
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileButtonClick = () => {
@@ -35,10 +31,8 @@ export const DetalhesPartComponent: React.FC<ModalProps> = ({
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-
     if (file) {
       setUploadedFile(file);
-      console.log(file, "arquivo recebido");
 
       if (file.type.startsWith("image/")) {
         setPreviewUrl(URL.createObjectURL(file));
@@ -56,17 +50,9 @@ export const DetalhesPartComponent: React.FC<ModalProps> = ({
     }
   };
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: zodResolver(createEvidenceSchema),
-  });
-
   return (
     <>
-      <StyledForm>
+      <StyledForm onSubmit={handleSubmit()}>
         <StyledFormGroup controlId="occurrenceName">
           <LabelFormComponent>
             <FormTextComponent className="text_login_page">
@@ -77,7 +63,7 @@ export const DetalhesPartComponent: React.FC<ModalProps> = ({
             className="mb-3"
             placeholder="Insira um nome"
             type="text"
-            // register={register("email")}
+            register={register("name")}
           />
         </StyledFormGroup>
         <StyledFormGroup controlId="occurrenceOrigin">
@@ -90,7 +76,7 @@ export const DetalhesPartComponent: React.FC<ModalProps> = ({
             className="mb-3"
             placeholder="Insira o nome da origem"
             type="text"
-            // register={register("email")}
+            register={register("origin")}
           />
         </StyledFormGroup>
         <StyledFormGroup
@@ -107,7 +93,7 @@ export const DetalhesPartComponent: React.FC<ModalProps> = ({
             type="text"
             height="100px"
             as="textarea"
-            // register={register("email")}
+            register={register("description")}
           />
         </StyledFormGroup>
         <StyledFormGroup controlId="evidenceUpload">
@@ -119,7 +105,7 @@ export const DetalhesPartComponent: React.FC<ModalProps> = ({
               border="dashed 2px gray"
               gap="1rem"
               className="d-flex flex-row justify-content-center">
-              <img src={uploadIcon} alt="" />
+              <img src={uploadIcon} alt="ícone de upload" />
               Upload de evidências
             </ButtonComponent>
             <InputUploadFormComponent
@@ -129,6 +115,7 @@ export const DetalhesPartComponent: React.FC<ModalProps> = ({
               accept=".png,.pdf"
               onChange={handleFileChange}
               style={{ display: "none" }}
+              register={register("filename")}
             />
             {previewUrl && (
               <StyledSpan

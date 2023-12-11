@@ -15,12 +15,19 @@ import pdfIcon from "../../../images/svg/pdf icon.svg";
 import { LabelFormComponent } from "../../FormComponents/Label";
 import { FormTextComponent } from "../../FormComponents/Text";
 import { useTheme } from "styled-components";
+import {
+  FieldValues,
+  UseFormHandleSubmit,
+  UseFormRegisterReturn,
+} from "react-hook-form";
 
 export interface ModalProps {
   uploadedFile: File | null;
   setUploadedFile: React.Dispatch<React.SetStateAction<File | null>>;
   previewUrl: string;
   setPreviewUrl: React.Dispatch<React.SetStateAction<string>>;
+  register: UseFormRegisterReturn<any>;
+  handleSubmit: UseFormHandleSubmit<FieldValues, undefined>;
 }
 
 export const AcoesPartComponent: React.FC<ModalProps> = ({
@@ -28,6 +35,8 @@ export const AcoesPartComponent: React.FC<ModalProps> = ({
   setPreviewUrl,
   setUploadedFile,
   uploadedFile,
+  register,
+  handleSubmit,
 }) => {
   const theme = useTheme();
   const [acoesCorretivas, setAcoesCorretivas] = useState([{ name: "" }]);
@@ -107,7 +116,7 @@ export const AcoesPartComponent: React.FC<ModalProps> = ({
   };
 
   return (
-    <StyledForm>
+    <StyledForm onSubmit={handleSubmit()}>
       <StyledFormGroup controlId="analysis">
         <StyledCard.Title className="modal_text">
           Análise da causa
@@ -122,7 +131,7 @@ export const AcoesPartComponent: React.FC<ModalProps> = ({
             type="text"
             height="100px"
             as="textarea"
-            // register={register("email")}
+            register={register("description")}
           />
         </StyledCard>
         <StyledCard className="border p-4" height="210px">
@@ -168,7 +177,7 @@ export const AcoesPartComponent: React.FC<ModalProps> = ({
             Ações corretivas
           </StyledCard.Title>
           <LabelFormComponent>
-            <FormTextComponent className="text_login_page">
+            <FormTextComponent className="text_login_page" marginleft="40px">
               Nome da ação corretiva
             </FormTextComponent>
           </LabelFormComponent>

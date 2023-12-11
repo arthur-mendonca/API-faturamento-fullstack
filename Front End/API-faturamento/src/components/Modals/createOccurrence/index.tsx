@@ -6,6 +6,9 @@ import { ModalContext } from "../../../context/modalContext";
 import { DetalhesPartComponent } from "./detalhesIndex";
 import { AcoesPartComponent } from "./acoesIndex";
 import { ModalButtonComponent } from "../../Buttons/buttonCreateModal";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { createOccurrenceSchema } from "../../../schema/createOccurrenceSchema";
 
 export const CreateOccurrenceModal: React.FC = () => {
   const { closeModal } = useContext(ModalContext);
@@ -27,6 +30,16 @@ export const CreateOccurrenceModal: React.FC = () => {
   const handleCreate = () => {
     console.log("criar");
   };
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(createOccurrenceSchema),
+  });
+
+  const submitForm = () => {};
 
   return (
     <>
@@ -82,6 +95,8 @@ export const CreateOccurrenceModal: React.FC = () => {
             setUploadedFile={setUploadedFile}
             previewUrl={previewUrl}
             setPreviewUrl={setPreviewUrl}
+            register={register}
+            handleSubmit={handleSubmit}
           />
         )}
         {showActions && (
@@ -90,6 +105,8 @@ export const CreateOccurrenceModal: React.FC = () => {
             setUploadedFile={setUploadedFile}
             previewUrl={previewUrl}
             setPreviewUrl={setPreviewUrl}
+            register={register}
+            handleSubmit={handleSubmit}
           />
         )}
       </StyledModalBody>
