@@ -1,14 +1,11 @@
 import { UseFormRegister } from "react-hook-form";
 import { ICreteAnalysis } from "../../../context/analysisContext/types";
 import { ICreateCorrectiveAction } from "../../../context/correctiveActionsContext/types";
-import { EvidenceType } from "../../../context/evidencesContext/types";
 import { IOccurrenceCreate } from "../../../context/occurrencesContext/types";
 
 export interface CreateOccurrenceProps {
   uploadedFile: File | null;
   setUploadedFile: React.Dispatch<React.SetStateAction<File | null>>;
-  previewUrl: string;
-  setPreviewUrl: React.Dispatch<React.SetStateAction<string>>;
 
   handleOccurrenceData?: (data: IOccurrenceCreate) => void;
 
@@ -33,4 +30,10 @@ export interface CreateOccurrenceProps {
   >;
 
   correctiveActionsData?: ICreateCorrectiveAction[];
+
+  setPreviewAnalysisUrl: React.Dispatch<React.SetStateAction<string>>;
+  previewAnalysisUrl: string;
+
+  previewEvidenceUrl: string;
+  setPreviewEvidenceUrl: React.Dispatch<React.SetStateAction<string>>;
 }

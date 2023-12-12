@@ -10,10 +10,7 @@ import {
 import { ModalContext } from "../../../context/modalContext";
 import { CreateOccurrenceModalBody } from "./CreateOccurrenceModalBody";
 import { ModalButtonComponent } from "../../Buttons/buttonCreateModal";
-import {
-  IOccurrenceCreate,
-  IOccurrenceResponse,
-} from "../../../context/occurrencesContext/types";
+import { IOccurrenceCreate } from "../../../context/occurrencesContext/types";
 import { ICreteAnalysis } from "../../../context/analysisContext/types";
 import { ICreateCorrectiveAction } from "../../../context/correctiveActionsContext/types";
 import { EvidenceType } from "../../../context/evidencesContext/types";
@@ -24,7 +21,6 @@ import { EvidenceContext } from "../../../context/evidencesContext";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { combinedSchema } from "../../../schema/createOccurrenceSchema";
-import { useActionData } from "react-router-dom";
 
 export const CreateOccurrenceModal: React.FC = () => {
   const { closeModal } = useContext(ModalContext);
@@ -36,7 +32,8 @@ export const CreateOccurrenceModal: React.FC = () => {
   const [showDetail, setShowDetail] = useState(true);
   const [showActions, setShowActions] = useState(false);
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
-  const [previewUrl, setPreviewUrl] = useState("");
+  const [previewEvidenceUrl, setPreviewEvidenceUrl] = useState("");
+  const [previewAnalysisUrl, setPreviewAnalysisUrl] = useState("");
 
   const [occurrenceData, setOccurrenceData] =
     useState<IOccurrenceCreate | null>(null);
@@ -51,7 +48,6 @@ export const CreateOccurrenceModal: React.FC = () => {
   const userId = localStorage.getItem("@USERID");
 
   const handleOccurrenceData = (data: IOccurrenceCreate) => {
-    console.log(data, "handleOccurrenceData");
     setOccurrenceData(data);
   };
 
@@ -71,8 +67,6 @@ export const CreateOccurrenceModal: React.FC = () => {
     console.log(correctiveActionsData, "correctiveActionsData");
     console.log(evidence, "evidence");
     try {
-      // const occurrenceResponse: IOccurrenceResponse | undefined =
-      //   await createOccurrence(+userId!, occurrenceData!)!;
       const newOccurrenceId = await createOccurrence(+userId!, occurrenceData!);
       console.log(newOccurrenceId, "OCCURRENCE CRIADA");
       if (newOccurrenceId) {
@@ -160,8 +154,10 @@ export const CreateOccurrenceModal: React.FC = () => {
           <CreateOccurrenceModalBody
             uploadedFile={uploadedFile}
             setUploadedFile={setUploadedFile}
-            previewUrl={previewUrl}
-            setPreviewUrl={setPreviewUrl}
+            setPreviewAnalysisUrl={setPreviewAnalysisUrl}
+            previewAnalysisUrl={previewAnalysisUrl}
+            previewEvidenceUrl={previewEvidenceUrl}
+            setPreviewEvidenceUrl={setPreviewEvidenceUrl}
             handleOccurrenceData={handleOccurrenceData}
             showActions={showActions}
             showDetail={showDetail}

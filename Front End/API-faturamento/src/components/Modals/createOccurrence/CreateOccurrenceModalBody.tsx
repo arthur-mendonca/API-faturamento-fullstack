@@ -18,8 +18,10 @@ import { useTheme } from "styled-components";
 import { IOccurrenceCreate } from "../../../context/occurrencesContext/types";
 
 export const CreateOccurrenceModalBody: React.FC<CreateOccurrenceProps> = ({
-  previewUrl,
-  setPreviewUrl,
+  setPreviewAnalysisUrl,
+  previewAnalysisUrl,
+  previewEvidenceUrl,
+  setPreviewEvidenceUrl,
   setUploadedFile,
   uploadedFile,
   handleOccurrenceData,
@@ -27,7 +29,6 @@ export const CreateOccurrenceModalBody: React.FC<CreateOccurrenceProps> = ({
   showDetail,
   register,
   occurrenceData,
-  evidence,
   setEvidence,
   setAnalysisData,
   analysisData,
@@ -107,9 +108,9 @@ export const CreateOccurrenceModalBody: React.FC<CreateOccurrenceProps> = ({
       // );
 
       if (file.type.startsWith("image/")) {
-        setPreviewUrl(URL.createObjectURL(file));
+        setPreviewEvidenceUrl(URL.createObjectURL(file));
       } else if (file.type === "application/pdf") {
-        setPreviewUrl(pdfIcon);
+        setPreviewEvidenceUrl(pdfIcon);
       }
     }
   };
@@ -123,16 +124,16 @@ export const CreateOccurrenceModalBody: React.FC<CreateOccurrenceProps> = ({
       console.log(analysisData, "analysisData");
 
       if (file.type.startsWith("image/")) {
-        setPreviewUrl(URL.createObjectURL(file));
+        setPreviewAnalysisUrl(URL.createObjectURL(file));
       } else if (file.type === "application/pdf") {
-        setPreviewUrl(pdfIcon);
+        setPreviewAnalysisUrl(pdfIcon);
       }
     }
   };
 
   const handleDeleteEvidence = () => {
     setUploadedFile(null);
-    setPreviewUrl("");
+    setPreviewEvidenceUrl("");
     setEvidence(null);
 
     if (evidenceFileInputRef.current) {
@@ -142,7 +143,7 @@ export const CreateOccurrenceModalBody: React.FC<CreateOccurrenceProps> = ({
 
   const handleDeleteAnalysisUpload = () => {
     setUploadedFile(null);
-    setPreviewUrl("");
+    setPreviewAnalysisUrl("");
     setAnalysisData({ ...analysisData, file: null });
     if (analysisFileInputRef.current) {
       analysisFileInputRef.current.value = "";
@@ -235,14 +236,15 @@ export const CreateOccurrenceModalBody: React.FC<CreateOccurrenceProps> = ({
                 style={{ display: "none" }}
                 register={register("filename")}
               />
-              {previewUrl && (
+
+              {previewEvidenceUrl && (
                 <StyledSpan
                   display="flex"
                   flex_direction="column"
                   margintop="10px">
                   <StyledSpan display="flex" flex_direction="row">
                     <img
-                      src={previewUrl}
+                      src={previewEvidenceUrl}
                       alt="Preview"
                       style={{ maxHeight: "100px", maxWidth: "100px" }}
                     />
@@ -277,7 +279,7 @@ export const CreateOccurrenceModalBody: React.FC<CreateOccurrenceProps> = ({
                 type="text"
                 height="100px"
                 as="textarea"
-                register={register("description")}
+                register={register("analysisDescription")}
               />
             </StyledCard>
             <StyledCard className="border p-4" height="210px">
@@ -300,14 +302,14 @@ export const CreateOccurrenceModalBody: React.FC<CreateOccurrenceProps> = ({
                 register={register("filename")}
                 style={{ display: "none" }}
               />
-              {previewUrl && (
+              {previewAnalysisUrl && (
                 <StyledSpan
                   display="flex"
                   flex_direction="column"
                   margintop="10px">
                   <StyledSpan display="flex" flex_direction="row">
                     <img
-                      src={previewUrl}
+                      src={previewAnalysisUrl}
                       alt="Preview"
                       style={{ maxHeight: "100px", maxWidth: "100px" }}
                     />
