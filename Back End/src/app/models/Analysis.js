@@ -7,6 +7,10 @@ class Analysis extends Model {
         filename: DataTypes.STRING,
         description: DataTypes.STRING,
         fileUrl: DataTypes.STRING,
+        occurrence_id: {
+          type: DataTypes.INTEGER,
+          allowNull: true,
+        },
       },
       {
         sequelize,

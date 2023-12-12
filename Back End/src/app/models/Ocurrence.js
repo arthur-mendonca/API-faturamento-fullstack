@@ -38,7 +38,7 @@ class Occurrence extends Model {
   }
 
   static associate(models) {
-    this.hasMany(models.Analysis, {
+    this.hasOne(models.Analysis, {
       foreignKey: "occurrence_id",
       as: "analysis",
     });

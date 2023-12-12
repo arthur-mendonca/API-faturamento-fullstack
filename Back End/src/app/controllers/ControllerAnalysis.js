@@ -8,6 +8,16 @@ module.exports = {
       const { description } = req.body;
       const file = req.file;
 
+      const existingAnalysis = await Analysis.findOne({
+        where: { occurrence_id: id },
+      });
+
+      if (existingAnalysis) {
+        return res
+          .status(409)
+          .json({ error: "Occurrence already has an analysis" });
+      }
+
       if (!file) {
         return res.status(400).json({ error: "No file provided" });
       }

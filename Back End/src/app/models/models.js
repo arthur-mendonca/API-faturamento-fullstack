@@ -3,21 +3,19 @@ const User = sequelize.define("User", {
   firstName: Sequelize.STRING,
   lastName: Sequelize.STRING,
   email: Sequelize.STRING,
-  password: Sequelize.STRING, // Lembre-se de armazenar senhas criptografadas
+  password: Sequelize.STRING,
 });
 
-// Occurrence model
 const Occurrence = sequelize.define("Occurrence", {
   name: Sequelize.STRING,
   origin: Sequelize.STRING,
   date: Sequelize.DATE,
   status: Sequelize.STRING,
-  // A relação de arquivos será tratada separadamente
+
   causeAnalysis: Sequelize.TEXT,
   correctiveActionName: Sequelize.STRING,
 });
 
-// Evidence model
 const Evidence = sequelize.define("Evidence", {
   occurrenceId: {
     type: Sequelize.INTEGER,
@@ -29,7 +27,6 @@ const Evidence = sequelize.define("Evidence", {
   filename: Sequelize.STRING,
 });
 
-// Analysis model
 const Analysis = sequelize.define("Analysis", {
   occurrenceId: {
     type: Sequelize.INTEGER,
@@ -42,7 +39,6 @@ const Analysis = sequelize.define("Analysis", {
   filename: Sequelize.STRING,
 });
 
-// CorrectiveAction model
 const CorrectiveAction = sequelize.define("CorrectiveAction", {
   occurrenceId: {
     type: Sequelize.INTEGER,
@@ -54,7 +50,6 @@ const CorrectiveAction = sequelize.define("CorrectiveAction", {
   name: Sequelize.STRING,
 });
 
-// Relações
 User.hasMany(Occurrence);
 Occurrence.belongsTo(User);
 Occurrence.hasMany(Evidence);
