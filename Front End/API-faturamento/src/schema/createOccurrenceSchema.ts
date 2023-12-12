@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const detalhesPartSchema = z.object({
+const detalhesPartSchema = z.object({
   occurrence: z.object({
     name: z.string().min(1),
     origin: z.string().min(1),
@@ -11,7 +11,7 @@ export const detalhesPartSchema = z.object({
   }),
 });
 
-export const acoesPartSchema = z.object({
+const acoesPartSchema = z.object({
   analysis: z.object({
     description: z.string().min(1),
     filename: z.instanceof(File),
@@ -22,3 +22,5 @@ export const acoesPartSchema = z.object({
     })
   ),
 });
+
+export const combinedSchema = detalhesPartSchema.merge(acoesPartSchema);

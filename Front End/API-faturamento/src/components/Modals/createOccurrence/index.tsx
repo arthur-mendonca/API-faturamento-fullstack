@@ -1,26 +1,34 @@
 import { useContext, useState } from "react";
 import theme from "../../../global/styles/theme";
 import { ButtonComponent } from "../../Buttons";
-import { StyledCloseButton, StyledModalBody, StyledSpan } from "./style";
+import {
+  StyledCloseButton,
+  StyledForm,
+  StyledModalBody,
+  StyledSpan,
+} from "./style";
 import { ModalContext } from "../../../context/modalContext";
-import { DetalhesPartComponent } from "./detalhesIndex";
-import { AcoesPartComponent } from "./acoesIndex";
+import { CreateOccurrenceModalBody } from "./CreateOccurrenceModalBody";
 import { ModalButtonComponent } from "../../Buttons/buttonCreateModal";
 import {
   IOccurrenceCreate,
   IOccurrenceResponse,
 } from "../../../context/occurrencesContext/types";
-import { ICreteAnalysis } from "../../../context/analysisContext/style";
+import { ICreteAnalysis } from "../../../context/analysisContext/types";
 import { ICreateCorrectiveAction } from "../../../context/correctiveActionsContext/types";
 import { EvidenceType } from "../../../context/evidencesContext/types";
 import { OccurrenceContext } from "../../../context/occurrencesContext";
 import { AnalysisContext } from "../../../context/analysisContext";
 import { CorrectiveActionContext } from "../../../context/correctiveActionsContext";
 import { EvidenceContext } from "../../../context/evidencesContext";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { combinedSchema } from "../../../schema/createOccurrenceSchema";
+import { useActionData } from "react-router-dom";
 
 export const CreateOccurrenceModal: React.FC = () => {
   const { closeModal } = useContext(ModalContext);
-  const { createOccurrence } = useContext(OccurrenceContext);
+  const { createOccurrence, occurrenceId } = useContext(OccurrenceContext);
   const { createAnalysis } = useContext(AnalysisContext);
   const { createCorrectiveAction } = useContext(CorrectiveActionContext);
   const { createEvidence } = useContext(EvidenceContext);
@@ -32,32 +40,19 @@ export const CreateOccurrenceModal: React.FC = () => {
 
   const [occurrenceData, setOccurrenceData] =
     useState<IOccurrenceCreate | null>(null);
-  const [analysisData, setAnalysisData] = useState<ICreteAnalysis | null>(null);
+  const [analysisData, setAnalysisData] = useState<ICreteAnalysis>({
+    file: new File([], ""),
+    description: "",
+  });
   const [correctiveActionsData, setCorrectiveActionsData] = useState<
     ICreateCorrectiveAction[]
   >([]);
   const [evidence, setEvidence] = useState<EvidenceType | null>(null);
-
   const userId = localStorage.getItem("@USERID");
 
   const handleOccurrenceData = (data: IOccurrenceCreate) => {
     console.log(data, "handleOccurrenceData");
     setOccurrenceData(data);
-  };
-
-  const handleEvidence = (data: EvidenceType) => {
-    console.log(data, "handleEvidence");
-    setEvidence(data);
-  };
-
-  const handleAnalysisData = (data: ICreteAnalysis) => {
-    console.log(data, "handleAnalysisData");
-    setAnalysisData(data);
-  };
-
-  const handleCorrectiveActionsData = (data: ICreateCorrectiveAction[]) => {
-    console.log(data, "handleCorrectiveActionsData");
-    setCorrectiveActionsData(data);
   };
 
   const showDetalhes = () => {
@@ -71,24 +66,29 @@ export const CreateOccurrenceModal: React.FC = () => {
   };
 
   const handleCreate = async () => {
+    console.log(occurrenceData, "occurrenceData");
+    console.log(analysisData, "analysisData");
+    console.log(correctiveActionsData, "correctiveActionsData");
+    console.log(evidence, "evidence");
     try {
-      const occurrenceResponse: IOccurrenceResponse | undefined =
-        await createOccurrence(+userId!, occurrenceData!)!;
-      if (occurrenceResponse) {
-        const occurrenceId = occurrenceResponse.occurrence.id;
-        await createAnalysis(
-          occurrenceId!,
-          analysisData!.file,
-          analysisData!.description
-        );
+      // const occurrenceResponse: IOccurrenceResponse | undefined =
+      //   await createOccurrence(+userId!, occurrenceData!)!;
+      const newOccurrenceId = await createOccurrence(+userId!, occurrenceData!);
+      console.log(newOccurrenceId, "OCCURRENCE CRIADA");
+      if (newOccurrenceId) {
+        await createEvidence(newOccurrenceId!, evidence!);
 
-        await createEvidence(occurrenceId!, evidence!);
+        await createAnalysis(
+          newOccurrenceId!,
+          analysisData!.file,
+          analysisData!.description!
+        );
         const correctiveActionNames = correctiveActionsData.map(
           (action) => action.name
         );
         await Promise.all(
-          correctiveActionNames.map((name) =>
-            createCorrectiveAction(occurrenceId!, name)
+          correctiveActionNames.map((name: string) =>
+            createCorrectiveAction(newOccurrenceId!, [{ name }])
           )
         );
         console.log("Dados criados com sucesso!");
@@ -97,6 +97,14 @@ export const CreateOccurrenceModal: React.FC = () => {
       console.log("Erro ao criar dados:", error);
     }
   };
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(combinedSchema),
+  });
 
   return (
     <>
@@ -113,6 +121,8 @@ export const CreateOccurrenceModal: React.FC = () => {
           <p className="modal_text">Nova ocorrência</p>
         </StyledSpan>
         <ButtonComponent
+          type="submit"
+          form="formModal"
           style={{ position: "relative", left: "54%" }}
           onClick={() => handleCreate()}
           background={theme.colors.blue}
@@ -146,26 +156,25 @@ export const CreateOccurrenceModal: React.FC = () => {
         </StyledSpan>
       </StyledModalBody>
       <StyledModalBody>
-        {showDetail && (
-          <DetalhesPartComponent
+        <StyledForm onSubmit={handleSubmit(handleCreate)} id="formModal">
+          <CreateOccurrenceModalBody
             uploadedFile={uploadedFile}
             setUploadedFile={setUploadedFile}
             previewUrl={previewUrl}
             setPreviewUrl={setPreviewUrl}
             handleOccurrenceData={handleOccurrenceData}
-            handleEvidence={handleEvidence}
+            showActions={showActions}
+            showDetail={showDetail}
+            register={register}
+            occurrenceData={occurrenceData}
+            evidence={evidence}
+            setEvidence={setEvidence}
+            analysisData={analysisData}
+            setAnalysisData={setAnalysisData}
+            correctiveActionsData={correctiveActionsData}
+            setCorrectiveActionsData={setCorrectiveActionsData}
           />
-        )}
-        {showActions && (
-          <AcoesPartComponent
-            uploadedFile={uploadedFile}
-            setUploadedFile={setUploadedFile}
-            previewUrl={previewUrl}
-            setPreviewUrl={setPreviewUrl}
-            handleAnalysisData={handleAnalysisData}
-            handleCorrectiveActionsData={handleCorrectiveActionsData}
-          />
-        )}
+        </StyledForm>
       </StyledModalBody>
     </>
   );

@@ -1,4 +1,5 @@
-import { ICreteAnalysis } from "../../../context/analysisContext/style";
+import { UseFormRegister } from "react-hook-form";
+import { ICreteAnalysis } from "../../../context/analysisContext/types";
 import { ICreateCorrectiveAction } from "../../../context/correctiveActionsContext/types";
 import { EvidenceType } from "../../../context/evidencesContext/types";
 import { IOccurrenceCreate } from "../../../context/occurrencesContext/types";
@@ -11,9 +12,25 @@ export interface CreateOccurrenceProps {
 
   handleOccurrenceData?: (data: IOccurrenceCreate) => void;
 
-  handleEvidence?: (data: EvidenceType) => void;
+  showActions: boolean;
 
-  handleAnalysisData?: (data: ICreteAnalysis) => void;
+  showDetail: boolean;
 
-  handleCorrectiveActionsData?: (data: ICreateCorrectiveAction[]) => void;
+  register: UseFormRegister<any>;
+
+  occurrenceData: IOccurrenceCreate | null;
+
+  evidence?: File | null;
+
+  setEvidence: React.Dispatch<React.SetStateAction<File | null>>;
+
+  analysisData?: ICreteAnalysis;
+
+  setAnalysisData: React.Dispatch<React.SetStateAction<ICreteAnalysis>>;
+
+  setCorrectiveActionsData?: React.Dispatch<
+    React.SetStateAction<ICreateCorrectiveAction[]>
+  >;
+
+  correctiveActionsData?: ICreateCorrectiveAction[];
 }

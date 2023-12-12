@@ -20,4 +20,5 @@ export interface CardsProps {
   status?: string;
   border_radius?: string;
   min_height?: string;
+  searchTerm?: string;
 }

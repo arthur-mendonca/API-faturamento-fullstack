@@ -3,8 +3,8 @@ export interface IDefaultProviderProps {
 }
 
 export interface IOccurrenceCreate {
-  name: string;
-  origin: string;
+  name?: string;
+  origin?: string;
   description?: string;
 }
 
@@ -12,7 +12,7 @@ export interface IOccurrenceContext {
   createOccurrence: (
     userId: number,
     data: IOccurrenceCreate
-  ) => Promise<IOccurrenceResponse | undefined>;
+  ) => Promise<number | undefined>;
 
   getOccurrence: (occurrenceId: number) => Promise<IOccurrence | undefined>;
 
@@ -32,15 +32,17 @@ export interface IOccurrenceContext {
   occurrence: IOccurrence | null;
 
   setOccurrence: React.Dispatch<React.SetStateAction<IOccurrence | null>>;
+
+  occurrenceId: number | null;
 }
 
 export interface IOccurrence extends IOccurrenceCreate {
-  id?: number;
-  user_id?: number;
-  createdAt?: string | Date;
-  updatedAt?: string | Date;
-  status?: "Em investigação" | "Finalizado";
-  date?: string | Date;
+  id: number;
+  user_id: number;
+  createdAt: string | Date;
+  updatedAt: string | Date;
+  status: "Em investigação" | "Finalizado";
+  date: string | Date;
 }
 
 export interface IOccurrenceResponse {

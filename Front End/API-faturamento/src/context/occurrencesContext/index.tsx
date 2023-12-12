@@ -13,13 +13,14 @@ export const OccurrenceContext = createContext({} as IOccurrenceContext);
 export const OccurrenceProvider = ({ children }: IDefaultProviderProps) => {
   const [occurrences, setOccurrences] = useState<IOccurrence[]>([]);
   const [occurrence, setOccurrence] = useState<IOccurrence | null>(null);
+  const [occurrenceId, setOccurrenceId] = useState<null | number>(null);
 
   const authToken = localStorage.getItem("@TOKEN");
 
   const createOccurrence = async (
     userId: number,
     data: IOccurrenceCreate
-  ): Promise<IOccurrenceResponse | undefined> => {
+  ): Promise<number | undefined> => {
     try {
       const response = await api.post(`users/occurrences/${userId}`, data, {
         headers: {
@@ -27,7 +28,13 @@ export const OccurrenceProvider = ({ children }: IDefaultProviderProps) => {
         },
       });
       if (response && response.data && response.data.occurrence) {
-        return response.data.occurrence;
+        console.log(response.data, "Occurrence criada com sucesso!");
+
+        console.log(occurrenceId, "NÚMERO DA OCCURRENCE ID");
+        const newOccurrenceId = response.data.occurrence.id;
+        setOccurrenceId(newOccurrenceId);
+        getAllOccurrences();
+        return newOccurrenceId;
       } else {
         console.error("Resposta inesperada do servidor:", response);
         return undefined;
@@ -102,6 +109,7 @@ export const OccurrenceProvider = ({ children }: IDefaultProviderProps) => {
         setOccurrences,
         occurrence,
         setOccurrence,
+        occurrenceId,
       }}>
       {children}
     </OccurrenceContext.Provider>

@@ -10,6 +10,7 @@ export interface ButtonPropsComponent extends ButtonProps {
   disabled?: boolean;
   type?: "button" | "submit" | "reset";
   statusActive?: boolean;
+  form?: string;
 }
 
 export const ButtonComponent: React.FC<ButtonPropsComponent> = ({

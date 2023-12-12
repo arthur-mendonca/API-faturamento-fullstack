@@ -24,11 +24,24 @@ export const EvidenceProvider = ({ children }: IDefaultProviderProps) => {
     try {
       const formData = new FormData();
       formData.append("file", file);
+      console.log(occurrenceId, "ID DA OCORRÊNCIA");
+      // console.log(formData, "FORMDATA de Evidence");
+      for (let [key, value] of formData.entries()) {
+        console.log(key, value, "FORM DATA EM createEvidence");
+      }
+      console.log(file, "FILE de Evidence");
 
       const response = await api.post(
         `occurrences/${occurrenceId}/evidences`,
-        formData
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
       );
+      console.log(response.config.headers, "header da requisição");
+      console.log(response.data, "Evidencia criada");
       return response.data.evidence;
     } catch (error) {
       console.error(error);

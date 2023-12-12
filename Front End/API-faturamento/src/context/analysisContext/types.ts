@@ -50,5 +50,5 @@ export interface IAnalysisContext {
 
 export interface ICreteAnalysis {
   file: File;
-  description: string;
+  description?: string;
 }

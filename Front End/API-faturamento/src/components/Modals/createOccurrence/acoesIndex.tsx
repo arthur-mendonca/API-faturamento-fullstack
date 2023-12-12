@@ -28,109 +28,109 @@ export const AcoesPartComponent: React.FC<CreateOccurrenceProps> = ({
   handleAnalysisData,
   handleCorrectiveActionsData,
 }) => {
-  const theme = useTheme();
-  const [acoesCorretivas, setAcoesCorretivas] = useState([{ name: "" }]);
+  // const theme = useTheme();
+  // const [acoesCorretivas, setAcoesCorretivas] = useState([{ name: "" }]);
 
-  const addAcaoCorretiva = () => {
-    setAcoesCorretivas([...acoesCorretivas, { name: "" }]);
-  };
+  // const addAcaoCorretiva = () => {
+  //   setAcoesCorretivas([...acoesCorretivas, { name: "" }]);
+  // };
 
-  const updateAcaoCorretiva = (index: number, name: string) => {
-    const newAcoes = [...acoesCorretivas];
-    newAcoes[index].name = name;
-    setAcoesCorretivas(newAcoes);
-  };
+  // const updateAcaoCorretiva = (index: number, name: string) => {
+  //   const newAcoes = [...acoesCorretivas];
+  //   newAcoes[index].name = name;
+  //   setAcoesCorretivas(newAcoes);
+  // };
 
-  const renderAcoesCorretivas = () => {
-    return acoesCorretivas.map((acao, index) => (
-      <StyledSpan
-        margintop="-15px"
-        display="flex"
-        flex_direction="column"
-        justify_content="center">
-        <StyledSpan className="d-flex flex-column " width="90%">
-          <StyledSpan
-            display="flex"
-            flex_direction="column"
-            justify_content="center"
-            align_items="center"
-            position="relative"
-            top="40px"
-            style={{
-              backgroundColor: `${theme.colors.blue}`,
-              color: `${theme.colors.white}`,
-              borderRadius: "50%",
-              width: "28px",
-              height: "28px",
-            }}>
-            {index + 1}
-          </StyledSpan>
-          <InputFormComponent
-            margin_left="40px"
-            key={index}
-            value={acao.name}
-            onChange={(e) => updateAcaoCorretiva(index, e.target.value)}
-          />
-        </StyledSpan>
-      </StyledSpan>
-    ));
-  };
+  // const renderAcoesCorretivas = () => {
+  //   return acoesCorretivas.map((acao, index) => (
+  //     <StyledSpan
+  //       margintop="-15px"
+  //       display="flex"
+  //       flex_direction="column"
+  //       justify_content="center">
+  //       <StyledSpan className="d-flex flex-column " width="90%">
+  //         <StyledSpan
+  //           display="flex"
+  //           flex_direction="column"
+  //           justify_content="center"
+  //           align_items="center"
+  //           position="relative"
+  //           top="40px"
+  //           style={{
+  //             backgroundColor: `${theme.colors.blue}`,
+  //             color: `${theme.colors.white}`,
+  //             borderRadius: "50%",
+  //             width: "28px",
+  //             height: "28px",
+  //           }}>
+  //           {index + 1}
+  //         </StyledSpan>
+  //         <InputFormComponent
+  //           margin_left="40px"
+  //           key={index}
+  //           value={acao.name}
+  //           onChange={(e) => updateAcaoCorretiva(index, e.target.value)}
+  //         />
+  //       </StyledSpan>
+  //     </StyledSpan>
+  //   ));
+  // };
 
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  // const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleFileButtonClick = () => {
-    fileInputRef.current!.click();
-  };
+  // const handleFileButtonClick = () => {
+  //   fileInputRef.current!.click();
+  // };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+  // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = e.target.files?.[0];
 
-    if (file) {
-      setUploadedFile(file);
-      console.log(file, "arquivo recebido");
+  //   if (file) {
+  //     setUploadedFile(file);
+  //     console.log(file, "arquivo recebido");
 
-      if (file.type.startsWith("image/")) {
-        setPreviewUrl(URL.createObjectURL(file));
-      } else if (file.type === "application/pdf") {
-        setPreviewUrl(pdfIcon);
-      }
-    }
-  };
+  //     if (file.type.startsWith("image/")) {
+  //       setPreviewUrl(URL.createObjectURL(file));
+  //     } else if (file.type === "application/pdf") {
+  //       setPreviewUrl(pdfIcon);
+  //     }
+  //   }
+  // };
 
-  const handleDeleteImage = () => {
-    setUploadedFile(null);
-    setPreviewUrl("");
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
-  };
+  // const handleDeleteImage = () => {
+  //   setUploadedFile(null);
+  //   setPreviewUrl("");
+  //   if (fileInputRef.current) {
+  //     fileInputRef.current.value = "";
+  //   }
+  // };
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: zodResolver(acoesPartSchema),
-  });
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   formState: { errors },
+  // } = useForm({
+  //   resolver: zodResolver(acoesPartSchema),
+  // });
 
-  const submitForm = (data) => {
-    if (handleAnalysisData) {
-      handleAnalysisData({
-        description: data.description,
-        file: uploadedFile!,
-      });
-    }
-    const acoesData = acoesCorretivas.map((action) => ({
-      name: action.name,
-    }));
-    if (handleCorrectiveActionsData) {
-      handleCorrectiveActionsData(acoesData);
-    }
-  };
+  // const submitForm = (data) => {
+  //   if (handleAnalysisData) {
+  //     handleAnalysisData({
+  //       description: data.description,
+  //       file: uploadedFile!,
+  //     });
+  //   }
+  //   const acoesData = acoesCorretivas.map((action) => ({
+  //     name: action.name,
+  //   }));
+  //   if (handleCorrectiveActionsData) {
+  //     handleCorrectiveActionsData(acoesData);
+  //   }
+  // };
 
   return (
     <StyledForm onSubmit={handleSubmit(submitForm)}>
-      <StyledFormGroup>
+      {/* <StyledFormGroup>
         <StyledCard.Title className="modal_text">
           Análise da causa
         </StyledCard.Title>
@@ -206,7 +206,7 @@ export const AcoesPartComponent: React.FC<CreateOccurrenceProps> = ({
             </StyledButton>
           </StyledSpan>
         </StyledCard>
-      </StyledFormGroup>
+      </StyledFormGroup> */}
     </StyledForm>
   );
 };

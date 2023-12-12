@@ -3,7 +3,6 @@ import {
   ICorrectiveAction,
   ICorrectiveActionContext,
   ICorrectiveActionResponse,
-  ICreateCorrectiveAction,
 } from "./types";
 import { IDefaultProviderProps } from "../userContext/types";
 import { api } from "../../service/api";
@@ -29,18 +28,24 @@ export const CorrectiveActionProvider: React.FC<IDefaultProviderProps> = ({
 
   const createCorrectiveAction = async (
     occurrenceId: number,
-    name: string
+    correctiveActions: { name: string }[]
   ): Promise<ICorrectiveAction[] | undefined> => {
+    console.log(
+      correctiveActions,
+      "correctiveActions recebidas na requisição "
+    );
     try {
       const response = await api.post(
         `/occurrences/${occurrenceId}/corrective-actions`,
-        { name },
+        correctiveActions,
         {
           headers: {
             Authorization: `Bearer ${authToken}`,
           },
         }
       );
+
+      console.log(response.data, "AÇÕES CORRETIVAS CRIADAS!");
       return response.data;
     } catch (error) {
       console.error(error);

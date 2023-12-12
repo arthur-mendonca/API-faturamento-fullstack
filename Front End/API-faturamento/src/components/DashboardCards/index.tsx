@@ -16,7 +16,10 @@ import { EditDeleteOccurrenceModal } from "../Modals/EditDeleteOccurrence";
 import { useNavigate } from "react-router-dom";
 import { EvidenceContext } from "../../context/evidencesContext";
 
-export const DashboardCardComponents: React.FC<CardsProps> = ({ ...props }) => {
+export const DashboardCardComponents: React.FC<CardsProps> = ({
+  searchTerm,
+  ...props
+}) => {
   const { getAllOccurrences, occurrences, setOccurrence } =
     useContext(OccurrenceContext);
   const { getAllEvidencesFromOccurrence } = useContext(EvidenceContext);
@@ -30,9 +33,13 @@ export const DashboardCardComponents: React.FC<CardsProps> = ({ ...props }) => {
     getAllOccurrences();
   }, [getAllOccurrences]);
 
-  const filteredOccurrences = occurrences.filter(
-    (occurrence) => occurrence.user_id === +userId!
-  );
+  const filteredOccurrences = occurrences
+    .filter((occurrence: IOccurrence) => occurrence.user_id === +userId!)
+    .filter((occurrence: IOccurrence) =>
+      searchTerm
+        ? occurrence.name?.toLowerCase().includes(searchTerm?.toLowerCase())
+        : true
+    );
 
   const capitalizeFirstLetter = (string: string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);

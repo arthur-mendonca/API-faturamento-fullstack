@@ -13,7 +13,7 @@ import arrowDown from "../../images/svg/arrow down (Stroke).svg";
 import profilePicture from "../../images/svg/profilePicture.svg";
 import { InputFormComponent } from "../FormComponents/Input";
 import { DashboardCardComponents } from "../DashboardCards";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ModalContext } from "../../context/modalContext";
 import { CreateOccurrenceModal } from "../Modals/createOccurrence";
 
@@ -24,6 +24,7 @@ interface ColumnProps {
 
 export const DashboardRightColumn: React.FC<ColumnProps> = ({ ...props }) => {
   const { openModal } = useContext(ModalContext);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleShowModal = () => {
     // console.log("open modal");
@@ -91,6 +92,8 @@ export const DashboardRightColumn: React.FC<ColumnProps> = ({ ...props }) => {
               borderradius="60px"
               placeholder="Pesquisar"
               padding="25px 48px "
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
           </InnerSearchbarWrapper>
           <ButtonComponent
@@ -100,7 +103,7 @@ export const DashboardRightColumn: React.FC<ColumnProps> = ({ ...props }) => {
             <p className="text_menu_button">Nova ocorrência</p>
           </ButtonComponent>
         </SearchBarWrapper>
-        <DashboardCardComponents />
+        <DashboardCardComponents searchTerm={searchTerm} />
       </InnerDataWrapper>
     </StyledDashboardRightColumn>
   );

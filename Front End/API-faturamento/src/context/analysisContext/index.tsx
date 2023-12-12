@@ -1,5 +1,5 @@
 import { createContext, useCallback, useState } from "react";
-import { IAnalysis, IAnalysisContext, IAnalysisResponse } from "./style";
+import { IAnalysis, IAnalysisContext, IAnalysisResponse } from "./types";
 import { IDefaultProviderProps } from "../userContext/types";
 import { api } from "../../service/api";
 
@@ -34,6 +34,8 @@ export const AnalysisProvider: React.FC<IDefaultProviderProps> = ({
           },
         }
       );
+      console.log(file, description, "FILE E DESCRIPTION DE ANALYSIS");
+      console.log(response.data, "Análise criada");
       return response.data;
     } catch (error) {
       console.error(error);
