@@ -77,4 +77,14 @@ export const StatusWrapper = styled.span<CardsProps>`
   min-height: ${(props) => props.min_height};
   border-radius: ${(props) => props.border_radius};
   padding: ${(props) => props.padding};
+
+  font-size: ${(props) => {
+    return props.status === "Em investigação" ? "12px" : "13px";
+  }};
+
+  @media (max-width: 1181px) {
+    padding: ${(props) => {
+      return props.status === "Em investigação" ? "8px" : "0";
+    }};
+  }
 `;

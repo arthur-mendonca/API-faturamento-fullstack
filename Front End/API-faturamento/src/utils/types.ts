@@ -23,10 +23,15 @@ export interface StyleProps {
   max_heigth?: string;
   overflowY?: string;
   overflowX?: string;
+  max_width?: string;
+  size?: string;
+  z_index?: string;
 
   // Propriedades de Margem
   margintop?: string;
+  margin_top?: string;
   marginbottom?: string;
+  margin_bottom?: string;
   marginbottom_mobile?: string;
   margin_left?: string;
   margin_right?: string;
@@ -52,6 +57,7 @@ export interface StyleProps {
   inputbordercolor?: string;
   inputborderradius?: string;
   border_radius?: string;
+  border_color?: string;
 
   // Propriedades de Cursor e Ícone
   cursor?: string;

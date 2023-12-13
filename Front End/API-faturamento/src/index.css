@@ -101,10 +101,31 @@
   color: var(--blue);
 }
 
+.dashboard_title_mobile {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--blue);
+}
+
 .cards_text {
   font-size: 13px;
   font-weight: 500;
   font-family: "Poppins", sans-serif;
+}
+
+.cards_text_mobile {
+  font-size: 15px;
+  font-weight: 500;
+  font-family: "Poppins", sans-serif;
+}
+
+.cards_text_mobile_grey {
+  color: var(--gray);
+}
+
+.cards_status_text_mobile {
+  font-size: 13px;
 }
 
 .modal_text {

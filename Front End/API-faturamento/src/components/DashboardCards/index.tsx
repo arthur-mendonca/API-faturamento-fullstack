@@ -47,11 +47,12 @@ export const DashboardCardComponents: React.FC<CardsProps> = ({
 
   const handleShowModal = (occurrence: IOccurrence) => {
     openModal("modal", <EditDeleteOccurrenceModal />);
+    console.log(`Selecionado esta occurrence ${occurrence}`);
     setOccurrence(occurrence);
   };
 
   const handleShowDetails = async (occurrence: IOccurrence) => {
-    console.log(occurrence);
+    console.log(occurrence.status);
     await getAllEvidencesFromOccurrence(occurrence.id!);
     navigate(`/details/${occurrence.id}`);
   };
@@ -80,7 +81,7 @@ export const DashboardCardComponents: React.FC<CardsProps> = ({
           <StyledRow
             key={occurrence.id}
             id={occurrence.id?.toString()}
-            className="py-3 bg-white border rounded rounded-3 mb-3 cards_text d-flex align-items-center">
+            className="cards_text py-3 bg-white border rounded rounded-3 mb-3  d-flex align-items-center">
             <StyledCol
               xs={4}
               padding_left="25px"

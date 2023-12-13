@@ -22,6 +22,14 @@ export const StyledDashboardRightColumn = styled(Col)<ColumnProps>`
   @media (min-width: 1200px) {
     justify-content: normal;
   }
+
+  @media (max-width: 1180px) {
+    max-width: 77vw;
+  }
+
+  @media (max-width: 1070px) {
+    margin-left: 20px;
+  }
 `;
 
 export const InnerDataWrapper = styled.div<ColumnProps>`

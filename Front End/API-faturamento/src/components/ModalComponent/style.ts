@@ -35,6 +35,27 @@ export const StyledModal = styled(Modal)<ModalProps>`
     position: relative;
     top: 40px;
     left: 60px;
+
+    @media (max-width: 992px) {
+      position: relative;
+      top: 30% !important;
+      left: 0% !important;
+    }
+
+    @media (max-width: 768px) {
+      position: relative;
+
+      left: 28% !important;
+    }
+
+    @media (max-width: 576px) {
+      position: relative;
+      top: 74% !important;
+      left: -2.75% !important;
+
+      max-width: 550px;
+      width: 100%;
+    }
   }
 
   .modal-content {

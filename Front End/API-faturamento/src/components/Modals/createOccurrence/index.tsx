@@ -24,7 +24,7 @@ import { combinedSchema } from "../../../schema/createOccurrenceSchema";
 
 export const CreateOccurrenceModal: React.FC = () => {
   const { closeModal } = useContext(ModalContext);
-  const { createOccurrence, occurrenceId } = useContext(OccurrenceContext);
+  const { createOccurrence } = useContext(OccurrenceContext);
   const { createAnalysis } = useContext(AnalysisContext);
   const { createCorrectiveAction } = useContext(CorrectiveActionContext);
   const { createEvidence } = useContext(EvidenceContext);

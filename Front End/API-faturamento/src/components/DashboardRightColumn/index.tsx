@@ -27,7 +27,6 @@ export const DashboardRightColumn: React.FC<ColumnProps> = ({ ...props }) => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleShowModal = () => {
-    // console.log("open modal");
     openModal("modal", <CreateOccurrenceModal />, "lg");
   };
   const theme = useTheme();

@@ -83,7 +83,6 @@ export const DetailsPageLayout: React.FC = () => {
           {/* Linha Inferior */}
           <StyledRow height="50%">
             <StyledCol md={12}>
-              {" "}
               <CorrectiveActionsComponent />
             </StyledCol>
           </StyledRow>
