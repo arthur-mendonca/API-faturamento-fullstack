@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react";
 import { AnalysisContext } from "../../context/analysisContext";
 import { useParams } from "react-router-dom";
 import { StyledCard, StyledCardBody } from "./style";
+import pdfIcon from "../../images/svg/pdf icon.svg";
 
 export const AnalysisComponent: React.FC = () => {
   const { analysesResponse, getAllAnalysesFromOccurrence } =
@@ -22,7 +23,7 @@ export const AnalysisComponent: React.FC = () => {
       </StyledCard.Header>
       <StyledCardBody overflowY="auto">
         {analysesResponse?.analysis.length === 0 ? (
-          <StyledCard.Text>Nenhuma análise cadsatrada</StyledCard.Text>
+          <StyledCard.Text>Nenhuma análise cadastrada</StyledCard.Text>
         ) : (
           analysesResponse?.analysis.map((analysis) => (
             <>
@@ -36,7 +37,7 @@ export const AnalysisComponent: React.FC = () => {
                 <StyledCard.Title className="details_title_h1">
                   Anexos
                 </StyledCard.Title>
-                {analysis.fileUrl && (
+                {analysis?.fileUrl?.endsWith(".png") && (
                   <span className="d-flex flex-column">
                     <img
                       src={analysis.fileUrl}
@@ -48,7 +49,19 @@ export const AnalysisComponent: React.FC = () => {
                       href={analysis.fileUrl}
                       target="_blank"
                       rel="noopener noreferrer">
-                      Ver arquivo
+                      {analysis?.fileUrl?.endsWith(".png") && "Ver imagem"}
+                    </a>
+                  </span>
+                )}
+                {analysis?.fileUrl?.endsWith(".pdf") && (
+                  <span className="d-flex flex-column ">
+                    <img src={pdfIcon} alt="Análise" width={"58px"} />
+                    <a
+                      className="view_evidences_file"
+                      href={analysis.fileUrl}
+                      target="_blank"
+                      rel="noopener noreferrer">
+                      Ver PDF
                     </a>
                   </span>
                 )}

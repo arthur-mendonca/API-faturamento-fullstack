@@ -30,6 +30,7 @@ export interface StyleProps {
   // Propriedades de Margem
   margintop?: string;
   margin_top?: string;
+  margin_top_mobile?: string;
   marginbottom?: string;
   margin_bottom?: string;
   marginbottom_mobile?: string;
