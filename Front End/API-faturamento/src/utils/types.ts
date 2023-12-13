@@ -35,6 +35,7 @@ export interface StyleProps {
   marginbottom_mobile?: string;
   margin_left?: string;
   margin_right?: string;
+  margin?: string;
 
   //Propriedades de padding
   padding?: string;

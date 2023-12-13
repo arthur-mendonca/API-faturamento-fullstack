@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import theme from "../../../global/styles/theme";
 import { ButtonComponent } from "../../Buttons";
 import {
@@ -6,6 +6,9 @@ import {
   StyledForm,
   StyledModalBody,
   StyledSpan,
+  StyledButtonSpan,
+  StyledModalHeader,
+  StyledMobileButton,
 } from "./style";
 import { ModalContext } from "../../../context/modalContext";
 import { CreateOccurrenceModalBody } from "./CreateOccurrenceModalBody";
@@ -34,6 +37,17 @@ export const CreateOccurrenceModal: React.FC = () => {
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [previewEvidenceUrl, setPreviewEvidenceUrl] = useState("");
   const [previewAnalysisUrl, setPreviewAnalysisUrl] = useState("");
+
+  const [screenMobile, setScreenMobile] = useState(window.innerWidth > 500);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenMobile(window.innerWidth > 500);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const [occurrenceData, setOccurrenceData] =
     useState<IOccurrenceCreate | null>(null);
@@ -102,30 +116,49 @@ export const CreateOccurrenceModal: React.FC = () => {
 
   return (
     <>
-      <StyledModalBody className="d-flex border">
-        <StyledSpan
-          className="position-relative"
-          display="flex"
-          justify_content="space-between"
-          align_items="center"
-          gap="1.5rem"
-          position="relative"
-          right="-1%">
-          <StyledCloseButton onClick={() => closeModal()} font_size={"1rem"} />
-          <p className="modal_text">Nova ocorrência</p>
-        </StyledSpan>
-        <ButtonComponent
-          type="submit"
-          form="formModal"
-          style={{ position: "relative", left: "54%" }}
-          onClick={() => handleCreate()}
-          background={theme.colors.blue}
-          className="text_menu_button"
-          padding="0 3rem">
-          Criar
-        </ButtonComponent>
+      <StyledModalBody className="d-flex border-top-0 border-right-0 border-left-0 border-bottom">
+        <StyledModalHeader border="none" padding="0">
+          <StyledSpan
+            className="position-relative"
+            display="flex"
+            justify_content="flex-start"
+            align_items="center"
+            gap="1rem"
+            position="relative"
+            right="">
+            <StyledCloseButton
+              onClick={() => closeModal()}
+              font_size={"1rem"}
+            />
+
+            <p className="modal_text">Nova ocorrência</p>
+          </StyledSpan>
+          <StyledButtonSpan position="relative" left="140%">
+            {screenMobile ? (
+              <ButtonComponent
+                type="submit"
+                form="formModal"
+                onClick={() => handleCreate()}
+                background={theme.colors.blue}
+                className="text_menu_button"
+                padding="0 3rem">
+                Criar
+              </ButtonComponent>
+            ) : (
+              <StyledMobileButton
+                onClick={() => handleCreate()}
+                background_color={theme.colors.blue}
+                border="none"
+                className="text_menu_button"
+                padding="9px 2rem"
+                border_radius="20px">
+                Criar
+              </StyledMobileButton>
+            )}
+          </StyledButtonSpan>
+        </StyledModalHeader>
       </StyledModalBody>
-      <StyledModalBody>
+      <StyledModalBody className="border-right-0 border-left-0">
         <StyledSpan display="flex" flexdirection="row" justify_content="center">
           <StyledSpan
             className="text_menu_button"

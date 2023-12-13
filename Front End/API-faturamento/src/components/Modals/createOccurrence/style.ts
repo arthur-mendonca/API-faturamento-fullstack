@@ -9,6 +9,16 @@ export const StyledModal = styled(Modal)<StyleProps>``;
 
 export const StyledModalBody = styled(Modal.Body)<StyleProps>``;
 
+export const StyledModalHeader = styled(Modal.Header)<StyleProps>`
+  border: ${(props) => props.border};
+  right: ${(props) => props.right};
+  width: ${(props) => props.width};
+  justify-content: ${(props) => props.justify_content};
+  display: ${(props) => props.display};
+  gap: ${(props) => props.gap};
+  padding: ${(props) => props.padding};
+`;
+
 export const StyledSpan = styled.span<StyleProps>`
   justify-content: ${(props) => props.justify_content};
   display: ${(props) => props.display};
@@ -27,6 +37,29 @@ export const StyledSpan = styled.span<StyleProps>`
   top: ${(props) => props.top};
 `;
 
+export const StyledButtonSpan = styled.span<StyleProps>`
+  position: ${(props) => props.position};
+  right: ${(props) => props.right};
+  left: ${(props) => props.left};
+  width: ${(props) => props.width};
+
+  @media (max-width: 992px) {
+    left: 50%;
+  }
+  @media (max-width: 768px) {
+    left: 48%;
+  }
+  @media (max-width: 576px) {
+    left: 55%;
+  }
+  @media (max-width: 426px) {
+    left: 39%;
+  }
+  @media (max-width: 376px) {
+    left: 23%;
+  }
+`;
+
 export const StyledCloseButton = styled(CloseButton)<StyleProps>`
   font-size: ${(props) => props.font_size};
   position: ${(props) => props.position};
@@ -35,14 +68,27 @@ export const StyledCloseButton = styled(CloseButton)<StyleProps>`
   right: ${(props) => props.right};
 `;
 
+export const StyledMobileButton = styled.button<StyleProps>`
+  border: ${(props) => props.border};
+  background-color: ${(props) => props.background_color};
+  width: ${(props) => props.width};
+  padding: ${(props) => props.padding};
+  margin: ${(props) => props.margin};
+  border-radius: ${(props) => props.border_radius};
+`;
+
 export const StyledButton = styled.button<StyleProps>`
   border: ${(props) => props.border};
   background-color: ${(props) => props.background_color};
+  padding: ${(props) => props.padding};
+  margin: ${(props) => props.margin};
+  border-radius: ${(props) => props.border_radius};
 `;
 
 export const StyledModalFooter = styled(Modal.Footer)<StyleProps>``;
 
 export const StyledForm = styled(Form)<StyleProps>``;
+
 export const StyledFormGroup = styled(Form.Group)<StyleProps>``;
 
 export const StyledCard = styled(Card)<StyleProps>`

@@ -17,6 +17,7 @@ export interface ButtonProps extends StyleProps {
   width?: string;
   border_radius?: string;
   statusActive?: boolean;
+  padding_mobile?: string;
 }
 
 export const StyledButton = styled.button<ButtonProps>`

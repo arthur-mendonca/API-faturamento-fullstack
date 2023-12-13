@@ -36,10 +36,19 @@ export const StyledModal = styled(Modal)<ModalProps>`
     top: 40px;
     left: 60px;
 
+    ${({ modalStyles }) =>
+      modalStyles &&
+      `
+        position: ${modalStyles.position}
+        top: ${modalStyles.top};
+        left: ${modalStyles.left};
+       
+      `}
+
     @media (max-width: 992px) {
       position: relative;
       top: 30% !important;
-      left: 0% !important;
+      left: 10% !important;
     }
 
     @media (max-width: 768px) {
@@ -50,7 +59,7 @@ export const StyledModal = styled(Modal)<ModalProps>`
 
     @media (max-width: 576px) {
       position: relative;
-      top: 74% !important;
+      top: 77% !important;
       left: -2.75% !important;
 
       max-width: 550px;

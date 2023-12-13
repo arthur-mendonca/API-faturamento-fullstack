@@ -15,5 +15,19 @@ export interface IModalContext {
 
   setModalContent: React.Dispatch<React.SetStateAction<React.ReactNode>>;
 
+  setMobileModalContent: React.Dispatch<React.SetStateAction<React.ReactNode>>;
+
+  mobileModalContent: React.ReactNode;
+
   modalSize: "sm" | "lg" | "xl";
+
+  activeMobileModal: string | null;
+
+  setActiveMobileModal: React.Dispatch<React.SetStateAction<string | null>>;
+
+  openMobileModal: (
+    modalName: string,
+    content: React.ReactNode,
+    size?: "sm" | "lg" | "xl"
+  ) => void;
 }

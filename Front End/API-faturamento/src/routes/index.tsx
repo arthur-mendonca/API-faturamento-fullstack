@@ -8,12 +8,14 @@ import { ModalContext } from "../context/modalContext";
 import { ModalComponent } from "../components/ModalComponent";
 import { DetailsPage } from "../pages/DetailsPage";
 import { TestePage } from "../pages/TestePage";
+import { MobileModalComponent } from "../components/ModalComponent/MobileModalComponent";
 
 export const RoutesMain = () => {
-  const { activeModal } = useContext(ModalContext);
+  const { activeModal, activeMobileModal } = useContext(ModalContext);
   return (
     <>
       {activeModal && <ModalComponent />}
+      {activeMobileModal === "mobileModal" && <MobileModalComponent />}
 
       <Routes>
         <Route element={<TestePage />} path="/teste" />

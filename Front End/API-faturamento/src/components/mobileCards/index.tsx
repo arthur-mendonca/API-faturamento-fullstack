@@ -25,7 +25,7 @@ export const MobileCardsComponent: React.FC = () => {
   const theme = useTheme();
   const navigate = useNavigate();
 
-  const { openModal } = useContext(ModalContext);
+  const { openModal, openMobileModal } = useContext(ModalContext);
   const { getAllOccurrences, occurrences, setOccurrence } =
     useContext(OccurrenceContext);
   const { getAllEvidencesFromOccurrence } = useContext(EvidenceContext);
@@ -50,7 +50,7 @@ export const MobileCardsComponent: React.FC = () => {
   };
 
   const handleShowCreateModal = () => {
-    openModal("modal", <CreateOccurrenceModal />, "lg");
+    openMobileModal("mobileModal", <CreateOccurrenceModal />, "lg");
   };
 
   return (
