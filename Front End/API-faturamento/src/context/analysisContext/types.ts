@@ -48,7 +48,8 @@ export interface IAnalysisContext {
 
   updateAnalysis: (
     analysisId: number,
-    data: Partial<IAnalysis>
+    description?: string,
+    file?: File
   ) => Promise<IAnalysis | undefined>;
 
   deleteAnalysis: (analysisId: number) => Promise<void>;

@@ -16,10 +16,9 @@ import pdfIcon from "../../../images/svg/pdf icon.svg";
 import { useTheme } from "styled-components";
 import { IOccurrenceCreate } from "../../../context/occurrencesContext/types";
 import { EditOccurrenceProps } from "./types";
-import { IEvidence } from "../../../context/evidencesContext/types";
 import { AnalysisContext } from "../../../context/analysisContext";
-import { OccurrenceContext } from "../../../context/occurrencesContext";
 import { EvidenceContext } from "../../../context/evidencesContext";
+import { CorrectiveActionContext } from "../../../context/correctiveActionsContext";
 
 export const EditOccurrenceModalBody: React.FC<EditOccurrenceProps> = ({
   setPreviewAnalysisUrl,
@@ -27,7 +26,6 @@ export const EditOccurrenceModalBody: React.FC<EditOccurrenceProps> = ({
   previewEvidenceUrl,
   setPreviewEvidenceUrl,
   setUploadedFile,
-  uploadedFile,
   handleOccurrenceData,
   showActions,
   showDetail,
@@ -37,18 +35,12 @@ export const EditOccurrenceModalBody: React.FC<EditOccurrenceProps> = ({
   analysisData,
   correctiveActionsDataUpdate,
   setCorrectiveActionsDataUpdate,
-  analyses,
-  correctiveActionsResponse,
   occurrence,
-  evidences,
-  evidence,
-  setIsEvidenceMarkedForDeletion,
   deleteEvidence,
   updateEvidence,
-  setEvidences,
   setValue,
   analysisDataUpdate,
-  evidenceFile,
+
   setEvidenceFile,
 }) => {
   const {
@@ -65,6 +57,9 @@ export const EditOccurrenceModalBody: React.FC<EditOccurrenceProps> = ({
     createEvidence,
   } = useContext(EvidenceContext);
 
+  const { correctiveActionResponse, getAllCorrectiveActionsFromOccurrence } =
+    useContext(CorrectiveActionContext);
+
   const theme = useTheme();
 
   const [acoesCorretivas, setAcoesCorretivas] = useState([{ name: "" }]);
@@ -74,16 +69,6 @@ export const EditOccurrenceModalBody: React.FC<EditOccurrenceProps> = ({
 
   const currentEvidence = evidenceResponse?.evidences[0];
 
-  const addAcaoCorretiva = () => {
-    setAcoesCorretivas((acoes) => [...acoes, { name: "" }]);
-  };
-
-  const updateAcaoCorretiva = (index: number, name: string) => {
-    setAcoesCorretivas((acoes) =>
-      acoes.map((acao, i) => (i === index ? { ...acao, name } : acao))
-    );
-  };
-
   useEffect(() => {
     if (occurrence) {
       setValue("name", occurrence.name);
@@ -92,11 +77,44 @@ export const EditOccurrenceModalBody: React.FC<EditOccurrenceProps> = ({
     }
     const fetchData = async () => {
       getAllEvidencesFromOccurrence(occurrence.id);
-      console.log(evidenceResponse, "evidenceResponse");
-      console.log(previewEvidenceUrl, "PREVIEW EVIDENCE URL");
-      console.log(currentEvidence, "CURRENT EVIDENCE");
+
+      const analysesFromOccurrenceResponse = await getAllAnalysesFromOccurrence(
+        occurrence.id
+      );
+      console.log(
+        analysesFromOccurrenceResponse,
+        "ANALYSES FROM OCCURRENCE RESPONSE"
+      );
+      if (analysesFromOccurrenceResponse) {
+        console.log(
+          analysesFromOccurrenceResponse.analysis[0],
+          "ANALYSES FROM OCCURRENCE"
+        );
+        setAnalysisDataUpdate({
+          filename: analysesFromOccurrenceResponse.analysis[0].filename,
+          description: analysesFromOccurrenceResponse.analysis[0].description,
+          fileUrl: analysesFromOccurrenceResponse.analysis[0].fileUrl,
+          id: analysesFromOccurrenceResponse.analysis[0].id,
+        });
+        setValue(
+          "analysisDescription",
+          analysesFromOccurrenceResponse.analysis[0].description
+        );
+        console.log(analysisDataUpdate, "ANALYSIS DATA LOADED");
+      }
+      const getAllCorrectiveActionsResponse =
+        await getAllCorrectiveActionsFromOccurrence(occurrence.id);
+      if (getAllCorrectiveActionsResponse) {
+        console.log(correctiveActionResponse, "CORRECTIVE ACTIONS RESPONSE");
+        setCorrectiveActionsDataUpdate(
+          correctiveActionResponse?.corrective_action
+        );
+        console.log(correctiveActionsDataUpdate, "CORRECTIVE ACTIONS UPDATE");
+      }
     };
     fetchData();
+
+    console.log(analysisDataUpdate, "ANALYSIS DATA UPDATE");
 
     const hasEvidenceChanged =
       currentEvidence &&
@@ -112,35 +130,25 @@ export const EditOccurrenceModalBody: React.FC<EditOccurrenceProps> = ({
 
       previousEvidenceRef.current = currentEvidence.fileUrl;
     }
+  }, [getAllAnalysesFromOccurrence]);
 
-    setCorrectiveActionsDataUpdate(acoesCorretivas);
-  }, [
-    // acoesCorretivas,
-    // currentEvidence,
-    // isPreviewInitialized,
-    getAllAnalysesFromOccurrence,
-    // analysesResponse,
-  ]);
+  const addAcaoCorretiva = () => {
+    setCorrectiveActionsDataUpdate((prevActions) => [
+      ...prevActions,
+      { name: "", id: null },
+    ]);
+  };
 
-  useEffect(() => {
-    console.log(correctiveActionsDataUpdate, "acoes corretivas atualizadas");
-    console.log(analysisDataUpdate, "analysisDataUpdate CHEGOU AO FILHO");
-    const updateData = async () => {
-      const updateAnalysisFunction = await updateAnalysis(
-        analysisDataUpdate.id!,
-        analysisDataUpdate
-      );
-      console.log(updateAnalysisFunction, "UPDATE ANALYSIS FUNCTION");
-    };
-
-    if (analysisDataUpdate && analysisDataUpdate.id) {
-      updateData();
-    }
-  }, [correctiveActionsDataUpdate, analysisDataUpdate]);
+  const updateAcaoCorretiva = (index: number, name: string) => {
+    setCorrectiveActionsDataUpdate((acoes) =>
+      acoes.map((acao, i) => (i === index ? { ...acao, name } : acao))
+    );
+  };
 
   const renderAcoesCorretivas = () => {
     return correctiveActionsDataUpdate.map((acao, index) => (
       <StyledSpan
+        key={index}
         margintop="-15px"
         display="flex"
         flex_direction="column"
@@ -181,30 +189,30 @@ export const EditOccurrenceModalBody: React.FC<EditOccurrenceProps> = ({
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = e.target.files ? e.target.files[0] : null;
-    console.log(e.target.files[0], "TEM ALGUM FILE AQUI?");
+    // console.log(e.target.files[0], "TEM ALGUM FILE AQUI?");
     if (file) {
-      console.log(file, "FILE PASSOU DO IF");
+      // console.log(file, "FILE PASSOU DO IF");
       setEvidenceFile(file);
-      console.log(evidenceFile, "TEM ALGUMA COISA EM EVIDENCE FILE?");
+      // console.log(evidenceFile, "TEM ALGUMA COISA EM EVIDENCE FILE?");
       if (!evidenceResponse?.evidences[0]) {
         const createEvidenceFunction = await createEvidence(
           occurrence.id,
           file
         );
-        console.log(createEvidenceFunction, "EVIDENCE FOI CRIADO");
+        // console.log(createEvidenceFunction, "EVIDENCE FOI CRIADO");
         getAllEvidencesFromOccurrence(occurrence.id);
       }
       if (evidenceResponse?.evidences[0]) {
-        console.log("ENTROU EM UPDATE EVIDENCE");
+        // console.log("ENTROU EM UPDATE EVIDENCE");
         const updateEvidenceResponse = await updateEvidence(
           evidenceResponse?.evidences[0].id,
           file
         );
         getAllEvidencesFromOccurrence(occurrence.id);
-        console.log(updateEvidenceResponse, "EVIDENCE FOI ATUALIZADO");
+        // console.log(updateEvidenceResponse, "EVIDENCE FOI ATUALIZADO");
       }
 
-      console.log(evidenceResponse, "evidenceResponse");
+      // console.log(evidenceResponse, "evidenceResponse");
 
       if (file.type.startsWith("image/")) {
         setPreviewEvidenceUrl(URL.createObjectURL(file));
@@ -219,8 +227,6 @@ export const EditOccurrenceModalBody: React.FC<EditOccurrenceProps> = ({
   ) => {
     const file = e.target.files?.[0];
     if (file) {
-      setUploadedFile(file);
-
       const previewUrl = file.type.startsWith("image/")
         ? URL.createObjectURL(file)
         : file.type === "application/pdf"
@@ -228,18 +234,15 @@ export const EditOccurrenceModalBody: React.FC<EditOccurrenceProps> = ({
         : null;
       if (previewUrl) setPreviewAnalysisUrl(previewUrl);
 
-      const currentAnalysis = analysesResponse?.analysis;
-
-      const updatedAnalysisData = { ...currentAnalysis, filename: file.name };
-
-      const updatedAnalysis = await updateAnalysis(analysesResponse.id, {
-        ...analysesResponse,
-        filename: file.name,
-      });
-
-      console.log(updatedAnalysis, "ANALYSIS UPDATED");
-      setAnalysesResponse(updatedAnalysisData);
-      await getAllAnalysesFromOccurrence(occurrence.id);
+      if (analysisDataUpdate.id) {
+        const updatedAnalysis = await updateAnalysis(
+          analysisDataUpdate.id,
+          undefined,
+          file
+        );
+        console.log(updatedAnalysis, "ANALYSIS UPDATED");
+        await getAllAnalysesFromOccurrence(occurrence.id);
+      }
     }
   };
 
@@ -248,7 +251,6 @@ export const EditOccurrenceModalBody: React.FC<EditOccurrenceProps> = ({
     const updatedEvidences = await getAllEvidencesFromOccurrence(occurrence.id);
     if (updatedEvidences) setEvidenceResponse(updatedEvidences);
 
-    // setUploadedFile(null);
     setPreviewEvidenceUrl("");
     setEvidenceFile("");
 
@@ -299,9 +301,10 @@ export const EditOccurrenceModalBody: React.FC<EditOccurrenceProps> = ({
   const handleAnalysisDataDuplicate = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
+    const newValue = e.currentTarget.value;
     setAnalysisDataUpdate((prevState) => ({
       ...prevState,
-      description: e.currentTarget.value,
+      description: newValue,
     }));
     console.log(
       analysisDataUpdate,

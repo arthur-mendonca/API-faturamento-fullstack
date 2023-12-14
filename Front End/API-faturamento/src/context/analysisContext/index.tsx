@@ -96,13 +96,12 @@ export const AnalysisProvider: React.FC<IDefaultProviderProps> = ({
 
   const updateAnalysis = async (
     analysisId: number,
-    file: File,
-    description: string
+    description: string,
+    file: File
   ): Promise<IAnalysis | undefined> => {
     try {
       const formData = new FormData();
-      console.log(file, "FILE DE UPDATE ANALYSIS");
-      console.log(formData, "FORM DATA");
+
       if (file) {
         formData.append("file", file);
       }

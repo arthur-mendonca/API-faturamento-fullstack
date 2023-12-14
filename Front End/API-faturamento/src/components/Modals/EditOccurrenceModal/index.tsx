@@ -34,7 +34,7 @@ export const EditOccurrenceModal: React.FC<EditModalProps> = ({
   occurrence,
 }) => {
   const { closeModal } = useContext(ModalContext);
-  const { updateOccurrence } = useContext(OccurrenceContext);
+  const { updateOccurrence, getAllOccurrences } = useContext(OccurrenceContext);
   const {
     updateAnalysis,
     getAllAnalysesFromOccurrence,
@@ -49,6 +49,7 @@ export const EditOccurrenceModal: React.FC<EditModalProps> = ({
     getAllCorrectiveActionsFromOccurrence,
     setCorrectiveActionResponse,
     correctiveActionResponse,
+    createCorrectiveAction,
   } = useContext(CorrectiveActionContext);
   const {
     updateEvidence,
@@ -60,7 +61,7 @@ export const EditOccurrenceModal: React.FC<EditModalProps> = ({
 
   const [showDetail, setShowDetail] = useState(true);
   const [showActions, setShowActions] = useState(false);
-  // const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+
   const [previewEvidenceUrl, setPreviewEvidenceUrl] = useState("");
   const [previewAnalysisUrl, setPreviewAnalysisUrl] = useState("");
 
@@ -87,29 +88,12 @@ export const EditOccurrenceModal: React.FC<EditModalProps> = ({
     // console.log(occurrence.id, "ID DA OCCURRENCE");
 
     const fetchData = async () => {
-      const analysesFromOccurrenceResponse = await getAllAnalysesFromOccurrence(
-        occurrence.id
-      );
-      if (analysesFromOccurrenceResponse) {
-        console.log(
-          analysesFromOccurrenceResponse.analysis[0],
-          "ANALYSES FROM OCCURRENCE"
-        );
-        setAnalysisDataUpdate({
-          filename: analysesFromOccurrenceResponse.analysis[0].filename,
-          description: analysesFromOccurrenceResponse.analysis[0].description,
-          fileUrl: analysesFromOccurrenceResponse.analysis[0].fileUrl,
-          id: analysesFromOccurrenceResponse.analysis[0].id,
-        });
-        // console.log(analysisDataUpdate, "ANALYSIS DATA LOADED");
-      }
-
       const getAllAvidencesResponse = await getAllEvidencesFromOccurrence(
         occurrence.id
       );
-      console.log(evidenceResponse, "EVIDENCE RESPONSE");
+      // console.log(evidenceResponse, "EVIDENCE RESPONSE");
       if (getAllAvidencesResponse) {
-        console.log(evidenceResponse, "evidenceResponse");
+        // console.log(evidenceResponse, "evidenceResponse");
         setPreviewEvidenceUrl(evidenceResponse?.evidences[0].fileUrl);
       }
       const correctiveActionsResponse =
@@ -142,51 +126,49 @@ export const EditOccurrenceModal: React.FC<EditModalProps> = ({
     setOccurrenceData(data);
   };
 
-  const handleCorrectiveActionChange = (id: number, name: string) => {
-    setCorrectiveActionsDataUpdate((currentActions) =>
-      currentActions.map((action) =>
-        action.id === id ? { ...action, name } : action
-      )
-    );
-  };
-
   const handleUpdate = async () => {
     try {
       console.log(occurrenceData, "OCCURRENCE DATA EM HANDLE CREATE");
       const currentOccurrenceId = occurrence.id;
+
       if (occurrenceData) {
         const updateOccurrenceFunction = await updateOccurrence(
           currentOccurrenceId,
           occurrenceData
         );
-        console.log(updateOccurrenceFunction, "UPDATE OCCURRENCE");
+        getAllEvidencesFromOccurrence(occurrence.id);
       }
-
-      if (!evidences && evidence) {
-        createEvidence(occurrence.id, evidence!);
-      } else {
-        const updatedEvidence = await updateEvidence(evidence.id!, evidence);
-        await getAllEvidencesFromOccurrence(occurrence.id);
-        console.log(updatedEvidence, "UPDATED EVIDENCE");
-      }
-
-      console.log(analysisDataUpdate, "THIS IS ANALYSIS");
 
       if (analysisDataUpdate) {
         const updateAnalysisFunction = await updateAnalysis(
           analysisDataUpdate.id!,
-          analysisDataUpdate
+          analysisDataUpdate.description
         );
+
         await getAllAnalysesFromOccurrence(occurrence.id);
         console.log(analysisDataUpdate, "ANALYSIS DATA UPDATE SUCCESSFULLY");
         console.log(updateAnalysisFunction, "UPDATE ANALYSIS FUNCTION");
       }
-      const updates = correctiveActionsData.map((action) =>
-        updateCorrectiveAction(action.id, action)
-      );
-      console.log(correctiveActionResponse, "CORRECTIVE ACTIONS RESPONSE");
+      if (correctiveActionsDataUpdate) {
+        const existingActions = correctiveActionsDataUpdate.filter(
+          (action) => action.id != null
+        );
+        const newActions = correctiveActionsDataUpdate.filter(
+          (action) => action.id == null
+        );
+        await Promise.all(
+          existingActions.map((action) =>
+            updateCorrectiveAction(action.id, action)
+          )
+        );
+        await createCorrectiveAction(
+          occurrence.id,
+          newActions.map((action) => ({ name: action.name }))
+        );
 
-      await Promise.all(updates);
+        getAllCorrectiveActionsFromOccurrence(occurrence.id);
+      }
+      console.log(correctiveActionResponse, "CORRECTIVE ACTIONS RESPONSE");
       closeModal();
       console.log("Dados criados com sucesso!");
     } catch (error) {
