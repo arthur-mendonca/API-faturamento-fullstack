@@ -14,7 +14,7 @@ export interface IEvidenceContext {
 
   createEvidence: (
     occurrenceId: number,
-    file: File | string
+    file: File
   ) => Promise<IEvidence | undefined>;
 
   getEvidence: (evidenceId: number) => Promise<IEvidence | undefined>;
@@ -26,7 +26,7 @@ export interface IEvidenceContext {
 
   updateEvidence: (
     evidenceId: number,
-    data: IEvidenceUpdate
+    file: File
   ) => Promise<IEvidence | undefined>;
 
   deleteEvidence: (evidenceId: number) => Promise<void>;
@@ -69,6 +69,6 @@ export interface IEvidenceResponse {
 }
 
 export interface IEvidenceUpdate {
-  filename: File | null;
+  filename: File;
   id: number;
 }

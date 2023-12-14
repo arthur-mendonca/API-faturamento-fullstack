@@ -96,16 +96,18 @@ export const AnalysisProvider: React.FC<IDefaultProviderProps> = ({
 
   const updateAnalysis = async (
     analysisId: number,
-    data: Partial<IAnalysis>
+    file: File,
+    description: string
   ): Promise<IAnalysis | undefined> => {
     try {
       const formData = new FormData();
-
-      if (data.filename) {
-        formData.append("file", data.filename);
+      console.log(file, "FILE DE UPDATE ANALYSIS");
+      console.log(formData, "FORM DATA");
+      if (file) {
+        formData.append("file", file);
       }
-      if (data.description) {
-        formData.append("description", data.description);
+      if (description) {
+        formData.append("description", description);
       }
       const response = await api.put(
         `/occurrences/analysis/${analysisId}`,

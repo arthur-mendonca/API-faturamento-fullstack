@@ -91,12 +91,14 @@ export const EvidenceProvider = ({ children }: IDefaultProviderProps) => {
 
   const updateEvidence = async (
     evidenceId: number,
-    file: IEvidenceUpdate
+    file: File
   ): Promise<IEvidence | undefined> => {
     try {
       const formData = new FormData();
-      if (file.filename) {
-        formData.append("filename", file.filename);
+
+      if (file) {
+        formData.append("file", file);
+        console.log(formData, "FORMDATA de UPDATE EVIDENCE");
       }
       const response = await api.put(`evidences/${evidenceId}`, formData, {
         headers: {

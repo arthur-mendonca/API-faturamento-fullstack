@@ -195,10 +195,12 @@ export const EditOccurrenceModalBody: React.FC<EditOccurrenceProps> = ({
         getAllEvidencesFromOccurrence(occurrence.id);
       }
       if (evidenceResponse?.evidences[0]) {
+        console.log("ENTROU EM UPDATE EVIDENCE");
         const updateEvidenceResponse = await updateEvidence(
           evidenceResponse?.evidences[0].id,
-          evidenceFile
+          file
         );
+        getAllEvidencesFromOccurrence(occurrence.id);
         console.log(updateEvidenceResponse, "EVIDENCE FOI ATUALIZADO");
       }
 
