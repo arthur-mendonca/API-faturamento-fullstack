@@ -6,6 +6,7 @@ export interface IOccurrenceCreate {
   name?: string;
   origin?: string;
   description?: string;
+  status?: "Em investigação" | "Finalizado";
 }
 
 export interface IOccurrenceContext {

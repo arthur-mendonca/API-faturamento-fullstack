@@ -15,14 +15,15 @@ export const CorrectiveActionProvider: React.FC<IDefaultProviderProps> = ({
   children,
 }) => {
   const [correctiveActions, setCorrectiveActions] = useState<
-    ICorrectiveAction[]
-  >([]);
+    ICorrectiveActionResponse | undefined
+  >(undefined);
 
   const [correctiveAction, setCorrectiveAction] =
     useState<ICorrectiveAction | null>(null);
 
-  const [correctiveActionResponse, setCorrectiveActionResponse] =
-    useState<ICorrectiveActionResponse | null>(null);
+  const [correctiveActionResponse, setCorrectiveActionResponse] = useState<
+    ICorrectiveActionResponse | undefined
+  >(undefined);
 
   const authToken = localStorage.getItem("@TOKEN");
 
@@ -53,7 +54,7 @@ export const CorrectiveActionProvider: React.FC<IDefaultProviderProps> = ({
   };
 
   const getAllCorrectiveActions = useCallback(async (): Promise<
-    ICorrectiveAction[] | undefined
+    ICorrectiveActionResponse | undefined
   > => {
     try {
       const response = await api.get("/occurrences/corrective-actions", {
@@ -159,6 +160,7 @@ export const CorrectiveActionProvider: React.FC<IDefaultProviderProps> = ({
         getCorrectiveAction,
         getAllCorrectiveActions,
         createCorrectiveAction,
+        setCorrectiveActionResponse,
       }}>
       {children}
     </CorrectiveActionContext.Provider>

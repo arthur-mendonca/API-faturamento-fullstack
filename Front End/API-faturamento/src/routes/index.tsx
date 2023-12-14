@@ -7,7 +7,7 @@ import { useContext } from "react";
 import { ModalContext } from "../context/modalContext";
 import { ModalComponent } from "../components/ModalComponent";
 import { DetailsPage } from "../pages/DetailsPage";
-import { TestePage } from "../pages/TestePage";
+import { SearchPageMobile } from "../pages/SearchPageMobile";
 import { MobileModalComponent } from "../components/ModalComponent/MobileModalComponent";
 
 export const RoutesMain = () => {
@@ -18,12 +18,12 @@ export const RoutesMain = () => {
       {activeMobileModal === "mobileModal" && <MobileModalComponent />}
 
       <Routes>
-        <Route element={<TestePage />} path="/teste" />
         <Route element={<LoginPage />} path="/login" />
         <Route element={<RegisterPage />} path="/" />
         <Route element={<ProtectedRoute />}>
           <Route element={<DashboardPage />} path="dashboard" />
           <Route element={<DetailsPage />} path="details/:id" />
+          <Route element={<SearchPageMobile />} path="/search_mobile" />
         </Route>
       </Routes>
     </>

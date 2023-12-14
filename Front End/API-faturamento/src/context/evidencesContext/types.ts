@@ -2,11 +2,12 @@ export interface IDefaultProviderProps {
   children: React.ReactNode;
 }
 
-export interface IEvidence {}
-
 export interface IEvidenceContext {
-  evidences: IEvidence[];
-  setEvidences: React.Dispatch<React.SetStateAction<IEvidence[]>>;
+  evidences: IEvidenceResponse | undefined;
+
+  setEvidences: React.Dispatch<
+    React.SetStateAction<IEvidenceResponse | undefined>
+  >;
 
   evidence: IEvidence | null;
   setEvidence: React.Dispatch<React.SetStateAction<IEvidence | null>>;
@@ -31,6 +32,7 @@ export interface IEvidenceContext {
   deleteEvidence: (evidenceId: number) => Promise<void>;
 
   evidenceResponse: IEvidenceResponse | null;
+
   setEvidenceResponse: React.Dispatch<
     React.SetStateAction<IEvidenceResponse | null>
   >;

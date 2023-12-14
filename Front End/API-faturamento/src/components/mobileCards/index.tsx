@@ -16,14 +16,21 @@ import { IOccurrence } from "../../context/occurrencesContext/types";
 import { useContext, useEffect } from "react";
 import { OccurrenceContext } from "../../context/occurrencesContext";
 import { ModalContext } from "../../context/modalContext";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { EvidenceContext } from "../../context/evidencesContext";
 import { CreateOccurrenceModal } from "../Modals/createOccurrence";
 
-export const MobileCardsComponent: React.FC = () => {
+interface MobileCardsProps {
+  searchTermMobile: string;
+}
+
+export const MobileCardsComponent: React.FC<MobileCardsProps> = ({
+  searchTermMobile,
+}) => {
   const userId = localStorage.getItem("@USERID");
   const theme = useTheme();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const { openModal, openMobileModal } = useContext(ModalContext);
   const { getAllOccurrences, occurrences, setOccurrence } =
@@ -34,9 +41,15 @@ export const MobileCardsComponent: React.FC = () => {
     getAllOccurrences();
   }, [getAllOccurrences]);
 
-  const filteredOccurrences = occurrences.filter(
-    (occurrence: IOccurrence) => occurrence.user_id === +userId!
-  );
+  const filteredOccurrences = occurrences
+    .filter((occurrence: IOccurrence) => occurrence.user_id === +userId!)
+    .filter((occurrence) =>
+      searchTermMobile
+        ? occurrence.name
+            ?.toLowerCase()
+            .includes(searchTermMobile?.toLowerCase())
+        : true
+    );
 
   const handleShowEditModal = (occurrence: IOccurrence) => {
     openModal("modal", <EditDeleteOccurrenceModal />);
@@ -55,15 +68,20 @@ export const MobileCardsComponent: React.FC = () => {
 
   return (
     <>
-      <StyledAddButton
-        size={"48px"}
-        position="fixed"
-        z_index="100"
-        color={theme.colors.blue}
-        right="12px"
-        bottom="22px"
-        onClick={handleShowCreateModal}
-      />
+      {location.pathname === "/search_mobile" ? (
+        ""
+      ) : (
+        <StyledAddButton
+          size={"48px"}
+          position="fixed"
+          z_index="100"
+          color={theme.colors.blue}
+          right="12px"
+          bottom="22px"
+          onClick={handleShowCreateModal}
+        />
+      )}
+
       {filteredOccurrences.map((occurrence: IOccurrence) => (
         <StyledCard
           border_radius="12px"

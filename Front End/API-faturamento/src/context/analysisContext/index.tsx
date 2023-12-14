@@ -8,10 +8,11 @@ export const AnalysisContext = createContext({} as IAnalysisContext);
 export const AnalysisProvider: React.FC<IDefaultProviderProps> = ({
   children,
 }) => {
-  const [analyses, setAnalyses] = useState<IAnalysis[]>([]);
+  const [analyses, setAnalyses] = useState<IAnalysis[] | undefined>([]);
   const [analysis, setAnalysis] = useState<IAnalysis | null>(null);
-  const [analysesResponse, setAnalysesResponse] =
-    useState<IAnalysisResponse | null>(null);
+  const [analysesResponse, setAnalysesResponse] = useState<
+    IAnalysisResponse | undefined
+  >(undefined);
 
   const authToken = localStorage.getItem("@TOKEN");
 

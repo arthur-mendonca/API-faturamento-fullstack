@@ -5,13 +5,8 @@ import { ModalProps } from "../style";
 import { StyledMobileModal } from "./styles";
 
 export const MobileModalComponent: React.FC<ModalProps> = ({ ...props }) => {
-  const {
-    closeModal,
-    isModalOpen,
-    modalContent,
-    modalSize,
-    mobileModalContent,
-  } = useContext(ModalContext);
+  const { closeModal, isModalOpen, modalSize, mobileModalContent } =
+    useContext(ModalContext);
 
   return (
     <StyledMobileModal

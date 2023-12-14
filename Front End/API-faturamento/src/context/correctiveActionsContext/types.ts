@@ -21,10 +21,10 @@ export interface ICorrectiveActionResponse {
 }
 
 export interface ICorrectiveActionContext {
-  correctiveActions: ICorrectiveAction[];
+  correctiveActions: ICorrectiveActionResponse | undefined;
 
   setCorrectiveActions: React.Dispatch<
-    React.SetStateAction<ICorrectiveAction[]>
+    React.SetStateAction<ICorrectiveActionResponse | undefined>
   >;
 
   correctiveAction: ICorrectiveAction | null;
@@ -32,7 +32,11 @@ export interface ICorrectiveActionContext {
     React.SetStateAction<ICorrectiveAction | null>
   >;
 
-  correctiveActionResponse: ICorrectiveActionResponse | null;
+  correctiveActionResponse: ICorrectiveActionResponse | undefined;
+
+  setCorrectiveActionResponse: React.Dispatch<
+    React.SetStateAction<ICorrectiveActionResponse | undefined>
+  >;
 
   deleteCorrectiveAction: (correctiveActionId: number) => Promise<void>;
 
@@ -49,14 +53,20 @@ export interface ICorrectiveActionContext {
     occurrenceId: number
   ) => Promise<ICorrectiveAction | undefined>;
 
-  getAllCorrectiveActions: () => Promise<ICorrectiveAction[] | undefined>;
+  getAllCorrectiveActions: () => Promise<ICorrectiveActionResponse | undefined>;
 
   createCorrectiveAction: (
     occurrenceId: number,
-    name: string
+    correctiveActions: {
+      name: string;
+    }[]
   ) => Promise<ICorrectiveAction[] | undefined>;
 }
 
 export interface ICreateCorrectiveAction {
   name: string;
+}
+
+export interface IUpdateCorrectiveAction {
+  name?: string;
 }

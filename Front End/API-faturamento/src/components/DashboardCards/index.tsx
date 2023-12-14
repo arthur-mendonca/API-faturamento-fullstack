@@ -15,6 +15,7 @@ import { IOccurrence } from "../../context/occurrencesContext/types";
 import { EditDeleteOccurrenceModal } from "../Modals/EditDeleteOccurrence";
 import { useNavigate } from "react-router-dom";
 import { EvidenceContext } from "../../context/evidencesContext";
+import { EditOccurrenceModal } from "../Modals/EditOccurrenceModal";
 
 export const DashboardCardComponents: React.FC<CardsProps> = ({
   searchTerm,
@@ -47,8 +48,8 @@ export const DashboardCardComponents: React.FC<CardsProps> = ({
 
   const handleShowModal = (occurrence: IOccurrence) => {
     openModal("modal", <EditDeleteOccurrenceModal />);
-    console.log(`Selecionado esta occurrence ${occurrence}`);
     setOccurrence(occurrence);
+    console.log(occurrence);
   };
 
   const handleShowDetails = async (occurrence: IOccurrence) => {

@@ -19,9 +19,16 @@ import { useTheme } from "styled-components";
 import { useContext } from "react";
 import { UserContext } from "../../context/userContext";
 import { MobileCardsComponent } from "../../components/mobileCards";
+import { useNavigate } from "react-router-dom";
 
 export const MobileLayout = () => {
   const theme = useTheme();
+
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate("/search_mobile");
+  };
 
   const { logout } = useContext(UserContext);
 
@@ -94,11 +101,11 @@ export const MobileLayout = () => {
               border_radius="11px"
               className="p-1"
               border_color={theme.colors.grayLight}>
-              <StyledSearchIcon />
+              <StyledSearchIcon onClick={() => handleNavigate()} />
             </StyledSpan>
           </TitleWrapper>
           <div>
-            <MobileCardsComponent />
+            <MobileCardsComponent searchTermMobile="" />
           </div>
         </StyledColumn>
       </StyledRow>

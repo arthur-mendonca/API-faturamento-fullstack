@@ -10,7 +10,9 @@ import {
 export const EvidenceContext = createContext({} as IEvidenceContext);
 
 export const EvidenceProvider = ({ children }: IDefaultProviderProps) => {
-  const [evidences, setEvidences] = useState<IEvidence[]>([]);
+  const [evidences, setEvidences] = useState<IEvidenceResponse | undefined>(
+    undefined
+  );
   const [evidence, setEvidence] = useState<IEvidence | null>(null);
   const [evidenceResponse, setEvidenceResponse] =
     useState<IEvidenceResponse | null>(null);
@@ -121,12 +123,12 @@ export const EvidenceProvider = ({ children }: IDefaultProviderProps) => {
         getAllEvidencesFromOccurrence,
         updateEvidence,
         deleteEvidence,
-        evidences,
-        setEvidences,
         evidence,
         setEvidence,
         evidenceResponse,
         setEvidenceResponse,
+        evidences,
+        setEvidences,
       }}>
       {children}
     </EvidenceContext.Provider>

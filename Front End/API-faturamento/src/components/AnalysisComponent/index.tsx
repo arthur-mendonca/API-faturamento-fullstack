@@ -22,7 +22,7 @@ export const AnalysisComponent: React.FC = () => {
         </StyledCard.Title>
       </StyledCard.Header>
       <StyledCardBody overflowY="auto">
-        {analysesResponse?.analysis.length === 0 ? (
+        {!analysesResponse?.analysis ? (
           <StyledCard.Text>Nenhuma análise cadastrada</StyledCard.Text>
         ) : (
           analysesResponse?.analysis.map((analysis) => (

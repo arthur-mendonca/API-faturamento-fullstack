@@ -1,6 +1,6 @@
 import { IOccurrence } from "../../context/occurrencesContext/types";
 import dots from "../../images/svg/tres_pontos.svg";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { EvidenceContext } from "../../context/evidencesContext";
 import { useParams } from "react-router-dom";
 import greenArrow from "../../images/png/Vector-arrow-down-green.png";
@@ -10,8 +10,12 @@ import {
   StyledImg,
   StyledSpan,
   StyledStatusWrapper,
+  StyledCardImg,
 } from "./style";
 import pdfIcon from "../../images/svg/pdf icon.svg";
+import { EditOccurrenceModal } from "../Modals/EditOccurrenceModal";
+import { ModalContext } from "../../context/modalContext";
+import { OccurrenceContext } from "../../context/occurrencesContext";
 
 interface DetalhesProps {
   occurrence: IOccurrence;
@@ -20,15 +24,48 @@ interface DetalhesProps {
 export const DetalhesNaoConformidadeCard: React.FC<DetalhesProps> = () => {
   const { evidenceResponse, getAllEvidencesFromOccurrence } =
     useContext(EvidenceContext);
+  const { openMobileModal } = useContext(ModalContext);
+  const { getOccurrence, updateOccurrence } = useContext(OccurrenceContext);
+
+  const [occurrenceById, setOccurrenceById] = useState<IOccurrence | undefined>(
+    undefined
+  );
 
   const { id } = useParams();
 
   useEffect(() => {
+    const fetchOccurrence = async () => {
+      const occurrenceResponse = await getOccurrence(+id!);
+      setOccurrenceById(occurrenceResponse);
+      console.log(occurrenceResponse, "OCCURRENCE BY ID");
+    };
+    fetchOccurrence();
     getAllEvidencesFromOccurrence(+id!);
   }, [id, getAllEvidencesFromOccurrence]);
 
   const capitalizeFirstLetter = (string: string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+
+  const handleShowCreateModal = () => {
+    openMobileModal(
+      "mobileModal",
+      <EditOccurrenceModal occurrence={occurrenceById!} />,
+      "lg"
+    );
+  };
+
+  const handleUpdateStatus = async (
+    id: number,
+    currentStatus: "Em investigação" | "Finalizado"
+  ) => {
+    let newStatus = "";
+    currentStatus === "Finalizado"
+      ? (newStatus = "Em investigação")
+      : (newStatus = "Finalizado");
+
+    await updateOccurrence(+id, { ...occurrenceById, status: newStatus });
+    await getAllEvidencesFromOccurrence(+id!);
   };
 
   return (
@@ -43,7 +80,11 @@ export const DetalhesNaoConformidadeCard: React.FC<DetalhesProps> = () => {
             </StyledCard.Title>
           </span>
           <span>
-            <StyledCard.Img src={dots} height={"20px"} className="" />
+            <StyledCardImg
+              src={dots}
+              height={"20px"}
+              onClick={() => handleShowCreateModal()}
+            />
           </span>
         </StyledCard.Header>
         <StyledCard.Body>
@@ -89,6 +130,12 @@ export const DetalhesNaoConformidadeCard: React.FC<DetalhesProps> = () => {
                 </StyledCard.Title>
                 <StyledCard.Text>
                   <StyledStatusWrapper
+                    onClick={() =>
+                      handleUpdateStatus(
+                        evidenceResponse.occurrence.id,
+                        evidenceResponse.occurrence.status
+                      )
+                    }
                     display="flex"
                     justify_content="center"
                     align_items="center"

@@ -7,6 +7,7 @@ import {
   StyledSpan,
   StyledTitle,
   TitleWrapper,
+  StyledImg,
 } from "./style";
 import profilePicture from "../../images/svg/profilePicture.svg";
 import arrowDown from "../../images/svg/arrow down (Stroke).svg";

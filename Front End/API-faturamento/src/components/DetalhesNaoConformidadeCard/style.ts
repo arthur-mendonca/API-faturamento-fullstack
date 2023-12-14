@@ -28,4 +28,10 @@ export const StyledStatusWrapper = styled(StatusWrapper)<StyleProps>`
   @media (max-width: 1180px) {
     width: 40%;
   }
+
+  cursor: pointer;
+`;
+
+export const StyledCardImg = styled(StyledImg)`
+  cursor: pointer;
 `;

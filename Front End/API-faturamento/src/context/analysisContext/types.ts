@@ -10,21 +10,31 @@ export interface IAnalysis {
   fileUrl?: string;
 }
 
+export interface IAnalysisUpdate {
+  filename?: string | File;
+  description?: string;
+  fileUrl?: string;
+}
+
 export interface IAnalysisResponse {
-  occurrence: IOccurrence;
+  occurrences: IOccurrence;
   analysis: IAnalysis[];
 }
 
 export interface IAnalysisContext {
   analyses: IAnalysis[];
 
-  setAnalyses: React.Dispatch<React.SetStateAction<IAnalysis[]>>;
+  setAnalyses: React.Dispatch<React.SetStateAction<IAnalysis[] | undefined>>;
 
   analysis: IAnalysis | null;
 
   setAnalysis: React.Dispatch<React.SetStateAction<IAnalysis | null>>;
 
-  analysesResponse: IAnalysisResponse | null;
+  analysesResponse: IAnalysisResponse | undefined;
+
+  setAnalysesResponse: React.Dispatch<
+    React.SetStateAction<IAnalysisResponse | undefined>
+  >;
 
   createAnalysis: (
     occurrenceId: number,
