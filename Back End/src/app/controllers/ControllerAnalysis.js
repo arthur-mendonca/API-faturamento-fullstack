@@ -98,17 +98,23 @@ module.exports = {
       const { description } = req.body;
       const file = req.file;
       const analysis = await Analysis.findByPk(id);
+      console.log(description, "DESCRIPTION");
+      console.log(file, "FILE ESTÁ AQUI");
 
       if (!analysis) {
         return res.status(404).json({ error: "Analysis not found" });
       }
 
-      const updatedData = {
-        description: description ? description : analysis.description,
-        filename: file ? file.filename : analysis.filename,
-      };
+      const newFilename = file ? file.filename : analysis.filename;
+      const newFileUrl = file
+        ? `http://localhost:3000/uploads/${newFilename}`
+        : analysis.fileUrl;
 
-      await analysis.update(updatedData);
+      await analysis.update({
+        description,
+        filename: newFilename,
+        fileUrl: newFileUrl,
+      });
 
       return res.status(200).json(analysis);
     } catch (error) {

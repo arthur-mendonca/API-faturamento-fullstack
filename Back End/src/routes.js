@@ -76,6 +76,7 @@ router.get("/occurrences/analysis/:id", analysisController.getOne);
 router.put(
   "/occurrences/analysis/:id",
   authMiddleware,
+  upload.single("file"),
   analysisController.update
 );
 router.get(

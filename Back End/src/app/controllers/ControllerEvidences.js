@@ -93,8 +93,12 @@ module.exports = {
         return res.status(404).json({ error: "Evidence not found" });
       }
 
-      const updatedFilename = file ? file.filename : filename;
-      await evidence.update({ filename: updatedFilename });
+      const newFilename = file ? file.filename : analysis.filename;
+      const newFileUrl = file
+        ? `http://localhost:3000/uploads/${newFilename}`
+        : analysis.fileUrl;
+
+      await evidence.update({ filename: newFilename, fileUrl: newFileUrl });
 
       return res.status(200).json(evidence);
     } catch (error) {
