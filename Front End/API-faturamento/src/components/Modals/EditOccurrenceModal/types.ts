@@ -11,6 +11,7 @@ import {
 import {
   IEvidence,
   IEvidenceResponse,
+  IEvidenceUpdate,
   IOccurrence,
 } from "../../../context/evidencesContext/types";
 import { CreateOccurrenceProps } from "../createOccurrence/types";
@@ -43,16 +44,10 @@ export interface EditOccurrenceProps extends CreateOccurrenceProps {
     occurrenceId: number
   ) => Promise<IEvidenceResponse | undefined>;
 
-  updateEvidence: (
+  pdateEvidence: (
     evidenceId: number,
-    data: Partial<IEvidence>
+    data: IEvidenceUpdate
   ) => Promise<IEvidence | undefined>;
-
-  setEvidences: React.Dispatch<
-    React.SetStateAction<IEvidenceResponse | undefined>
-  >;
-
-  evidence: File | null;
 
   getAllAnalysesFromOccurrence: (
     occurrenceId: number
@@ -72,4 +67,8 @@ export interface EditOccurrenceProps extends CreateOccurrenceProps {
   ) => Promise<IAnalysis | undefined>;
 
   setValue: UseFormSetValue<FieldValues>;
+
+  evidenceFile: string | File;
+
+  setEvidenceFile: React.Dispatch<React.SetStateAction<string | File>>;
 }

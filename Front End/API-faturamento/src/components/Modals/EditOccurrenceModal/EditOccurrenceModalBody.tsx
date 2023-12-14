@@ -33,7 +33,6 @@ export const EditOccurrenceModalBody: React.FC<EditOccurrenceProps> = ({
   showDetail,
   register,
   occurrenceData,
-  setEvidence,
   setAnalysisDataUpdate,
   analysisData,
   correctiveActionsDataUpdate,
@@ -49,6 +48,8 @@ export const EditOccurrenceModalBody: React.FC<EditOccurrenceProps> = ({
   setEvidences,
   setValue,
   analysisDataUpdate,
+  evidenceFile,
+  setEvidenceFile,
 }) => {
   const {
     updateAnalysis,
@@ -61,6 +62,7 @@ export const EditOccurrenceModalBody: React.FC<EditOccurrenceProps> = ({
     evidenceResponse,
     getAllEvidencesFromOccurrence,
     setEvidenceResponse,
+    createEvidence,
   } = useContext(EvidenceContext);
 
   const theme = useTheme();
@@ -82,46 +84,43 @@ export const EditOccurrenceModalBody: React.FC<EditOccurrenceProps> = ({
     );
   };
 
-  useEffect(
-    () => {
-      if (occurrence) {
-        setValue("name", occurrence.name);
-        setValue("origin", occurrence.origin);
-        setValue("description", occurrence.description);
-      }
-      const fetchData = async () => {
-        getAllEvidencesFromOccurrence(occurrence.id);
-        console.log(evidenceResponse, "evidenceResponse");
-        console.log(previewEvidenceUrl, "PREVIEW EVIDENCE URL");
-        console.log(currentEvidence, "CURRENT EVIDENCE");
-      };
-      fetchData();
+  useEffect(() => {
+    if (occurrence) {
+      setValue("name", occurrence.name);
+      setValue("origin", occurrence.origin);
+      setValue("description", occurrence.description);
+    }
+    const fetchData = async () => {
+      getAllEvidencesFromOccurrence(occurrence.id);
+      console.log(evidenceResponse, "evidenceResponse");
+      console.log(previewEvidenceUrl, "PREVIEW EVIDENCE URL");
+      console.log(currentEvidence, "CURRENT EVIDENCE");
+    };
+    fetchData();
 
-      const hasEvidenceChanged =
-        currentEvidence &&
-        currentEvidence.fileUrl !== previousEvidenceRef.current;
-      if (
-        (!isPreviewInitialized || hasEvidenceChanged) &&
-        currentEvidence &&
-        currentEvidence.fileUrl
-      ) {
-        getAllEvidencesFromOccurrence(currentEvidence.id);
-        setPreviewEvidenceUrl(currentEvidence.fileUrl);
-        setIsPreviewInitialized(true);
+    const hasEvidenceChanged =
+      currentEvidence &&
+      currentEvidence.fileUrl !== previousEvidenceRef.current;
+    if (
+      (!isPreviewInitialized || hasEvidenceChanged) &&
+      currentEvidence &&
+      currentEvidence.fileUrl
+    ) {
+      getAllEvidencesFromOccurrence(currentEvidence.id);
+      setPreviewEvidenceUrl(currentEvidence.fileUrl);
+      setIsPreviewInitialized(true);
 
-        previousEvidenceRef.current = currentEvidence.fileUrl;
-      }
+      previousEvidenceRef.current = currentEvidence.fileUrl;
+    }
 
-      setCorrectiveActionsDataUpdate(acoesCorretivas);
-    },
-    [
-      // acoesCorretivas,
-      // currentEvidence,
-      // isPreviewInitialized,
-      // getAllAnalysesFromOccurrence,
-      // analysesResponse,
-    ]
-  );
+    setCorrectiveActionsDataUpdate(acoesCorretivas);
+  }, [
+    // acoesCorretivas,
+    // currentEvidence,
+    // isPreviewInitialized,
+    getAllAnalysesFromOccurrence,
+    // analysesResponse,
+  ]);
 
   useEffect(() => {
     console.log(correctiveActionsDataUpdate, "acoes corretivas atualizadas");
@@ -178,12 +177,32 @@ export const EditOccurrenceModalBody: React.FC<EditOccurrenceProps> = ({
   const evidenceFileInputRef = useRef<HTMLInputElement>(null);
   const analysisFileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleEvidenceFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleEvidenceFileChange = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = e.target.files ? e.target.files[0] : null;
+    console.log(e.target.files[0], "TEM ALGUM FILE AQUI?");
     if (file) {
-      setUploadedFile(file);
-      setEvidence(file);
-      console.log(evidence, "estado de EVIDENCE APÓS HANDLE CHANGE");
+      console.log(file, "FILE PASSOU DO IF");
+      setEvidenceFile(file);
+      console.log(evidenceFile, "TEM ALGUMA COISA EM EVIDENCE FILE?");
+      if (!evidenceResponse?.evidences[0]) {
+        const createEvidenceFunction = await createEvidence(
+          occurrence.id,
+          file
+        );
+        console.log(createEvidenceFunction, "EVIDENCE FOI CRIADO");
+        getAllEvidencesFromOccurrence(occurrence.id);
+      }
+      if (evidenceResponse?.evidences[0]) {
+        const updateEvidenceResponse = await updateEvidence(
+          evidenceResponse?.evidences[0].id,
+          evidenceFile
+        );
+        console.log(updateEvidenceResponse, "EVIDENCE FOI ATUALIZADO");
+      }
+
+      console.log(evidenceResponse, "evidenceResponse");
 
       if (file.type.startsWith("image/")) {
         setPreviewEvidenceUrl(URL.createObjectURL(file));
@@ -227,9 +246,9 @@ export const EditOccurrenceModalBody: React.FC<EditOccurrenceProps> = ({
     const updatedEvidences = await getAllEvidencesFromOccurrence(occurrence.id);
     if (updatedEvidences) setEvidenceResponse(updatedEvidences);
 
-    setUploadedFile(null);
+    // setUploadedFile(null);
     setPreviewEvidenceUrl("");
-    setEvidence(null);
+    setEvidenceFile("");
 
     if (evidenceFileInputRef.current) {
       evidenceFileInputRef.current.value = "";

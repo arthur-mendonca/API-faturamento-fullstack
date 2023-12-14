@@ -16,16 +16,7 @@ import {
   IOccurrence,
   IOccurrenceCreate,
 } from "../../../context/occurrencesContext/types";
-import {
-  IAnalysis,
-  IAnalysisUpdate,
-  ICreteAnalysis,
-} from "../../../context/analysisContext/types";
-import {
-  ICreateCorrectiveAction,
-  IUpdateCorrectiveAction,
-} from "../../../context/correctiveActionsContext/types";
-import { IEvidenceUpdate } from "../../../context/evidencesContext/types";
+import { IAnalysisUpdate } from "../../../context/analysisContext/types";
 import { OccurrenceContext } from "../../../context/occurrencesContext";
 import { AnalysisContext } from "../../../context/analysisContext";
 import { CorrectiveActionContext } from "../../../context/correctiveActionsContext";
@@ -34,7 +25,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { combinedSchema } from "../../../schema/createOccurrenceSchema";
 import { EditOccurrenceModalBody } from "./EditOccurrenceModalBody";
-import { useParams } from "react-router-dom";
 
 interface EditModalProps {
   occurrence: IOccurrence;
@@ -70,7 +60,7 @@ export const EditOccurrenceModal: React.FC<EditModalProps> = ({
 
   const [showDetail, setShowDetail] = useState(true);
   const [showActions, setShowActions] = useState(false);
-  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  // const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [previewEvidenceUrl, setPreviewEvidenceUrl] = useState("");
   const [previewAnalysisUrl, setPreviewAnalysisUrl] = useState("");
 
@@ -91,7 +81,7 @@ export const EditOccurrenceModal: React.FC<EditModalProps> = ({
   const [correctiveActionsDataUpdate, setCorrectiveActionsDataUpdate] =
     useState([]);
 
-  const [evidence, setEvidence] = useState<IEvidenceUpdate>(null);
+  const [evidenceFile, setEvidenceFile] = useState<File | string>("");
 
   useEffect(() => {
     // console.log(occurrence.id, "ID DA OCCURRENCE");
@@ -285,8 +275,8 @@ export const EditOccurrenceModal: React.FC<EditModalProps> = ({
       <StyledModalBody>
         <StyledForm onSubmit={handleSubmit(handleUpdate)} id="formModal">
           <EditOccurrenceModalBody
-            uploadedFile={uploadedFile}
-            setUploadedFile={setUploadedFile}
+            // uploadedFile={uploadedFile}
+            // setUploadedFile={setUploadedFile}
             setPreviewAnalysisUrl={setPreviewAnalysisUrl}
             previewAnalysisUrl={previewAnalysisUrl}
             previewEvidenceUrl={previewEvidenceUrl}
@@ -295,7 +285,6 @@ export const EditOccurrenceModal: React.FC<EditModalProps> = ({
             showActions={showActions}
             showDetail={showDetail}
             register={register}
-            // setEvidence={setEvidence}
             occurrenceData={occurrenceData}
             analyses={analyses}
             correctiveActionsResponse={correctiveActionResponse}
@@ -306,11 +295,11 @@ export const EditOccurrenceModal: React.FC<EditModalProps> = ({
             deleteEvidence={deleteEvidence}
             getAllEvidencesFromOccurrence={getAllEvidencesFromOccurrence}
             updateEvidence={updateEvidence}
-            // setEvidences={setEvidences}
             setValue={setValue}
             analysisDataUpdate={analysisDataUpdate}
             setAnalysisDataUpdate={setAnalysisDataUpdate}
-            evidence={evidence}
+            evidenceFile={evidenceFile}
+            setEvidenceFile={setEvidenceFile}
           />
         </StyledForm>
       </StyledModalBody>

@@ -14,7 +14,7 @@ export interface IEvidenceContext {
 
   createEvidence: (
     occurrenceId: number,
-    file: File
+    file: File | string
   ) => Promise<IEvidence | undefined>;
 
   getEvidence: (evidenceId: number) => Promise<IEvidence | undefined>;
