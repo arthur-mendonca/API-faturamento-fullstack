@@ -25,10 +25,7 @@ import {
   ICreateCorrectiveAction,
   IUpdateCorrectiveAction,
 } from "../../../context/correctiveActionsContext/types";
-import {
-  EvidenceType,
-  IEvidence,
-} from "../../../context/evidencesContext/types";
+import { IEvidenceUpdate } from "../../../context/evidencesContext/types";
 import { OccurrenceContext } from "../../../context/occurrencesContext";
 import { AnalysisContext } from "../../../context/analysisContext";
 import { CorrectiveActionContext } from "../../../context/correctiveActionsContext";
@@ -37,6 +34,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { combinedSchema } from "../../../schema/createOccurrenceSchema";
 import { EditOccurrenceModalBody } from "./EditOccurrenceModalBody";
+import { useParams } from "react-router-dom";
 
 interface EditModalProps {
   occurrence: IOccurrence;
@@ -45,7 +43,6 @@ interface EditModalProps {
 export const EditOccurrenceModal: React.FC<EditModalProps> = ({
   occurrence,
 }) => {
-  const userId = localStorage.getItem("@USERID");
   const { closeModal } = useContext(ModalContext);
   const { updateOccurrence } = useContext(OccurrenceContext);
   const {
@@ -65,10 +62,10 @@ export const EditOccurrenceModal: React.FC<EditModalProps> = ({
   } = useContext(CorrectiveActionContext);
   const {
     updateEvidence,
+    createEvidence,
     getAllEvidencesFromOccurrence,
-    setEvidences,
-    evidences,
     deleteEvidence,
+    evidenceResponse,
   } = useContext(EvidenceContext);
 
   const [showDetail, setShowDetail] = useState(true);
@@ -86,21 +83,44 @@ export const EditOccurrenceModal: React.FC<EditModalProps> = ({
     {
       filename: new File([], ""),
       description: "",
+      fileUrl: "",
+      id: undefined,
     }
   );
 
   const [correctiveActionsDataUpdate, setCorrectiveActionsDataUpdate] =
     useState([]);
 
-  const [evidence, setEvidence] = useState<EvidenceType | null>(null);
+  const [evidence, setEvidence] = useState<IEvidenceUpdate>(null);
 
   useEffect(() => {
+    // console.log(occurrence.id, "ID DA OCCURRENCE");
+
     const fetchData = async () => {
-      const evidenceResponse = await getAllEvidencesFromOccurrence(
+      const analysesFromOccurrenceResponse = await getAllAnalysesFromOccurrence(
         occurrence.id
       );
-      if (evidenceResponse) {
-        setEvidences(evidenceResponse);
+      if (analysesFromOccurrenceResponse) {
+        console.log(
+          analysesFromOccurrenceResponse.analysis[0],
+          "ANALYSES FROM OCCURRENCE"
+        );
+        setAnalysisDataUpdate({
+          filename: analysesFromOccurrenceResponse.analysis[0].filename,
+          description: analysesFromOccurrenceResponse.analysis[0].description,
+          fileUrl: analysesFromOccurrenceResponse.analysis[0].fileUrl,
+          id: analysesFromOccurrenceResponse.analysis[0].id,
+        });
+        // console.log(analysisDataUpdate, "ANALYSIS DATA LOADED");
+      }
+
+      const getAllAvidencesResponse = await getAllEvidencesFromOccurrence(
+        occurrence.id
+      );
+      console.log(evidenceResponse, "EVIDENCE RESPONSE");
+      if (getAllAvidencesResponse) {
+        console.log(evidenceResponse, "evidenceResponse");
+        setPreviewEvidenceUrl(evidenceResponse?.evidences[0].fileUrl);
       }
       const correctiveActionsResponse =
         await getAllCorrectiveActionsFromOccurrence(occurrence.id);
@@ -116,7 +136,7 @@ export const EditOccurrenceModal: React.FC<EditModalProps> = ({
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [getAllAnalysesFromOccurrence]);
+  }, [getAllAnalysesFromOccurrence, occurrence.id]);
 
   const showDetalhes = () => {
     setShowDetail(true);
@@ -140,19 +160,36 @@ export const EditOccurrenceModal: React.FC<EditModalProps> = ({
     );
   };
 
-  const handleCreate = async () => {
+  const handleUpdate = async () => {
     try {
+      console.log(occurrenceData, "OCCURRENCE DATA EM HANDLE CREATE");
       const currentOccurrenceId = occurrence.id;
       if (occurrenceData) {
-        await updateOccurrence(currentOccurrenceId, occurrenceData);
+        const updateOccurrenceFunction = await updateOccurrence(
+          currentOccurrenceId,
+          occurrenceData
+        );
+        console.log(updateOccurrenceFunction, "UPDATE OCCURRENCE");
       }
-      const evidence: Partial<IEvidence | undefined> = evidences?.evidences[0];
-      if (evidence) {
-        await updateEvidence(evidence.id!, evidence);
+
+      if (!evidences && evidence) {
+        createEvidence(occurrence.id, evidence!);
+      } else {
+        const updatedEvidence = await updateEvidence(evidence.id!, evidence);
+        await getAllEvidencesFromOccurrence(occurrence.id);
+        console.log(updatedEvidence, "UPDATED EVIDENCE");
       }
-      const analysis: Partial<IAnalysis> = analyses[0];
-      if (analysis) {
-        await updateAnalysis(analysis.id!, analysis);
+
+      console.log(analysisDataUpdate, "THIS IS ANALYSIS");
+
+      if (analysisDataUpdate) {
+        const updateAnalysisFunction = await updateAnalysis(
+          analysisDataUpdate.id!,
+          analysisDataUpdate
+        );
+        await getAllAnalysesFromOccurrence(occurrence.id);
+        console.log(analysisDataUpdate, "ANALYSIS DATA UPDATE SUCCESSFULLY");
+        console.log(updateAnalysisFunction, "UPDATE ANALYSIS FUNCTION");
       }
       const updates = correctiveActionsData.map((action) =>
         updateCorrectiveAction(action.id, action)
@@ -160,23 +197,10 @@ export const EditOccurrenceModal: React.FC<EditModalProps> = ({
       console.log(correctiveActionResponse, "CORRECTIVE ACTIONS RESPONSE");
 
       await Promise.all(updates);
-      // updateCorrectiveAction()
-
-      // await updateAnalysis(
-      //   newOccurrenceId!,
-      //   analysisData!.file,
-      //   analysisData!.description!
-      // );
-      // const correctiveActionNames = correctiveActionsData.map(
-      //   (action) => action.name
-      // );
-      // await Promise.all(
-      //   correctiveActionNames.map((name: string) =>
-      //     updateCorrectiveAction(newOccurrenceId!, [{ name }])
-      //   )
-      // );
+      closeModal();
       console.log("Dados criados com sucesso!");
     } catch (error) {
+      closeModal();
       console.log("Erro ao criar dados:", error);
     }
   };
@@ -184,6 +208,7 @@ export const EditOccurrenceModal: React.FC<EditModalProps> = ({
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(combinedSchema),
@@ -213,7 +238,7 @@ export const EditOccurrenceModal: React.FC<EditModalProps> = ({
               <ButtonComponent
                 type="submit"
                 form="formModal"
-                onClick={() => handleCreate()}
+                onClick={() => handleUpdate()}
                 background={theme.colors.blue}
                 className="text_menu_button"
                 padding="0 3rem">
@@ -221,13 +246,13 @@ export const EditOccurrenceModal: React.FC<EditModalProps> = ({
               </ButtonComponent>
             ) : (
               <StyledMobileButton
-                onClick={() => handleCreate()}
+                onClick={() => handleUpdate()}
                 background_color={theme.colors.blue}
                 border="none"
                 className="text_menu_button"
                 padding="9px 2rem"
                 border_radius="20px">
-                Criar
+                Editar
               </StyledMobileButton>
             )}
           </StyledButtonSpan>
@@ -258,7 +283,7 @@ export const EditOccurrenceModal: React.FC<EditModalProps> = ({
         </StyledSpan>
       </StyledModalBody>
       <StyledModalBody>
-        <StyledForm onSubmit={handleSubmit(handleCreate)} id="formModal">
+        <StyledForm onSubmit={handleSubmit(handleUpdate)} id="formModal">
           <EditOccurrenceModalBody
             uploadedFile={uploadedFile}
             setUploadedFile={setUploadedFile}
@@ -270,20 +295,22 @@ export const EditOccurrenceModal: React.FC<EditModalProps> = ({
             showActions={showActions}
             showDetail={showDetail}
             register={register}
-            setEvidence={setEvidence}
+            // setEvidence={setEvidence}
             occurrenceData={occurrenceData}
             analyses={analyses}
-            setAnalysisDataUpdate={setAnalysisDataUpdate}
             correctiveActionsResponse={correctiveActionResponse}
-            // evidence={evidence}
-            evidences={evidences}
+            // evidences={evidences}
             occurrence={occurrence}
             correctiveActionsDataUpdate={correctiveActionsDataUpdate}
             setCorrectiveActionsDataUpdate={setCorrectiveActionsDataUpdate}
             deleteEvidence={deleteEvidence}
             getAllEvidencesFromOccurrence={getAllEvidencesFromOccurrence}
             updateEvidence={updateEvidence}
-            setEvidences={setEvidences}
+            // setEvidences={setEvidences}
+            setValue={setValue}
+            analysisDataUpdate={analysisDataUpdate}
+            setAnalysisDataUpdate={setAnalysisDataUpdate}
+            evidence={evidence}
           />
         </StyledForm>
       </StyledModalBody>

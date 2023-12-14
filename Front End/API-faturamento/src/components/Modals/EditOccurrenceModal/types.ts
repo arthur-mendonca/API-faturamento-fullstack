@@ -1,3 +1,4 @@
+import { FieldValues, UseFormSetValue } from "react-hook-form";
 import {
   IAnalysis,
   IAnalysisResponse,
@@ -29,6 +30,8 @@ export interface EditOccurrenceProps extends CreateOccurrenceProps {
 
   correctiveActionsDataUpdate: ICorrectiveAction[];
 
+  analysisDataUpdate: IAnalysisUpdate;
+
   setAnalysisDataUpdate: React.Dispatch<React.SetStateAction<IAnalysisUpdate>>;
 
   setIsEvidenceMarkedForDeletion: React.Dispatch<React.SetStateAction<boolean>>;
@@ -49,6 +52,8 @@ export interface EditOccurrenceProps extends CreateOccurrenceProps {
     React.SetStateAction<IEvidenceResponse | undefined>
   >;
 
+  evidence: File | null;
+
   getAllAnalysesFromOccurrence: (
     occurrenceId: number
   ) => Promise<IAnalysisResponse | undefined>;
@@ -65,4 +70,6 @@ export interface EditOccurrenceProps extends CreateOccurrenceProps {
     analysisId: number,
     data: Partial<IAnalysis>
   ) => Promise<IAnalysis | undefined>;
+
+  setValue: UseFormSetValue<FieldValues>;
 }

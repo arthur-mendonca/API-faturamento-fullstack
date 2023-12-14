@@ -1,10 +1,13 @@
 import { createContext, useCallback, useState } from "react";
 import { api } from "../../service/api";
 import {
+  EvidenceType,
   IDefaultProviderProps,
   IEvidence,
   IEvidenceContext,
   IEvidenceResponse,
+  IEvidenceUpdate,
+  INewEvidence,
 } from "./types";
 
 export const EvidenceContext = createContext({} as IEvidenceContext);
@@ -88,10 +91,14 @@ export const EvidenceProvider = ({ children }: IDefaultProviderProps) => {
 
   const updateEvidence = async (
     evidenceId: number,
-    data: Partial<IEvidence>
+    file: IEvidenceUpdate
   ): Promise<IEvidence | undefined> => {
     try {
-      const response = await api.put(`evidences/${evidenceId}`, data, {
+      const formData = new FormData();
+      if (file.filename) {
+        formData.append("filename", file.filename);
+      }
+      const response = await api.put(`evidences/${evidenceId}`, formData, {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },

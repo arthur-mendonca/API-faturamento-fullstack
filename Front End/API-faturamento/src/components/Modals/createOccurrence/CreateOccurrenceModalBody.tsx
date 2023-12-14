@@ -99,13 +99,7 @@ export const CreateOccurrenceModalBody: React.FC<CreateOccurrenceProps> = ({
     const file = e.target.files?.[0];
     if (file) {
       setUploadedFile(file);
-      // console.log(evidence, "EVIDENCE ANTES DE SET-EVIDENCE");
       setEvidence(file);
-      // console.log(evidence, "EVIDENCE DEPOIS DE SET-EVIDENCE");
-      // console.log(
-      //   file,
-      //   "file dentro da função handleEvidenceFileChange e depois de set evidence"
-      // );
 
       if (file.type.startsWith("image/")) {
         setPreviewEvidenceUrl(URL.createObjectURL(file));
@@ -121,8 +115,6 @@ export const CreateOccurrenceModalBody: React.FC<CreateOccurrenceProps> = ({
       setUploadedFile(file);
       setAnalysisData({ ...analysisData, file: file });
 
-      console.log(analysisData, "analysisData");
-
       if (file.type.startsWith("image/")) {
         setPreviewAnalysisUrl(URL.createObjectURL(file));
       } else if (file.type === "application/pdf") {
@@ -135,7 +127,6 @@ export const CreateOccurrenceModalBody: React.FC<CreateOccurrenceProps> = ({
     setUploadedFile(null);
     setPreviewEvidenceUrl("");
     setEvidence(null);
-
     if (evidenceFileInputRef.current) {
       evidenceFileInputRef.current.value = "";
     }
@@ -163,7 +154,6 @@ export const CreateOccurrenceModalBody: React.FC<CreateOccurrenceProps> = ({
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     setAnalysisData({ ...analysisData, description: e.currentTarget.value });
-    console.log(analysisData);
   };
 
   return (

@@ -27,7 +27,7 @@ import { combinedSchema } from "../../../schema/createOccurrenceSchema";
 
 export const CreateOccurrenceModal: React.FC = () => {
   const { closeModal } = useContext(ModalContext);
-  const { createOccurrence } = useContext(OccurrenceContext);
+  const { createOccurrence, getAllOccurrences } = useContext(OccurrenceContext);
   const { createAnalysis } = useContext(AnalysisContext);
   const { createCorrectiveAction } = useContext(CorrectiveActionContext);
   const { createEvidence } = useContext(EvidenceContext);
@@ -76,13 +76,8 @@ export const CreateOccurrenceModal: React.FC = () => {
   };
 
   const handleCreate = async () => {
-    console.log(occurrenceData, "occurrenceData");
-    console.log(analysisData, "analysisData");
-    console.log(correctiveActionsData, "correctiveActionsData");
-    console.log(evidence, "evidence");
     try {
       const newOccurrenceId = await createOccurrence(+userId!, occurrenceData!);
-      console.log(newOccurrenceId, "OCCURRENCE CRIADA");
       if (newOccurrenceId) {
         await createEvidence(newOccurrenceId!, evidence!);
 
@@ -99,6 +94,8 @@ export const CreateOccurrenceModal: React.FC = () => {
             createCorrectiveAction(newOccurrenceId!, [{ name }])
           )
         );
+        await getAllOccurrences();
+        closeModal();
         console.log("Dados criados com sucesso!");
       }
     } catch (error) {

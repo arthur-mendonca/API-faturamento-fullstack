@@ -3,6 +3,7 @@ export interface IDefaultProviderProps {
 }
 
 export interface IOccurrenceCreate {
+  id?: number;
   name?: string;
   origin?: string;
   description?: string;
@@ -21,7 +22,7 @@ export interface IOccurrenceContext {
 
   updateOccurrence: (
     occurrenceId: number,
-    data: IOccurrenceCreate
+    data: Partial<IOccurrenceCreate>
   ) => Promise<IOccurrence | undefined>;
 
   deleteOccurrence: (occurrenceId: number) => Promise<void>;

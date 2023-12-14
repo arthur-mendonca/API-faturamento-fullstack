@@ -2,7 +2,7 @@ import { IOccurrence } from "../occurrencesContext/types";
 
 export interface IAnalysis {
   id: number;
-  filename: string;
+  filename: string | File;
   description: string;
   createdAt: string;
   updatedAt: string;
@@ -10,11 +10,7 @@ export interface IAnalysis {
   fileUrl?: string;
 }
 
-export interface IAnalysisUpdate {
-  filename?: string | File;
-  description?: string;
-  fileUrl?: string;
-}
+export type IAnalysisUpdate = Partial<IAnalysis>;
 
 export interface IAnalysisResponse {
   occurrences: IOccurrence;

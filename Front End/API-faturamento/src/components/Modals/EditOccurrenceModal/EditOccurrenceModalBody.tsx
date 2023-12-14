@@ -18,6 +18,8 @@ import { IOccurrenceCreate } from "../../../context/occurrencesContext/types";
 import { EditOccurrenceProps } from "./types";
 import { IEvidence } from "../../../context/evidencesContext/types";
 import { AnalysisContext } from "../../../context/analysisContext";
+import { OccurrenceContext } from "../../../context/occurrencesContext";
+import { EvidenceContext } from "../../../context/evidencesContext";
 
 export const EditOccurrenceModalBody: React.FC<EditOccurrenceProps> = ({
   setPreviewAnalysisUrl,
@@ -43,27 +45,32 @@ export const EditOccurrenceModalBody: React.FC<EditOccurrenceProps> = ({
   evidence,
   setIsEvidenceMarkedForDeletion,
   deleteEvidence,
-  getAllEvidencesFromOccurrence,
   updateEvidence,
   setEvidences,
+  setValue,
+  analysisDataUpdate,
 }) => {
   const {
     updateAnalysis,
     getAllAnalysesFromOccurrence,
-    deleteAnalysis,
     analysesResponse,
     setAnalysesResponse,
   } = useContext(AnalysisContext);
 
+  const {
+    evidenceResponse,
+    getAllEvidencesFromOccurrence,
+    setEvidenceResponse,
+  } = useContext(EvidenceContext);
+
   const theme = useTheme();
+
   const [acoesCorretivas, setAcoesCorretivas] = useState([{ name: "" }]);
   const [isPreviewInitialized, setIsPreviewInitialized] = useState(false);
 
   const previousEvidenceRef = useRef();
 
-  const currentEvidence = evidences?.evidences.map(
-    (evidence: IEvidence) => evidence
-  );
+  const currentEvidence = evidenceResponse?.evidences[0];
 
   const addAcaoCorretiva = () => {
     setAcoesCorretivas((acoes) => [...acoes, { name: "" }]);
@@ -75,35 +82,62 @@ export const EditOccurrenceModalBody: React.FC<EditOccurrenceProps> = ({
     );
   };
 
-  useEffect(() => {
-    const hasEvidenceChanged =
-      currentEvidence &&
-      currentEvidence[0]?.fileUrl !== previousEvidenceRef.current;
-    if (
-      (!isPreviewInitialized || hasEvidenceChanged) &&
-      currentEvidence &&
-      currentEvidence[0]?.fileUrl
-    ) {
-      getAllEvidencesFromOccurrence(currentEvidence[0].id);
-      setPreviewEvidenceUrl(currentEvidence[0].fileUrl);
-      setIsPreviewInitialized(true);
+  useEffect(
+    () => {
+      if (occurrence) {
+        setValue("name", occurrence.name);
+        setValue("origin", occurrence.origin);
+        setValue("description", occurrence.description);
+      }
+      const fetchData = async () => {
+        getAllEvidencesFromOccurrence(occurrence.id);
+        console.log(evidenceResponse, "evidenceResponse");
+        console.log(previewEvidenceUrl, "PREVIEW EVIDENCE URL");
+        console.log(currentEvidence, "CURRENT EVIDENCE");
+      };
+      fetchData();
 
-      previousEvidenceRef.current = currentEvidence[0].fileUrl;
-    }
+      const hasEvidenceChanged =
+        currentEvidence &&
+        currentEvidence.fileUrl !== previousEvidenceRef.current;
+      if (
+        (!isPreviewInitialized || hasEvidenceChanged) &&
+        currentEvidence &&
+        currentEvidence.fileUrl
+      ) {
+        getAllEvidencesFromOccurrence(currentEvidence.id);
+        setPreviewEvidenceUrl(currentEvidence.fileUrl);
+        setIsPreviewInitialized(true);
 
-    setCorrectiveActionsDataUpdate(acoesCorretivas);
-  }, [
-    acoesCorretivas,
-    currentEvidence,
-    isPreviewInitialized,
-    getAllEvidencesFromOccurrence,
-    getAllAnalysesFromOccurrence,
-    analysesResponse,
-  ]);
+        previousEvidenceRef.current = currentEvidence.fileUrl;
+      }
+
+      setCorrectiveActionsDataUpdate(acoesCorretivas);
+    },
+    [
+      // acoesCorretivas,
+      // currentEvidence,
+      // isPreviewInitialized,
+      // getAllAnalysesFromOccurrence,
+      // analysesResponse,
+    ]
+  );
 
   useEffect(() => {
     console.log(correctiveActionsDataUpdate, "acoes corretivas atualizadas");
-  }, [correctiveActionsDataUpdate]);
+    console.log(analysisDataUpdate, "analysisDataUpdate CHEGOU AO FILHO");
+    const updateData = async () => {
+      const updateAnalysisFunction = await updateAnalysis(
+        analysisDataUpdate.id!,
+        analysisDataUpdate
+      );
+      console.log(updateAnalysisFunction, "UPDATE ANALYSIS FUNCTION");
+    };
+
+    if (analysisDataUpdate && analysisDataUpdate.id) {
+      updateData();
+    }
+  }, [correctiveActionsDataUpdate, analysisDataUpdate]);
 
   const renderAcoesCorretivas = () => {
     return correctiveActionsDataUpdate.map((acao, index) => (
@@ -148,14 +182,8 @@ export const EditOccurrenceModalBody: React.FC<EditOccurrenceProps> = ({
     const file = e.target.files ? e.target.files[0] : null;
     if (file) {
       setUploadedFile(file);
-      console.log(evidence, "EVIDENCE ANTES DE SET-EVIDENCE");
       setEvidence(file);
-      // setPreviewEvidenceUrl(file)
-      console.log(evidence, "EVIDENCE DEPOIS DE SET-EVIDENCE");
-      console.log(
-        file,
-        "file dentro da função handleEvidenceFileChange e depois de set evidence"
-      );
+      console.log(evidence, "estado de EVIDENCE APÓS HANDLE CHANGE");
 
       if (file.type.startsWith("image/")) {
         setPreviewEvidenceUrl(URL.createObjectURL(file));
@@ -172,7 +200,6 @@ export const EditOccurrenceModalBody: React.FC<EditOccurrenceProps> = ({
     if (file) {
       setUploadedFile(file);
 
-      // Atualizar a pré-visualização
       const previewUrl = file.type.startsWith("image/")
         ? URL.createObjectURL(file)
         : file.type === "application/pdf"
@@ -186,7 +213,7 @@ export const EditOccurrenceModalBody: React.FC<EditOccurrenceProps> = ({
 
       const updatedAnalysis = await updateAnalysis(analysesResponse.id, {
         ...analysesResponse,
-        filename: file.name, // ou URL
+        filename: file.name,
       });
 
       console.log(updatedAnalysis, "ANALYSIS UPDATED");
@@ -196,9 +223,9 @@ export const EditOccurrenceModalBody: React.FC<EditOccurrenceProps> = ({
   };
 
   const handleDeleteEvidence = async () => {
-    await deleteEvidence(currentEvidence![0].id);
+    await deleteEvidence(currentEvidence?.id);
     const updatedEvidences = await getAllEvidencesFromOccurrence(occurrence.id);
-    setEvidences(updatedEvidences);
+    if (updatedEvidences) setEvidenceResponse(updatedEvidences);
 
     setUploadedFile(null);
     setPreviewEvidenceUrl("");
@@ -228,20 +255,37 @@ export const EditOccurrenceModalBody: React.FC<EditOccurrenceProps> = ({
     }
   };
 
-  const handleOccurrenceDataDuplicate = (
-    e: React.ChangeEvent<HTMLInputElement>,
+  const handleOccurrenceDataDuplicate = async (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     field: keyof IOccurrenceCreate
   ) => {
     const newValue = e.currentTarget.value;
+    console.log(
+      newValue,
+      "NEW OCCURRENCE VALUE at handleOccurrenceDataDuplicate"
+    );
     handleOccurrenceData({ ...occurrenceData, [field]: newValue });
-    console.log(occurrenceData);
+    setValue(field, newValue);
+    // const getOneOccurrence = await getOccurrence(occurrence.id);
+    // console.log(getOneOccurrence, "GET ONE OCCURRENCE");
+
+    console.log(
+      occurrenceData,
+      "occurrenceData dentro de handleOccurrenceDataDuplicate"
+    );
   };
 
   const handleAnalysisDataDuplicate = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setAnalysisData({ ...analysisData, description: e.currentTarget.value });
-    console.log(analysisData);
+    setAnalysisDataUpdate((prevState) => ({
+      ...prevState,
+      description: e.currentTarget.value,
+    }));
+    console.log(
+      analysisDataUpdate,
+      "analysisDataUpdate DENTRO DE handleAnalysisDataDuplicate"
+    );
   };
 
   return (
@@ -259,7 +303,7 @@ export const EditOccurrenceModalBody: React.FC<EditOccurrenceProps> = ({
               className="mb-3"
               placeholder="Insira um nome"
               type="text"
-              value={occurrence?.name}
+              value={occurrenceData?.name}
               register={register("name")}
             />
           </StyledFormGroup>
@@ -274,7 +318,7 @@ export const EditOccurrenceModalBody: React.FC<EditOccurrenceProps> = ({
               className="mb-3"
               placeholder="Insira o nome da origem"
               type="text"
-              value={occurrence?.origin}
+              value={occurrenceData?.origin}
               register={register("origin")}
             />
           </StyledFormGroup>
@@ -291,7 +335,7 @@ export const EditOccurrenceModalBody: React.FC<EditOccurrenceProps> = ({
               type="text"
               height="100px"
               as="textarea"
-              value={occurrence?.description}
+              value={occurrenceData?.description}
               register={register("description")}
             />
           </StyledFormGroup>
@@ -383,7 +427,7 @@ export const EditOccurrenceModalBody: React.FC<EditOccurrenceProps> = ({
                 type="text"
                 height="100px"
                 as="textarea"
-                value={analysesResponse?.analysis[0].description}
+                value={analysisDataUpdate.description}
                 register={register("analysisDescription")}
               />
             </StyledCard>
@@ -407,7 +451,7 @@ export const EditOccurrenceModalBody: React.FC<EditOccurrenceProps> = ({
                 register={register("filename")}
                 style={{ display: "none" }}
               />
-              {analysesResponse?.analysis && (
+              {analysisDataUpdate && (
                 <StyledSpan
                   display="flex"
                   flex_direction="column"
@@ -416,7 +460,7 @@ export const EditOccurrenceModalBody: React.FC<EditOccurrenceProps> = ({
                     display="flex"
                     flex_direction="row"
                     className="d-flex flex-column p-2">
-                    {analysesResponse.analysis[0].fileUrl.endsWith(".pdf") ? (
+                    {analysisDataUpdate?.fileUrl.endsWith(".pdf") ? (
                       <img
                         src={pdfIcon}
                         alt="Preview"
@@ -424,14 +468,14 @@ export const EditOccurrenceModalBody: React.FC<EditOccurrenceProps> = ({
                       />
                     ) : (
                       <img
-                        src={analysesResponse.analysis[0].fileUrl.endsWith}
+                        src={analysisDataUpdate?.fileUrl}
                         alt="Preview"
                         style={{ maxHeight: "100px", maxWidth: "100px" }}
                       />
                     )}
                     <a
                       className="view_evidences_file"
-                      href={analysesResponse.analysis[0].fileUrl.endsWith}
+                      href={analysisDataUpdate?.fileUrl}
                       target="_blank"
                       rel="noopener noreferrer">
                       {previewAnalysisUrl.endsWith(".pdf")
@@ -443,9 +487,11 @@ export const EditOccurrenceModalBody: React.FC<EditOccurrenceProps> = ({
                       onClick={() => handleDeleteAnalysisUpload()}
                     />
                   </StyledSpan>
-                  <small style={{ marginLeft: "15px" }}>
-                    {uploadedFile?.name}
-                  </small>
+                  <>
+                    <small style={{ marginLeft: "15px" }}>
+                      {analysisDataUpdate.filename}
+                    </small>
+                  </>
                 </StyledSpan>
               )}
             </StyledCard>

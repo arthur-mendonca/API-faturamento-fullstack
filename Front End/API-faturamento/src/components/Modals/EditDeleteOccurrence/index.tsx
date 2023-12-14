@@ -32,7 +32,6 @@ export const EditDeleteOccurrenceModal: React.FC<ModalProps> = ({
       <EditOccurrenceModal occurrence={occurrence} />,
       "lg"
     );
-    console.log(occurrence);
   };
 
   return (

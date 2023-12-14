@@ -1,7 +1,6 @@
 import Modal from "react-bootstrap/Modal";
 import styled from "styled-components";
 import CloseButton from "react-bootstrap/CloseButton";
-import Button from "react-bootstrap/Button";
 
 export interface ModalProps {
   border_radius?: string;

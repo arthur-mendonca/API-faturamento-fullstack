@@ -79,6 +79,7 @@ export const OccurrenceProvider = ({ children }: IDefaultProviderProps) => {
           },
         }
       );
+      await getAllOccurrences();
       return response.data;
     } catch (error) {
       console.error(error);

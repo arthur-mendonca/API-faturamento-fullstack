@@ -26,7 +26,7 @@ export interface IEvidenceContext {
 
   updateEvidence: (
     evidenceId: number,
-    data: Partial<IEvidence>
+    data: IEvidenceUpdate
   ) => Promise<IEvidence | undefined>;
 
   deleteEvidence: (evidenceId: number) => Promise<void>;
@@ -68,4 +68,7 @@ export interface IEvidenceResponse {
   evidences: IEvidence[];
 }
 
-export type EvidenceType = File;
+export interface IEvidenceUpdate {
+  filename: File | null;
+  id: number;
+}
