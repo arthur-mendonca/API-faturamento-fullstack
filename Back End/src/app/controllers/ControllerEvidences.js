@@ -7,6 +7,11 @@ module.exports = {
       const { id } = req.params;
       const file = req.file;
 
+      console.log(
+        file,
+        "________________________ARQUIVO A SER CRIADO________________________"
+      );
+
       if (!file) {
         return res.status(400).json({ error: "No file provided" });
       }
@@ -88,15 +93,18 @@ module.exports = {
       const { filename } = req.body;
       const file = req.file;
 
+      console.log(file, "----------------- ARQUIVO RECEBIDO -----------------");
+      console.log(filename, "----------------- filename -----------------");
+
       const evidence = await Evidence.findByPk(id);
       if (!evidence) {
         return res.status(404).json({ error: "Evidence not found" });
       }
 
-      const newFilename = file ? file.filename : analysis.filename;
+      const newFilename = file ? file.filename : evidence.filename;
       const newFileUrl = file
         ? `http://localhost:3000/uploads/${newFilename}`
-        : analysis.fileUrl;
+        : evidence.fileUrl;
 
       await evidence.update({ filename: newFilename, fileUrl: newFileUrl });
 

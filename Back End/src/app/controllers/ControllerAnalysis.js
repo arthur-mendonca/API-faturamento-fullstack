@@ -105,10 +105,18 @@ module.exports = {
         return res.status(404).json({ error: "Analysis not found" });
       }
 
-      const newFilename = file ? file.filename : analysis.filename;
+      const newFilename = file ? file.filename : file === null ? null : "";
+
       const newFileUrl = file
         ? `http://localhost:3000/uploads/${newFilename}`
-        : analysis.fileUrl;
+        : file === null
+        ? null
+        : "";
+
+      // const newFilename = file ? file.filename : analysis.filename;
+      // const newFileUrl = file
+      //   ? `http://localhost:3000/uploads/${newFilename}`
+      //   : analysis.fileUrl;
 
       await analysis.update({
         description,
