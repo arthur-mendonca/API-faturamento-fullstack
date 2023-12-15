@@ -71,4 +71,9 @@ export interface EditOccurrenceProps extends CreateOccurrenceProps {
   evidenceFile: string | File;
 
   setEvidenceFile: React.Dispatch<React.SetStateAction<string | File>>;
+
+  updateEvidence: (
+    evidenceId: number,
+    file: File
+  ) => Promise<IEvidence | undefined>;
 }

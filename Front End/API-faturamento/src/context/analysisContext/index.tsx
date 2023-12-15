@@ -102,10 +102,10 @@ export const AnalysisProvider: React.FC<IDefaultProviderProps> = ({
     try {
       const formData = new FormData();
 
-      if (file) {
+      if (file !== undefined) {
         formData.append("file", file);
       }
-      if (description) {
+      if (description !== undefined) {
         formData.append("description", description);
       }
       const response = await api.put(

@@ -3,6 +3,7 @@ import { AnalysisContext } from "../../context/analysisContext";
 import { useParams } from "react-router-dom";
 import { StyledCard, StyledCardBody } from "./style";
 import pdfIcon from "../../images/svg/pdf icon.svg";
+import React from "react";
 
 export const AnalysisComponent: React.FC = () => {
   const { analysesResponse, getAllAnalysesFromOccurrence } =
@@ -26,8 +27,8 @@ export const AnalysisComponent: React.FC = () => {
           <StyledCard.Text>Nenhuma análise cadastrada</StyledCard.Text>
         ) : (
           analysesResponse?.analysis.map((analysis) => (
-            <>
-              <StyledCard.Title className="details_title" key={analysis.id}>
+            <React.Fragment key={analysis.id}>
+              <StyledCard.Title className="details_title">
                 Descrição da análise
               </StyledCard.Title>
               <StyledCard.Text className="details_card">
@@ -66,7 +67,7 @@ export const AnalysisComponent: React.FC = () => {
                   </span>
                 )}
               </span>
-            </>
+            </React.Fragment>
           ))
         )}
       </StyledCardBody>

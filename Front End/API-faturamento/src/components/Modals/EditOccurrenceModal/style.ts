@@ -95,4 +95,5 @@ export const StyledCard = styled(Card)<StyleProps>`
   height: ${(props) => props.height};
   border: ${(props) => props.border};
   padding: ${(props) => props.padding};
+  overflow-y: ${(props) => props.overflowY};
 `;
