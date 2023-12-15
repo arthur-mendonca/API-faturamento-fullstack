@@ -52,9 +52,7 @@ export const CreateOccurrenceModalBody: React.FC<CreateOccurrenceProps> = ({
     setCorrectiveActionsData(acoesCorretivas);
   }, [acoesCorretivas]);
 
-  useEffect(() => {
-    console.log(correctiveActionsData, "acoes corretivas atualizadas");
-  }, [correctiveActionsData]);
+  useEffect(() => {}, [correctiveActionsData]);
 
   const renderAcoesCorretivas = () => {
     return acoesCorretivas.map((acao, index) => (

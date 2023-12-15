@@ -53,7 +53,7 @@ export const PasswordIconToggle = styled.button<PasswordIconToggleProps>`
       if (props.iconId === "passwordIcon") {
         return "right: 10%; bottom: 44.5%";
       } else if (props.iconId === "confirmPasswordIcon") {
-        return "right: 10%; bottom: 33.8%";
+        return "right: 10%; bottom: 34%";
       }
     }}
   }

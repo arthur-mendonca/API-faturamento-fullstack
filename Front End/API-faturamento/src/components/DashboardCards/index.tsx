@@ -49,11 +49,9 @@ export const DashboardCardComponents: React.FC<CardsProps> = ({
   const handleShowModal = (occurrence: IOccurrence) => {
     openModal("modal", <EditDeleteOccurrenceModal />);
     setOccurrence(occurrence);
-    console.log(occurrence);
   };
 
   const handleShowDetails = async (occurrence: IOccurrence) => {
-    console.log(occurrence.status);
     await getAllEvidencesFromOccurrence(occurrence.id!);
     navigate(`/details/${occurrence.id}`);
   };

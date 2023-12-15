@@ -37,7 +37,6 @@ export const DetalhesNaoConformidadeCard: React.FC<DetalhesProps> = () => {
     const fetchOccurrence = async () => {
       const occurrenceResponse = await getOccurrence(+id!);
       setOccurrenceById(occurrenceResponse);
-      console.log(occurrenceResponse, "OCCURRENCE BY ID");
     };
     fetchOccurrence();
     getAllEvidencesFromOccurrence(+id!);

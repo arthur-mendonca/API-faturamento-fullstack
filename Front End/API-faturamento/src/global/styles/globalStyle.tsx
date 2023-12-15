@@ -16,8 +16,7 @@ nav, section{
     text-decoration: none;
     box-sizing: border-box;
     font-family: ${(props) => props.theme.fonts.poppins};
-   
-    
+  
 }
 
 ol, ul {
