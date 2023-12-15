@@ -20,6 +20,9 @@ module.exports = {
       const evidence = await Evidence.create({
         filename: file.filename,
         occurrence_id: id,
+        fileUrl: `${req.protocol}://${req.get("host")}/uploads/${
+          file.filename
+        }`,
       });
 
       return res.status(201).json(evidence);
@@ -32,14 +35,22 @@ module.exports = {
   allEvidencesFromOccurrence: async (req, res) => {
     try {
       const { id } = req.params;
-      const occurrence = await Occurrence.findByPk(id, {
-        include: { association: "evidences" },
-      });
+      const occurrence = await Occurrence.findByPk(id);
+
       if (!occurrence) {
         return res.status(404).json({ error: "Occurrence not found" });
       }
 
-      return res.status(200).json(occurrence);
+      const evidences = await Evidence.findAll({
+        where: { occurrence_id: id },
+      });
+
+      const response = {
+        occurrence: occurrence,
+        evidences: evidences,
+      };
+
+      return res.status(200).json(response);
     } catch (error) {
       console.log(error);
       return res.status(500).json({ error: "Internal server error" });
@@ -82,8 +93,12 @@ module.exports = {
         return res.status(404).json({ error: "Evidence not found" });
       }
 
-      const updatedFilename = file ? file.filename : filename;
-      await evidence.update({ filename: updatedFilename });
+      const newFilename = file ? file.filename : evidence.filename;
+      const newFileUrl = file
+        ? `http://localhost:3000/uploads/${newFilename}`
+        : evidence.fileUrl;
+
+      await evidence.update({ filename: newFilename, fileUrl: newFileUrl });
 
       return res.status(200).json(evidence);
     } catch (error) {

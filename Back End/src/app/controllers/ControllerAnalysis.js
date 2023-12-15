@@ -8,6 +8,16 @@ module.exports = {
       const { description } = req.body;
       const file = req.file;
 
+      const existingAnalysis = await Analysis.findOne({
+        where: { occurrence_id: id },
+      });
+
+      if (existingAnalysis) {
+        return res
+          .status(409)
+          .json({ error: "Occurrence already has an analysis" });
+      }
+
       if (!file) {
         return res.status(400).json({ error: "No file provided" });
       }
@@ -22,6 +32,9 @@ module.exports = {
         filename: file.filename,
         occurrence_id: id,
         description: description,
+        fileUrl: `${req.protocol}://${req.get("host")}/uploads/${
+          file.filename
+        }`,
       });
 
       await analysis.save();
@@ -46,13 +59,20 @@ module.exports = {
   allAnalysisFromOccurrence: async (req, res) => {
     try {
       const { id } = req.params;
-      const occurrence = await Occurrence.findByPk(id, {
-        include: { association: "analysis" },
-      });
+      const occurrence = await Occurrence.findByPk(id);
       if (!occurrence) {
         return res.status(404).json({ error: "Occurrence not found" });
       }
-      return res.status(200).json(occurrence);
+      const analysis = await Analysis.findAll({
+        where: { occurrence_id: id },
+      });
+
+      const response = {
+        occurrence: occurrence,
+        analysis: analysis,
+      };
+
+      return res.status(200).json(response);
     } catch (error) {
       console.log(error);
       return res.status(500).json({ error: "Internal server error" });
@@ -83,12 +103,19 @@ module.exports = {
         return res.status(404).json({ error: "Analysis not found" });
       }
 
-      const updatedData = {
-        description: description ? description : analysis.description,
-        filename: file ? file.filename : analysis.filename,
-      };
+      const newFilename = file ? file.filename : file === null ? null : "";
 
-      await analysis.update(updatedData);
+      const newFileUrl = file
+        ? `http://localhost:3000/uploads/${newFilename}`
+        : file === null
+        ? null
+        : "";
+
+      await analysis.update({
+        description,
+        filename: newFilename,
+        fileUrl: newFileUrl,
+      });
 
       return res.status(200).json(analysis);
     } catch (error) {

@@ -5,6 +5,7 @@ class CorrectiveAction extends Model {
     super.init(
       {
         name: DataTypes.STRING,
+        active: DataTypes.BOOLEAN,
       },
       {
         sequelize,
