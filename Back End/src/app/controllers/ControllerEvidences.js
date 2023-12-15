@@ -7,11 +7,6 @@ module.exports = {
       const { id } = req.params;
       const file = req.file;
 
-      console.log(
-        file,
-        "________________________ARQUIVO A SER CRIADO________________________"
-      );
-
       if (!file) {
         return res.status(400).json({ error: "No file provided" });
       }
