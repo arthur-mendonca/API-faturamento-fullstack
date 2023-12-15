@@ -5,6 +5,7 @@ class Evidence extends Model {
     super.init(
       {
         filename: DataTypes.STRING,
+        fileUrl: DataTypes.STRING,
       },
       {
         sequelize,
